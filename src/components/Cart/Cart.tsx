@@ -14,6 +14,9 @@ console.log(items);
             <h2 className="mb-8 text-4xl font-bold text-black">
               Содержимое корзины
             </h2>
+            <div className="inline-flex items-center gap-5 p-4 font-semibold text-black border border-gray-200 rounded-md dark:border-gray-700">
+                        <button>Продолжить покупки</button>
+                      </div>
             <div className="p-6 mb-8 border dark:border-gray-800">
               <div className="flex flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-8">
                 <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
@@ -64,13 +67,13 @@ console.log(items);
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
-                    {/* кантент */}
+                    {/* кантент под картинкой*/}
                   </div>
                 </div>
               ))}
             </div>
             <div className="flex flex-wrap justify-between">
-              {/* кантент */}
+              {/* кантент ниже карточки  */}
             </div>
           </div>
         </div>
