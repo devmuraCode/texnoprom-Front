@@ -39,5 +39,5 @@ const ProductItem: FC<IProos> = (props) => {
     </NavLink>
   );
 };
-
+  
 export default ProductItem;

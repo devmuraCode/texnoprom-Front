@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useCollectionNavbar } from "@/modules/Navbar/hooks/useCollectionNavbar";
-import Dropdown from "@/components/Dropdawn/Dropdown";
-import Category from "./Category";
+import { useCategoryNav } from "../hooks/useCategoryNav";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [collectionId, setCollectionId] = useState<string | null>(null);
-  const [categoryId, setCategoryId] = useState<string | null>(null);
-
-  const { data: collection } = useCollectionNavbar();
-  
+ 
+  const { data: category } = useCategoryNav();
   return (
     <nav className="bg-white w-full z-20 top-0 left-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -57,14 +52,19 @@ const Navbar: React.FC = () => {
           id="navbar-sticky"
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            {collection?.map((collectionItem) => (
-              <Dropdown
-                key={collectionItem.id}
-                dropdownRender={() => <Category collectionId={collectionItem.id} />}
-                trigger={["click"]}
-              >
-                {collectionItem.title}
-              </Dropdown>
+            {category?.map((item) => (
+              <li key={item.id}>
+                <NavLink
+                  to={`/catalog/${item.id}`}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 dark:text-blue-500"
+                      : "text-gray-900 dark:text-white"
+                  }
+                >
+                  {item.title}
+                </NavLink>
+              </li>
             ))}
           </ul>
         </div>
@@ -74,35 +74,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
-
-[
-  {
-    id: "1",
-    name: "Collection 1",
-    categories: [
-      {
-        id: "1",
-        name: "Category 1"
-      },
-      {
-        id: "2",
-        name: "Category 2"
-      }
-    ]
-  },
-  {
-    id: "2",
-    name: "Collection 2",
-    categories: [
-      {
-        id: "3",
-        name: "Category 3"
-      },
-      {
-        id: "4",
-        name: "Category 4"
-      }
-    ]
-  }
-]

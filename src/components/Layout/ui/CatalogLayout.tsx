@@ -13,8 +13,9 @@ const CatalogLayout: FC = () => {
   const categoryId = useParams<string>();
   const [brandId, setBrandId] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState<boolean>(true);
+  const { data: products } = useProduct(categoryId);
   const { data: brand } = useBrands(categoryId);
-  const { data: products } = useProduct({ brandId });
+  console.log(products);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
