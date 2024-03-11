@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCollectionNavbar } from "@/modules/Navbar/hooks/useCollectionNavbar";
 import Dropdown from "@/components/Dropdawn/Dropdown";
@@ -11,6 +11,12 @@ const Navbar: React.FC = () => {
   const [categoryId, setCategoryId] = useState<string | null>(null);
 
   const { data: collection } = useCollectionNavbar();
+
+  const navigate = useNavigate();
+
+  const redirectToCart = () => {
+    navigate('/cart');
+  };
   
   return (
     <nav className="bg-white w-full z-20 top-0 left-0">
@@ -23,7 +29,7 @@ const Navbar: React.FC = () => {
           />
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-black flex gap-1 text-xl">
+          <div  className="font-bold items-center py-2 px-4 border-0 bg-inherit text-black flex gap-1 text-xl cursor-pointer" onClick={redirectToCart}>
             <ShoppingCartOutlined />
             Cart
           </div>
