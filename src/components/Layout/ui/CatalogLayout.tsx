@@ -5,7 +5,6 @@ import { useBrands } from "@/modules/Brands/hooks/useBrands";
 import { useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
-import { Input } from "antd";
 
 const { Content, Sider } = Layout;
 
@@ -52,7 +51,7 @@ const CatalogLayout: FC = () => {
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Input placeholder="Search product" />
+              
           </Breadcrumb>
           <Content
             style={{

@@ -1,25 +1,18 @@
 import React from "react";
-import { useCategory } from "../hooks/useCategory";
 import { NavLink } from "react-router-dom";
+import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
 
-interface IProps {
-  collectionId: string | null;
-}
-
-const Category: React.FC<IProps> = ({ collectionId }) => {
-  const { data } = useCategory({ collectionId });
-
+const Category: React.FC = () => {
+  const { data: collection } = useCollectionNavbar();
   return (
     <div>
-      {data?.map((item) => (
-        <div key={item.id}>
+      {collection?.map((item) => (
+        <div key={item.id} className="bg-white">
           <NavLink
-            className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-white-700 dark:hover:text-gray-300 dark:focus:bg-gray-700"
+            className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 hover:bg-blue-500 hover:text-white"
             to={`/catalog/${item.id}`}
           >
-            <span className="text-gray-700 dark:text-gray-400">
-              {item.title}
-            </span>
+            {item.title}
           </NavLink>
         </div>
       ))}
