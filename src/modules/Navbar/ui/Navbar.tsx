@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCollectionNavbar } from "@/modules/Navbar/hooks/useCollectionNavbar";
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";
-import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
-import { Input } from "antd";
 
 const Navbar: React.FC = () => {
   const [collectionId, setCollectionId] = useState<string | null>(null);
@@ -32,7 +30,6 @@ const Navbar: React.FC = () => {
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-sticky"
             aria-expanded="false"
-            onClick={() => setIsOpen(!isOpen)}
           >
             <svg
               className="w-5 h-5"
@@ -59,7 +56,7 @@ const Navbar: React.FC = () => {
             {collection?.map((collectionItem) => (
               <Dropdown
                 key={collectionItem.id}
-                dropdownRender={() => <Category collectionId={collectionItem.id} />}
+                dropdownRender={() => <Category />}
                 trigger={["click"]}
               >
                 {collectionItem.title}

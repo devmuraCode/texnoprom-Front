@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
 
+
 const Category: React.FC = () => {
   const { data: collection } = useCollectionNavbar();
   return (
