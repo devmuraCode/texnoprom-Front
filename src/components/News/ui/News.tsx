@@ -6,117 +6,134 @@ const News = () => {
     <Container>
       <h1 className="font-bold text-2xl text-black pb-4">Новинки</h1>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 p-0 gap-3 py-5">
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <img
-            className="w-full"
-            src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
-            alt="Sunset in the mountains"
-          />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
-
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <img
-            className="w-full"
-            src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
-            alt="Sunset in the mountains"
-          />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
+        <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+          <a href="#">
+            <img
+              // className="rounded-t-lg"
+              src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
+              alt="product image"
+            />
+          </a>
+          <div className="px-5 pb-5">
+            <a href="#">
+              <p className="text-slate-600 font-semibold tracking-tight dark:text-grey-900 py-5">
+                Xiaomi Redmi Note 12 EU 4G, 6/128GB Gray
+              </p>
+            </a>
+            <div className="column items-center justify-between ">
+              <span className="text-lg font-bold text-gray-900 dark:text-black">
+                $300
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:bg-red-600 font-medium rounded-lg text-sm px-2 mb-5 text-center dark:bg-red-600 dark:hover:bbg-red-700 dark:focus:ring-blue-800">
+                Цена в рассрочку
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Добавить в корзину
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <img
-            className="w-full"
-            src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
-            alt="Sunset in the mountains"
-          />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
+        <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+          <a href="#">
+            <img
+              // className="rounded-t-lg"
+              src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
+              alt="product image"
+            />
+          </a>
+          <div className="px-5 pb-5">
+            <a href="#">
+              <p className="text-slate-600 font-semibold tracking-tight dark:text-grey-900 py-5">
+                Xiaomi Redmi Note 12 EU 4G, 6/128GB Gray
+              </p>
+            </a>
+            <div className="column items-center justify-between ">
+              <span className="text-lg font-bold text-gray-900 dark:text-black">
+                $300
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:bg-red-600 font-medium rounded-lg text-sm px-2 mb-5 text-center dark:bg-red-600 dark:hover:bbg-red-700 dark:focus:ring-blue-800">
+                Цена в рассрочку
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Добавить в корзину
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <img
-            className="w-full"
-            src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
-            alt="Sunset in the mountains"
-          />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
+        <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+          <a href="#">
+            <img
+              // className="rounded-t-lg"
+              src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
+              alt="product image"
+            />
+          </a>
+          <div className="px-5 pb-5">
+            <a href="#">
+              <p className="text-slate-600 font-semibold tracking-tight dark:text-grey-900 py-5">
+                Xiaomi Redmi Note 12 EU 4G, 6/128GB Gray
+              </p>
+            </a>
+            <div className="column items-center justify-between ">
+              <span className="text-lg font-bold text-gray-900 dark:text-black">
+                $300
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:bg-red-600 font-medium rounded-lg text-sm px-2 mb-5 text-center dark:bg-red-600 dark:hover:bbg-red-700 dark:focus:ring-blue-800">
+                Цена в рассрочку
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Добавить в корзину
+              </button>
+            </div>
           </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
+        </div>
+        <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+          <a href="#">
+            <img
+              // className="rounded-t-lg"
+              src="https://elmakon.uz/images/thumbnails/550/450/detailed/25/11_s8dh-if.jpg"
+              alt="product image"
+            />
+          </a>
+          <div className="px-5 pb-5">
+            <a href="#">
+              <p className="text-slate-600 font-semibold tracking-tight dark:text-grey-900 py-5">
+                Xiaomi Redmi Note 12 EU 4G, 6/128GB Gray
+              </p>
+            </a>
+            <div className="column items-center justify-between ">
+              <span className="text-lg font-bold text-gray-900 dark:text-black">
+                $300
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:bg-red-600 font-medium rounded-lg text-sm px-2 mb-5 text-center dark:bg-red-600 dark:hover:bbg-red-700 dark:focus:ring-blue-800">
+                Цена в рассрочку
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Добавить в корзину
+              </button>
+            </div>
           </div>
-        </div>  
+        </div>
       </div>
-      <div>
-          
-      </div>
+      <div></div>
     </Container>
   );
 };
