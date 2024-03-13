@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="px-10 bg-sky-600 w-full">
       <Container>
-        <div className="flex py-20 justify-between mt-9 text-white">
+        {/* <div className="flex py-20 justify-between mt-9 text-white">
           <ul className=" text-start">
             <a href="#" className=" flex font-black">
               Моя учетная запись
@@ -52,7 +52,7 @@ const Footer = () => {
             <a href="mailto:admin@elmakon.uz">admin@elmakon.uz</a>
             <a href="#">Посмотреть на карте</a>
           </ul>
-        </div>
+        </div> */}
       </Container>
     </div>
   );
