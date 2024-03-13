@@ -35,8 +35,10 @@ const Navbar: React.FC = () => {
       </nav>
       <nav className="bg-blue-600 w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between align-middle mx-auto py-4">
+
           <Dropdown dropdownRender={() => <Category />} trigger={["click"]} >
             <Space>
+
             Каталог таваров
             </Space>
           </Dropdown>
@@ -46,6 +48,7 @@ const Navbar: React.FC = () => {
               <div className="flex gap-2">
                 <UserOutlined />
                 <h1 className="text-white text-xl lg:block hidden">Войти</h1>
+
               </div>
               <NavLink to={'/cart'} className="flex gap-2">
                 <ShoppingCartOutlined />

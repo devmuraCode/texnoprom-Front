@@ -42,7 +42,7 @@ const Cart: FC = () => {
             <h2 className="mb-8 text-4xl font-bold text-black">
               Содержимое корзины
             </h2>
-            <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border border-gray-200 rounded-md dark:border-gray-700 mb-8">
+            <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border-gray-200 rounded-md dark:border-gray-700 mb-8 hover:bg-blue-500 duration-300">
               <button onClick={redirectToHome}>Продолжить покупки</button>
             </div>
             <div className="p-6 mb-8 dark:border-gray-800">
@@ -122,12 +122,12 @@ const Cart: FC = () => {
                 <div className="flex flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-2 justify-between">
                   {/* Кнопки слева */}
                   <div className="flex items-center gap-5">
-                    <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border-gray-200 rounded-md dark:border-gray-700">
+                    <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border-gray-200 rounded-md dark:border-gray-700 hover:bg-blue-500 duration-300">
                       <button onClick={redirectToHome}>
                         Продолжить покупки
                       </button>
                     </div>
-                    <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-black border bg-stone-50 border-gray-200 rounded-md dark:border-gray-700">
+                    <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-black border bg-stone-50 border-gray-200 rounded-md dark:border-gray-700 hover:bg-gray-800 hover:text-white duration-300">
                       <button onClick={resetQuantity}>
                         Очистить корзину
                       </button>
@@ -135,7 +135,7 @@ const Cart: FC = () => {
                   </div>
 
                   {/* Кнопка справа */}
-                  <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white bg-blue-600 border-gray-200 rounded-md dark:border-gray-700">
+                  <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white bg-blue-600 border-gray-200 rounded-md dark:border-gray-700 hover:bg-blue-500 duration-300">
                     <button onClick={redirectToHome}>Оформить заказ</button>
                   </div>
                 </div>
