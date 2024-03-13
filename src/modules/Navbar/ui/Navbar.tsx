@@ -1,25 +1,19 @@
-
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { useCategoryNav } from "../hooks/useCategoryNav";
 
-
-
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";
-import { Input } from "antd";
+import { Input, Space } from "antd";
 import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
 
 const Navbar: React.FC = () => {
   const [collectionId, setCollectionId] = useState<string | null>(null);
   const { data: collection } = useCollectionNavbar();
-  
+
   const navigate = useNavigate();
 
-  const redirectToCard = () => {
-    navigate("/cart");
-  };
   const { data: category } = useCategoryNav();
   return (
     <div>
@@ -36,26 +30,30 @@ const Navbar: React.FC = () => {
             <a href="tel:+998712345678" className="text-black font-bold">
               +998712345678
             </a>
-            </div>
-   </div>
+          </div>
+        </div>
       </nav>
       <nav className="bg-blue-600 w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between align-middle mx-auto py-4">
-          <Dropdown dropdownRender={() => <Category />} trigger={["click"]} className="cursor-pointer">
+
+          <Dropdown dropdownRender={() => <Category />} trigger={["click"]} >
+            <Space>
+
             Каталог таваров
+            </Space>
           </Dropdown>
 
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse lg:pb-0 pb-3">
             <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-white flex gap-5 text-3xl">
               <div className="flex gap-2">
-              <UserOutlined />
-              <h1 className="text-white text-xl cursor-pointer">Войти</h1>
+                <UserOutlined />
+                <h1 className="text-white text-xl lg:block hidden">Войти</h1>
+
               </div>
-              <div className="flex gap-2 " onClick={redirectToCard}>
-              <ShoppingCartOutlined />
-                <h1 className="text-white text-xl cursor-pointer">Корзина</h1>
-              </div>
-              
+              <NavLink to={'/cart'} className="flex gap-2">
+                <ShoppingCartOutlined />
+                <h1 className="text-white lg:text-xl lg:block hidden">Корзина</h1>
+              </NavLink>
             </div>
           </div>
           <div
