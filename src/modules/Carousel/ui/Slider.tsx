@@ -8,7 +8,7 @@ const Slider: FC = () => {
   const { data: banner } = useBanners();
 
   const contentStyle: React.CSSProperties = {
-    height: "60vh",
+    height: "40vh",
     width: "100%",
   };
 

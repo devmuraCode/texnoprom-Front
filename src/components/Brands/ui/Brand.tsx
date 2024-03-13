@@ -41,10 +41,10 @@ function Responsive() {
   const Brand = () => {
     return (
       <>
-        <div className="slider-container">
+        <div className="slider-container object-cover mb-10">
           <Container>
             <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
-          <Slider {...settings}>
+          <Slider {...settings} autoplay>
             <div>
               <img src="https://elmakon.uz/images/thumbnails/150/150/feature_variant/18/pngwing.com__2_.png" className="h-40" alt="" />
             </div>
@@ -58,7 +58,7 @@ function Responsive() {
               <img className="h-40" src="https://logovector.net/wp-content/uploads/2014/02/samsung-logo-preview.png" alt="" />
             </div>
             <div>
-             <img className="h-40" src="https://minora.uz/upload/iblock/11f/9ldzdf6u79rhrhxnpxyu07wawun4eh5r/c76c5eafa36bd8246a62ae5fef50b334.png" alt="" />
+             <img className="h-40" src="https://olcha.uz/uploads/images/manufacturer/KK/KK/d_/1645257501.jpg" alt="" />
             </div>
             <div>
               <img className="h-40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/2048px-Xiaomi_logo_%282021-%29.svg.png" alt="" />
