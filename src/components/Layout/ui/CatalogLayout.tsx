@@ -22,8 +22,9 @@ const CatalogLayout: FC = () => {
       <Layout>
         <Sider
           width={200}
-          style={{ background: colorBgContainer }}
+          style={{ background: colorBgContainer}}
           breakpoint="lg"
+          
           collapsedWidth="0"
           collapsed={collapsed}
           onCollapse={(collapsed) => setCollapsed(collapsed)}
@@ -37,17 +38,17 @@ const CatalogLayout: FC = () => {
             mode="inline"
             defaultSelectedKeys={["1"]}
             defaultOpenKeys={["sub1"]}
-            style={{ height: "100%", borderRight: 0 }}
+            style={{ height: "100%", borderRight: 0, backgroundColor: "#eee" }}
           >
             {brand?.map((item) => (
-              <Menu.Item key={item.id}>
+              <Menu.Item key={item.id} style={{ borderBottom: "1px solid #919191", borderRadius: '0' }}>
                 {item.title}
               </Menu.Item>
             ))}
           </Menu>
         </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}></Breadcrumb>
+        <Layout style={{ padding: "0 24px 24px" , backgroundColor: "#fff" }}>
+          <Breadcrumb style={{ margin: "16px 0"}}></Breadcrumb>
           <Content
             style={{
               padding: 24,

@@ -17,6 +17,8 @@ interface IProps {
   brandId: string | undefined;
 }
 
+
+
 export const useProduct = ({ brandId }: IProps) => {
   return useQuery<IProduct[]>({
     queryKey: ["product", brandId],
