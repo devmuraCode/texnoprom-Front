@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import Container from "@/components/Container/Container";
-import { useBrands } from "@/modules/Brands/hooks/useBrands";
 import { useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
@@ -9,13 +8,11 @@ import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 const { Content, Sider } = Layout;
 
 const CatalogLayout: FC = () => {
-  const categoryId = useParams<string>();
-  const [brandId, setBrandId] = useState<string | null>(null);
-  const [collapsed, setCollapsed] = useState<boolean>(true);
-  const { data: products } = useProduct(categoryId);
-  const { data: brand } = useBrands(categoryId);
+  const { brandId } = useParams<string>();
+  const { data: products } = useProduct({brandId});
+  const { data: brand } = useProduct({brandId});
   console.log(products);
-
+  const [collapsed, setCollapsed] = useState<boolean>(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -43,16 +40,14 @@ const CatalogLayout: FC = () => {
             style={{ height: "100%", borderRight: 0 }}
           >
             {brand?.map((item) => (
-              <Menu.Item onClick={() => setBrandId(item.id)} key={item.id}>
+              <Menu.Item key={item.id}>
                 {item.title}
               </Menu.Item>
             ))}
           </Menu>
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-              
-          </Breadcrumb>
+          <Breadcrumb style={{ margin: "16px 0" }}></Breadcrumb>
           <Content
             style={{
               padding: 24,

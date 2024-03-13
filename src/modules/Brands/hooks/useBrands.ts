@@ -1,8 +1,6 @@
 import { httpsClient } from "@/httpClient/httpClient";
 import { useQuery } from "@tanstack/react-query";
 
-const initialCategoryId = "074a5620-01cb-4f47-a37b-2c97fe1259cf";
-
 export interface IBrand {
   id: string;
   created_at: string;
