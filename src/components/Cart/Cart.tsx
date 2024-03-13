@@ -45,7 +45,7 @@ const Cart: FC = () => {
             <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border border-gray-200 rounded-md dark:border-gray-700 mb-8">
               <button onClick={redirectToHome}>Продолжить покупки</button>
             </div>
-            <div className="p-6 mb-8 border dark:border-gray-800">
+            <div className="p-6 mb-8 dark:border-gray-800">
               <div className="flex flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-8">
                 <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
                   <h2 className="font-bold text-black">Название продукта</h2>
@@ -103,7 +103,7 @@ const Cart: FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="p-6 mb-8 border dark:border-gray-800">
+              <div className="p-6 mb-8 dark:border-gray-800">
                 <div className="flex flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-2 justify-between">
                   <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
                     <h2 className="font-bold text-gray-400 text-2xl">
@@ -118,7 +118,7 @@ const Cart: FC = () => {
                 </div>
               </div>
 
-              <div className="p-6 mb-8 border dark:border-gray-800">
+              <div className="p-6 mb-8 dark:border-gray-800">
                 <div className="flex flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-2 justify-between">
                   {/* Кнопки слева */}
                   <div className="flex items-center gap-5">
