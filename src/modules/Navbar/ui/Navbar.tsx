@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
       </nav>
       <nav className="bg-blue-600 w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between align-middle mx-auto py-4">
-          <Dropdown dropdownRender={() => <Category />} trigger={["click"]}>
+          <Dropdown dropdownRender={() => <Category />} trigger={["click"]} className="cursor-pointer">
             Каталог таваров
           </Dropdown>
 
@@ -49,11 +49,11 @@ const Navbar: React.FC = () => {
             <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-white flex gap-5 text-3xl">
               <div className="flex gap-2">
               <UserOutlined />
-              <h1 className="text-white text-xl">Войти</h1>
+              <h1 className="text-white text-xl cursor-pointer">Войти</h1>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 " onClick={redirectToCard}>
               <ShoppingCartOutlined />
-                <h1 className="text-white text-xl">Корзина</h1>
+                <h1 className="text-white text-xl cursor-pointer">Корзина</h1>
               </div>
               
             </div>
