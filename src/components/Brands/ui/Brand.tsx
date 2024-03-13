@@ -46,28 +46,28 @@ function Responsive() {
             <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
           <Slider {...settings}>
             <div>
-              <img src="https://mbluxury1.s3.amazonaws.com/2022/02/25172616/chanel-1.jpg" className="h-40" alt="" />
+              <img src="https://elmakon.uz/images/thumbnails/150/150/feature_variant/18/pngwing.com__2_.png" className="h-40" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://uploads-ssl.webflow.com/6296aec5884dc4c8a90970a6/639b46bbfb45ca2f356a33f1_dolce__gabbana_logomark-logo_brandlogos.net_6c78j.png" alt="" />
+              <img className="h-40" src="https://filearchive.cnews.ru/img/book/2022/06/20/lg_free-.png" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS0hBK78jmy5Jz3KreKYPs0rvaBSsv30Fx_bE08YLK-X6PhZxaS0TZ9J3te8llVCH9p8Y&usqp=CAU" alt="" />
+              <img className="h-40" src="https://olcha.uz/uploads/images/manufacturer/KK/KK/d_/1645257501.jpg" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/100-Famous-Brand%20Logos-From-The-Most-Valuable-Companies-of-2020/Adidas.png" alt="" />
+              <img className="h-40" src="https://logovector.net/wp-content/uploads/2014/02/samsung-logo-preview.png" alt="" />
             </div>
             <div>
-             <img className="h-40" src="https://res.cloudinary.com/zenbusiness/image/upload/v1670445040/logaster/logaster-2019-11-nike-1024x640.jpg" alt="" />
+             <img className="h-40" src="https://minora.uz/upload/iblock/11f/9ldzdf6u79rhrhxnpxyu07wawun4eh5r/c76c5eafa36bd8246a62ae5fef50b334.png" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://qph.cf2.quoracdn.net/main-qimg-c9ec6c9863c0acbc176634217864b939-lq" alt="" />
+              <img className="h-40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/2048px-Xiaomi_logo_%282021-%29.svg.png" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://bcassetcdn.com/public/blog/wp-content/uploads/2021/11/10190851/Louis-Vuitton-1.png" alt="" />
+              <img className="h-40" src="https://i.pinimg.com/originals/a1/97/d7/a197d7e6a0112631e47a54961e7f987e.png" alt="" />
             </div>
             <div>
-              <img className="h-40" src="https://mbluxury1.s3.amazonaws.com/2022/02/25172711/versace.jpg" alt="" />
+              <img className="h-40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Dyson_logo.svg/1280px-Dyson_logo.svg.png" alt="" />
             </div>
           </Slider>
           </Container>
