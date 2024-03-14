@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { useCategoryNav } from "../hooks/useCategoryNav";
@@ -6,15 +6,14 @@ import { useCategoryNav } from "../hooks/useCategoryNav";
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";
 import { Input, Space } from "antd";
-import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
+import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 
 const Navbar: React.FC = () => {
-  const [collectionId, setCollectionId] = useState<string | null>(null);
-  const { data: collection } = useCollectionNavbar();
-
+  const registerModal = useRegisterModal();
   const navigate = useNavigate();
-
   const { data: category } = useCategoryNav();
+
+
   return (
     <div>
       <nav className="bg-white w-full">
@@ -45,7 +44,7 @@ const Navbar: React.FC = () => {
 
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse lg:pb-0 pb-3">
             <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-white flex gap-5 text-3xl">
-              <div className="flex gap-2">
+              <div className="flex gap-2" onClick={registerModal.onOpen}>
                 <UserOutlined />
                 <h1 className="text-white text-xl lg:block hidden">Войти</h1>
 
