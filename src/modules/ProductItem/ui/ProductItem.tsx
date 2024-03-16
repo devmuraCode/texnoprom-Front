@@ -16,7 +16,7 @@ const ProductItem: FC<IProos> = (props) => {
   
   return (
     <div>
-      <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+      <div className="w-60 bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
         <NavLink
           to={`/detail/${props.product.id}`}
           onClick={() => setProductId(props.product.id)}
@@ -30,7 +30,7 @@ const ProductItem: FC<IProos> = (props) => {
 
         <div className="px-5 pb-5">
           <a href="#">
-            <p className="text-slate-600 font-semibold tracking-tight dark:text-grey-900 py-5">
+            <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
               {props.product.title}
             </p>
           </a>
