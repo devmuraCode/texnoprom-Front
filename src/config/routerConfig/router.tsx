@@ -1,6 +1,7 @@
 import { CartPage } from "@/Pages/CartPage/CartPage.async";
 import Catalog from "@/Pages/Catalog/Catalog";
 import { MainPage } from "@/Pages/MainPage/MainPage.async";
+import User from "@/Pages/User/ui/User";
 import MainLayout from "@/components/Layout/ui/MainLayout";
 import ProductDetail from "@/modules/ProductDetail/ProductDetail";
 import { createBrowserRouter } from "react-router-dom";
@@ -10,6 +11,7 @@ export enum AppRoutes {
   CATALOG = "/catalog",
   CART = "/cart",
   DETAIL = "/detail",
+  PROFILE = "/profile"
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -17,6 +19,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.CATALOG]: "/catalog/:brandId",
   [AppRoutes.CART]: "/cart",
   [AppRoutes.DETAIL]: "/detail/:productId",
+  [AppRoutes.PROFILE]: "/profile" 
 };
 
 export const router = createBrowserRouter([
@@ -39,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: RoutePath["/detail"],
         element: <ProductDetail />,
+      },
+      {
+        path: RoutePath["/profile"],
+        element: <User />,
       }
     ],
   },
