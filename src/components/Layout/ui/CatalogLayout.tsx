@@ -100,7 +100,7 @@ const CatalogLayout: FC = () => {
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gap: "24px",
             }}
           >
