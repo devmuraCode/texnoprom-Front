@@ -48,9 +48,7 @@ const UserList = () => {
         font-semibold
       "
           >
-            <NavLink to="/profile">
-            My account
-            </NavLink>
+            <NavLink to="/profile">My account</NavLink>
           </div>
         </div>
       </div>

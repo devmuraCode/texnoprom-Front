@@ -16,7 +16,7 @@ const ProductItem: FC<IProos> = (props) => {
   
   return (
     <div>
-      <div className="w-60 bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
+      <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100  hover:shadow dark:bg-white dark:border-x-gray-200">
         <NavLink
           to={`/detail/${props.product.id}`}
           onClick={() => setProductId(props.product.id)}

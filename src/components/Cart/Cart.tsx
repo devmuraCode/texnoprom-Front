@@ -84,7 +84,7 @@ const Cart: FC = () => {
                       </div>
                     </div>
                     <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
-                      <p className="font-bold text-black">$324</p>
+                      <p className="font-bold text-black"></p>
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
