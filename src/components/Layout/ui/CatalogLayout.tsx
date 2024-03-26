@@ -4,7 +4,6 @@ import Container from "@/components/Container/Container";
 import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
-import { useCategoryNav } from "@/modules/Navbar/hooks/useCategoryNav";
 import CollectionsCard from "@/modules/CollectionsCard";
 
 
@@ -15,7 +14,6 @@ const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
   const { data: products } = useProduct({ brandId });
   const { data: brand } = useProduct({ brandId });
-  const { data: category } = useCategoryNav();
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const {
     token: { colorBgContainer, borderRadiusLG },

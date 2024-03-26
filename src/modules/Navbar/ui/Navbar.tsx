@@ -1,12 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { useCategoryNav } from "../hooks/useCategoryNav";
 
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";
 import { Input, Space } from "antd";
-import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 import UserList from "./UserList";
 
 const Navbar: React.FC = () => {
