@@ -10,13 +10,15 @@ export interface ICategory {
   img: string,
   category: string
 }
-
-export const useCategoryNav = () => {
+interface IProps {
+  collectionId: string | null;
+}
+export const useCategoryNav = ({ collectionId }: IProps) => {
   return useQuery<ICategory[]>({
-    queryKey: ["category"],
+    queryKey: ["category", collectionId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/categories/`);
+        const response = await httpsClient.get(`/categories/collections/${collectionId}`);
         if (response && response.data) {
           return response.data;
         } else {
@@ -26,5 +28,7 @@ export const useCategoryNav = () => {
         throw new Error("Error fetching category: ");
       }
     },
+    enabled: !!collectionId
   });
+  
 };

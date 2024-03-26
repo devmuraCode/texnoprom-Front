@@ -3,13 +3,18 @@ import { httpsClient } from "@/httpClient/httpClient";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICategory {
-    id: string,
-    created_at: string,
-    updated_at: string,
-    title: string,
-    description: string,
-    img: string,
-    category: string
+  category_id: string,
+  category_title: string,
+  children: [
+    {
+      brand_id: string,
+      brand_title: string
+    },
+    {
+      brand_id: string,
+      brand_title: string
+    }
+  ]
 }
 
 interface IProps {
@@ -21,7 +26,7 @@ export const useCategory = ({ collectionId } : IProps) => {
     queryKey: ["categiry", collectionId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/categories/collections/${collectionId}`);
+        const response = await httpsClient.get(`/categories/brands/collection/${collectionId}`);
         if (response && response.data) {
           return response.data;
         } else {
