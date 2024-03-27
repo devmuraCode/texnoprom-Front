@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-
+import Button from "@/containers/Button";
 import { CloseOutlined } from "@ant-design/icons";
-import Button from "@/components/Button/Button";
-import useRegisterModal from "./hooks/useRegisterModal";
+import { useCallback, useEffect, useState } from "react";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -11,7 +9,10 @@ interface ModalProps {
   title?: string;
   body?: React.ReactElement;
   footer?: React.ReactElement;
+  actionLabel: string;
   disabled?: boolean;
+  secondaryAction?: () => void;
+  secondaryActionLabel?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -20,11 +21,13 @@ const Modal: React.FC<ModalProps> = ({
   onSubmit,
   title,
   body,
+  actionLabel,
   footer,
   disabled,
+  secondaryAction,
+  secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
-  const useRegister = useRegisterModal();
 
   useEffect(() => {
     setShowModal(isOpen);
@@ -50,19 +53,17 @@ const Modal: React.FC<ModalProps> = ({
   }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
-    if (disabled) {
+    if (disabled || !secondaryAction) {
       return;
     }
-  }, [disabled]);
+
+    secondaryAction();
+  }, [secondaryAction, disabled]);
 
   if (!isOpen) {
     return null;
   }
 
-
-  const closeRegisterModal = () => {
-    useRegister.onClose(); // Функция для закрытия модального окна
-  };
   return (
     <>
       <div
@@ -129,8 +130,8 @@ const Modal: React.FC<ModalProps> = ({
                 items-center 
                 p-6
                 rounded-t
-                justify-center
-                relative
+                justify-between
+                
                 border-b-[1px]
                 "
               >
@@ -141,27 +142,39 @@ const Modal: React.FC<ModalProps> = ({
                     border-0 
                     hover:opacity-70
                     transition
-                    absolute
-                    right-9
                   "
                   onClick={handleClose}
                 >
-                  <CloseOutlined size={24} />
+                  <CloseOutlined />
                 </button>
               </div>
               {/*body*/}
               <div className="relative p-6 flex-auto">{body}</div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
-              {/* <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={closeRegisterModal}
+                <div
+                  className="
+                    flex 
+                    flex-row 
+                    items-center 
+                    gap-4 
+                    w-full
+                  "
                 >
-                  Войти
-                </button>
-              </div> */}
+                  {secondaryAction && secondaryActionLabel && (
+                    <Button
+                      disabled={disabled}
+                      label={secondaryActionLabel}
+                      onClick={handleSecondaryAction}
+                      outline
+                    />
+                  )}
+                  <Button
+                    disabled={disabled}
+                    label={actionLabel}
+                    onClick={handleSubmit}
+                  />
+                </div>
                 {footer}
               </div>
             </div>

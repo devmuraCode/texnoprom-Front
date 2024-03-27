@@ -1,8 +1,11 @@
+import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
+import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
 
 const UserList = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   return (
     <div className="relative bg-white">
       <div className="flex flex-row items-center gap-3">
@@ -18,9 +21,11 @@ const UserList = () => {
               transition 
               cursor-pointer
             "
-          onClick={registerModal.onOpen}
         >
-          Sign up
+          <Menu mode="horizontal">
+            <Menu.Item key="signup" onClick={registerModal.onOpen}>Sign up</Menu.Item>
+            <Menu.Item key="signin" onClick={loginModal.onOpen}>Sign in</Menu.Item>
+          </Menu>
         </div>
       </div>
 
@@ -28,12 +33,9 @@ const UserList = () => {
         className="
             absolute 
             shadow-md
-           w-full
-         
+            w-full
             bg-white 
             overflow-hidden 
-           
-            
             text-sm
           "
       >
@@ -41,12 +43,12 @@ const UserList = () => {
           {/* КОНТЕНТ НАШИХ ПОЛЬЗОВАТЕЛЕЙ */}
           <div
             className="
-        px-4 
-        py-3 
-        hover:bg-neutral-100 
-        transition
-        font-semibold
-      "
+              px-4 
+              py-3 
+              hover:bg-neutral-100 
+              transition
+              font-semibold
+            "
           >
             <NavLink to="/profile">My account</NavLink>
           </div>
