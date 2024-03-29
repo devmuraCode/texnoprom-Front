@@ -10,7 +10,6 @@ const ProductItem: FC<IProos> = (props) => {
   const dispatch = useAppDispatch()
   const {items} = useAppSelector(state => state.shoppingCart)
   console.log(items);
-  
   const [productId, setProductId] = useState<string | null>(null);
   const { data: products } = useProductDetail({ productId });
   
