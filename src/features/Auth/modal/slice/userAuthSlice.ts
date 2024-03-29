@@ -13,8 +13,7 @@ const initialState: IDataStoreStateType<IAuthData> = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(authUser.pending, (state) => {
@@ -28,7 +27,7 @@ export const authSlice = createSlice({
       .addCase(authUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
+      });
   },
 });
 

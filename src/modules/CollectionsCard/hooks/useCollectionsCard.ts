@@ -1,5 +1,5 @@
 
-import { httpsClient } from "@/httpClient/httpClient";
+import { httpsClient } from "@/services/httpClient";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICollection {

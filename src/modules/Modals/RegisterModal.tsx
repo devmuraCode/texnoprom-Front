@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "./hooks/useRegisterModal";
 import useLoginModal from "./hooks/useLoginModal";
@@ -9,6 +8,7 @@ import Button from "@/containers/Button";
 import Modal from "./Modal";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { authUser } from "@/features/Auth/modal/service/AuthUser";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   username: string;
@@ -21,6 +21,7 @@ const RegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const loginForm = useAppSelector((state) => state.loginForm);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,10 +29,15 @@ const RegisterModal = () => {
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    
     dispatch(authUser(data));
   };
+
+  useEffect(() => {
+    if (loginForm.fulfilled) {
+      registerModal.onClose();
+      loginModal.onOpen();
+    }
+  }, [loginForm, navigate]);
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
@@ -43,7 +49,8 @@ const RegisterModal = () => {
       <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
 
       <Input
-        id="name"
+        id="username"
+        name="username"
         label="Name"
         disabled={isLoading}
         register={register}
@@ -52,6 +59,7 @@ const RegisterModal = () => {
       />
       <Input
         id="password"
+        name="password"
         label="Password"
         type="password"
         disabled={isLoading}

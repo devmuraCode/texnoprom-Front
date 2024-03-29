@@ -1,4 +1,4 @@
-import { httpsClient } from "@/httpClient/httpClient";
+import { httpsClient } from "@/services/httpClient";
 import { useQuery } from "@tanstack/react-query";
 
 export interface IProduct {
@@ -16,8 +16,6 @@ export interface IProduct {
 interface IProps {
   brandId: string | undefined;
 }
-
-
 
 export const useProduct = ({ brandId }: IProps) => {
   return useQuery<IProduct[]>({

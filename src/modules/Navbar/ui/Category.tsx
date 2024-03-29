@@ -8,6 +8,7 @@ import { useCategory } from "../hooks/useCategory";
 const Category: FC = () => {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [collectionId, setCollectionId] = useState<string | null>(null);
+  const [brandId, setBrandId] = useState<string | null>(null);
   const { data: collection } = useCollectionNavbar();
   const { data: category } = useCategory({ collectionId });
   const { data: brands } = useBrands({ categoryId });
@@ -21,7 +22,7 @@ const Category: FC = () => {
             <div>
               <ul>
                 {item.children.map((brand) => (
-                  <Link to={`/catalog/${brand.brand_id}`}><li key={brand.brand_id}>{brand.brand_title}</li></Link>
+                  <Link to={`/catalog/${brand.brand_id}`} onClick={() => setBrandId(brand.brand_id)}><li key={brand.brand_id}>{brand.brand_title}</li></Link>
                 ))}
               </ul>
             </div>

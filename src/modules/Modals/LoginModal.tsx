@@ -1,12 +1,16 @@
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import Modal from "./Modal";
+import { httpsClient } from "@/services/httpClient";
+
 import useLoginModal from "./hooks/useLoginModal";
 import useRegisterModal from "./hooks/useRegisterModal";
+
 import Heading from "@/containers/Heading";
-import Input from "@/components/Input/Input";
-import { httpsClient } from "@/httpClient/httpClient";
+
+import Input from "@/components/Input";
+
+import Modal from "./Modal";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -17,21 +21,14 @@ const LoginModal = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      password: "",
-    },
-  });
+  } = useForm<FieldValues>();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-
     httpsClient
       .post("/users/token/", data)
       .then(() => {
-        console.log("Login success");
-
+        console.log(data);
         loginModal.onClose();
       })
       .catch((error) => {
@@ -50,8 +47,10 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4">
       <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
-        id="name"
-        label=""
+        id="username"
+        name="username"
+        label="Name"
+        type="text"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -60,6 +59,7 @@ const LoginModal = () => {
       <Input
         id="password"
         label="Password"
+        name="password"
         type="password"
         disabled={isLoading}
         register={register}
