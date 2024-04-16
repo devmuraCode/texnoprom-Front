@@ -84,7 +84,7 @@ const Cart: FC = () => {
                       </div>
                     </div>
                     <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
-                      <p className="font-bold text-black"></p>
+                      <p className="font-bold text-black">${item.price * item.stock_quantity}</p>
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
@@ -96,11 +96,8 @@ const Cart: FC = () => {
                 <div className="flex flex-wrap items-center mb-6 -mx-4 md:flex md:mb-2 justify-between">
                   <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
                     <h2 className="font-bold text-red-500 text-2xl">
-                      {totalPrice}
+                      {totalPrice} sum  
                     </h2>
-                  </div>
-                  <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
-                    <p className="font-bold text-red-500">object-price</p>
                   </div>
                 </div>
               </div>
