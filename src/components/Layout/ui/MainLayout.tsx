@@ -4,6 +4,7 @@ import Navbar from "@/modules/Navbar/ui/Navbar";
 import { Outlet } from "react-router-dom";
 import RegisterModal from "@/modules/Modals/RegisterModal";
 import LoginModal from "@/modules/Modals/LoginModal";
+import UzumModal from "@/modules/Modals/UzumModal";
 
 const Main: FC = () => {
   return (
@@ -17,6 +18,7 @@ const Main: FC = () => {
       <FooterApp />
       <RegisterModal />
       <LoginModal/>
+      <UzumModal />
     </div>
   );
 };

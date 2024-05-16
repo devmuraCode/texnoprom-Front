@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { Breadcrumb, Layout, Menu, Pagination, theme } from "antd";
+import { FC, useState } from "react";
+import { Breadcrumb, Layout, Pagination, theme } from "antd";
 import Container from "@/components/Container/Container";
 import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";

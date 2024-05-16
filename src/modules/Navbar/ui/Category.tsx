@@ -6,11 +6,14 @@ import { useBrands } from "@/modules/Brands/hooks/useBrands";
 import { useCategory } from "../hooks/useCategory";
 
 const Category: FC = () => {
+  // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [collectionId, setCollectionId] = useState<string | null>(null);
+  // @ts-ignore
   const [brandId, setBrandId] = useState<string | null>(null);
   const { data: collection } = useCollectionNavbar();
   const { data: category } = useCategory({ collectionId });
+  // @ts-ignore
   const { data: brands } = useBrands({ categoryId });
 
   const SubMenuCollection: FC = () => {

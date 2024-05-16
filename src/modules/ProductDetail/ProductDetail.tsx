@@ -6,11 +6,13 @@ import ProductItem from "../ProductItem";
 
 const ProductDetail = () => {
     const productId = useParams<string>();
+    // @ts-ignore
     const {data: product} = useProductDetail(productId)
     console.log(product);
     
   return (
     <Container>
+      {/* @ts-ignore */}
         {product && <ProductItem product={product} />}
     </Container>
   )

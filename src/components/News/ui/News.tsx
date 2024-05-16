@@ -1,5 +1,4 @@
 import Container from "@/components/Container/Container";
-import ProductItem from "@/modules/ProductItem";
 
 const News = () => {
   return (
