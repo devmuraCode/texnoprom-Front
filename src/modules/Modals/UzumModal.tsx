@@ -3,20 +3,16 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { httpsClient } from "@/services/httpClient";
 
-import useLoginModal from "./hooks/useLoginModal";
-import useRegisterModal from "./hooks/useRegisterModal";
-
 import Heading from "@/containers/Heading";
 
 import Input from "@/components/Input";
 
 import Modal from "./Modal";
+import useUzumModal from "./hooks/useUzumModa";
 
-const LoginModal = () => {
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
+const UzumModal = () => {
+  const uzumModal = useUzumModal();
   const [isLoading, setIsLoading] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -26,39 +22,40 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await httpsClient.post("/users/token/", data);
-      localStorage.setItem("token", response.data.access);
-      loginModal.onClose();
+      const token = localStorage.getItem("token");
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const { data: response } = await httpsClient.post(
+        "uzum/nasiya/check-status",
+        data,
+        {
+          headers,
+        }
+      );
+      window.location.href = response.message.data.webview;
     } catch (error) {
-      console.error("Error:", error);
+      console.log(error);
     } finally {
       setIsLoading(false);
+      uzumModal.onClose();
     }
   };
 
   const onToggle = useCallback(() => {
-    loginModal.onClose();
-    registerModal.onOpen();
-  }, [loginModal, registerModal]);
+    uzumModal.onOpen();
+  }, [uzumModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
-        id="username"
-        name="username"
-        label="Name"
+        id="phone"
+        name="phone"
+        label="Phone"
         type="text"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="password"
-        label="Password"
-        name="password"
-        type="password"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -96,10 +93,10 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={loginModal.isOpen}
+      isOpen={uzumModal.isOpen}
       title="Login"
       actionLabel="Continue"
-      onClose={loginModal.onClose}
+      onClose={uzumModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
@@ -107,4 +104,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default UzumModal;

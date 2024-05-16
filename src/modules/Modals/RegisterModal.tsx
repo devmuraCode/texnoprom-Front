@@ -18,7 +18,7 @@ type Inputs = {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const loginForm = useAppSelector((state) => state.loginForm);
   const navigate = useNavigate();

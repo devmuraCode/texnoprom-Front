@@ -6,11 +6,12 @@ import {
   decreaseQuantity,
   increaseQuantity,
 } from "@/features/ShoppingSlice/ShoppingSlice";
+import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
 
 const Cart: FC = () => {
   const dispatch = useAppDispatch();
   const { items, totalPrice } = useAppSelector((state) => state.shoppingCart);
-
+  const uzumModal = useUzumModal()
   const navigate = useNavigate();
 
   const redirectToHome = () => {
@@ -84,6 +85,7 @@ const Cart: FC = () => {
                       </div>
                     </div>
                     <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
+                      {/* @ts-ignore */}
                       <p className="font-bold text-black">${item.price * item.stock_quantity}</p>
                     </div>
                   </div>
@@ -116,15 +118,12 @@ const Cart: FC = () => {
                     </div>
                   </div>
 
-                  {/* Кнопка справа */}
+                 
                   <div className="inline-flex items-center gap-5 p-4 font-semibold text-white bg-blue-600 border-gray-200 rounded-md dark:border-gray-700 hover:bg-blue-500 duration-300">
-                    <button onClick={redirectToHome}>Оформить заказ</button>
+                    <button onClick={uzumModal.onOpen}>Оформить заказ</button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-wrap justify-between">
-              {/* кантент ниже карточки  */}
             </div>
           </div>
         </div>

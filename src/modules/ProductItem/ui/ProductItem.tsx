@@ -11,6 +11,7 @@ const ProductItem: FC<IProos> = (props) => {
   const {items} = useAppSelector(state => state.shoppingCart)
   console.log(items);
   const [productId, setProductId] = useState<string | null>(null);
+  // @ts-ignore
   const { data: products } = useProductDetail({ productId });
   
   return (
