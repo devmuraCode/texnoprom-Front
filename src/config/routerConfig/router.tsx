@@ -1,6 +1,6 @@
-import { CartPage } from "@/Pages/CartPage/CartPage.async";
+import CartPage from "@/Pages/CartPage/CartPage";
 import Catalog from "@/Pages/Catalog/Catalog";
-import { MainPage } from "@/Pages/MainPage/MainPage.async";
+import MainPage from "@/Pages/MainPage/MainPage";
 import PaymentPage from "@/Pages/PaymentPage/PaymentPage";
 import User from "@/Pages/User/ui/User";
 import MainLayout from "@/components/Layout/ui/MainLayout";

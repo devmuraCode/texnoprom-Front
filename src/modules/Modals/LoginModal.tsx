@@ -28,6 +28,7 @@ const LoginModal = () => {
     try {
       const response = await httpsClient.post("/users/token/", data);
       localStorage.setItem("token", response.data.access);
+      localStorage.setItem("user_id", response.data.user_id);
       loginModal.onClose();
     } catch (error) {
       console.error("Error:", error);
