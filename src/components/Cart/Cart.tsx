@@ -1,135 +1,149 @@
-import Container from "@/components/Container/Container";
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { AppDispatch, RootState } from "@/store/store";
 import {
-  decreaseQuantity,
-  increaseQuantity,
-} from "@/features/ShoppingSlice/ShoppingSlice";
-import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
+  addToCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+  removeFromCart,
+} from "../../features/ShoppingSlice/CartSlice";
 
-const Cart: FC = () => {
-  const dispatch = useAppDispatch();
-  const { items, totalPrice } = useAppSelector((state) => state.shoppingCart);
-  const uzumModal = useUzumModal()
-  const navigate = useNavigate();
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  mainimg: string;
+  price: number;
+}
 
-  const redirectToHome = () => {
-    navigate("/");
+interface CartItem extends Product {
+  cartQuantity: number;
+}
+
+const Cart: React.FC = () => {
+  const cart = useSelector((state: RootState) => state.cart);
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+
+  const handleAddToCart = (cartItem: CartItem) => {
+    dispatch(addToCart(cartItem));
   };
 
+  const handleDecreaseCart = (cartItem: CartItem) => {
+    dispatch(decreaseCart(cartItem));
+  };
+
+  const handleRemoveFromCart = (cartItem: CartItem) => {
+    dispatch(removeFromCart(cartItem));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  console.log(cart.cartTotalAmount);
+  
+
   return (
-    <Container>
-      <div className="py-24 font-poppins">
-        <div className="px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
-          <div>
-            <h2 className="mb-8 text-4xl font-bold text-black">
-              Содержимое корзины
-            </h2>
-            <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border-gray-200 rounded-md dark:border-gray-700 mb-8 hover:bg-blue-500 duration-300">
-              <button onClick={redirectToHome}>Продолжить покупки</button>
-            </div>
-            <div className="p-6 mb-8 dark:border-gray-800">
-              <div className="flex flex-wrap items-center mb-6 -mx-4 md:flex md:mb-8">
-                <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
-                  <h2 className="font-bold text-black">Название продукта</h2>
-                </div>
-                <div className="hidden px-4 lg:block lg:w-2/12">
-                  <h2 className="font-bold text-black">Цена</h2>
-                </div>
-                <div className="w-auto px-4 md:w-1/6 lg:w-2/12">
-                  <h2 className="font-bold text-black">Количество</h2>
-                </div>
-                <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
-                  <h2 className="font-bold text-black">Итого</h2>
-                </div>
-              </div>
-              {items.map((item) => (
-                <div className="py-4 mb-8 border-t border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
-                    <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0 flex items-center">
-                      <div className="w-24 h-24 mr-4">
-                        <img
-                          src={item.mainimg}
-                          alt=""
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                      <div>
-                        <h2 className="mb-2 text-xl font-bold text-black">
-                          {item.title}
-                        </h2>
-                        <p className="font-400 text-black-300 pt-3 font-sm text-sm">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="hidden px-4 lg:block lg:w-2/12">
-                      <p className="font-400 text-black-300 pt-3 font-sm text-sm leading-7">
-                        $ {item.price}
-                      </p>
-                    </div>
-                    <div className="w-auto px-4 md:w-1/6 lg:w-2/12">
-                      <div className="inline-flex items-center gap-5 p-4 font-semibold text-black border border-gray-200 rounded-md dark:border-gray-700">
-                        <button
-                          onClick={() => dispatch(decreaseQuantity(item.id))}
-                        >
-                          -
-                        </button>
-                        {item.stock_quantity}
-                        <button
-                          onClick={() => dispatch(increaseQuantity(item.id))}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="w-auto px-4 text-right md:w-1/6 lg:w-2/12">
-                      {/* @ts-ignore */}
-                      <p className="font-bold text-black">${item.price * item.stock_quantity}</p>
+    <div className="cart-container">
+      <h2>Shopping Cart</h2>
+      {cart.cartItems.length === 0 ? (
+        <div className="cart-empty">
+          <p>Your cart is currently empty</p>
+          <div className="start-shopping">
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="bi bi-arrow-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                />
+              </svg>
+              <span>Start Shopping</span>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="titles">
+            <h3 className="product-title">Product</h3>
+            <h3 className="price">Price</h3>
+            <h3 className="quantity">Quantity</h3>
+            <h3 className="total">Total</h3>
+          </div>
+          <div className="cart-items">
+            {cart.cartItems &&
+              cart.cartItems.map((cartItem) => (
+                <div className="cart-item" key={cartItem.id}>
+                  <div className="cart-product">
+                    <img src={cartItem.mainimg} alt={cartItem.title} />
+                    <div>
+                      <h3>{cartItem.title}</h3>
+                      <p>{cartItem.description}</p>
+                      <button onClick={() => handleRemoveFromCart(cartItem)}>
+                        Remove
+                      </button>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
-                    {/* кантент под картинкой*/}
+                  <div className="cart-product-price">${cartItem.price}</div>
+                  <div className="cart-product-quantity">
+                    <button onClick={() => handleDecreaseCart(cartItem)}>
+                      -
+                    </button>
+                    <div className="count">{cartItem.cartQuantity}</div>
+                    <button onClick={() => handleAddToCart(cartItem)}>+</button>
+                  </div>
+                  <div className="cart-product-total-price">
+                    ${cartItem.price * cartItem.cartQuantity}
                   </div>
                 </div>
               ))}
-              <div className="p-6 mb-8 dark:border-gray-800">
-                <div className="flex flex-wrap items-center mb-6 -mx-4 md:flex md:mb-2 justify-between">
-                  <div className="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
-                    <h2 className="font-bold text-red-500 text-2xl">
-                      {totalPrice} sum  
-                    </h2>
-                  </div>
-                </div>
+          </div>
+          <div className="cart-summary">
+            <button className="clear-btn" onClick={handleClearCart}>
+              Clear Cart
+            </button>
+            <div className="cart-checkout">
+              <div className="subtotal">
+                <span>Subtotal</span>
+                <span className="amount">${cart.cartTotalAmount}</span>
               </div>
-
-              <div className="p-6 mb-8 dark:border-gray-800">
-                <div className="flex flex-wrap items-center mb-6 -mx-4 md:flex md:mb-2 justify-between">
-                  {/* Кнопки слева */}
-                  <div className="flex items-center gap-5">
-                    <div className="inline-flex items-center gap-5 p-4 font-semibold bg-gray-700 text-white border-gray-200 rounded-md dark:border-gray-700 hover:bg-blue-500 duration-300">
-                      <button onClick={redirectToHome}>
-                        Продолжить покупки
-                      </button>
-                    </div>
-                    <div className="inline-flex items-center gap-5 p-4 font-semibold  text-black border bg-stone-50 border-gray-200 rounded-md dark:border-gray-700 hover:bg-gray-800 hover:text-white duration-300">
-                      <button>Очистить корзину</button>
-                    </div>
-                  </div>
-
-                 
-                  <div className="inline-flex items-center gap-5 p-4 font-semibold text-white bg-blue-600 border-gray-200 rounded-md dark:border-gray-700 hover:bg-blue-500 duration-300">
-                    <button onClick={uzumModal.onOpen}>Оформить заказ</button>
-                  </div>
-                </div>
+              <p>Taxes and shipping calculated at checkout</p>
+              <button>Check out</button>
+              <div className="continue-shopping">
+                <Link to="/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="bi bi-arrow-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                    />
+                  </svg>
+                  <span>Continue Shopping</span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      )}
+    </div>
   );
 };
-
 export default Cart;
