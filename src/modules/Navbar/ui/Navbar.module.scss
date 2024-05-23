@@ -1,0 +1,23 @@
+.wrapper{
+    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
+}
+.content{
+    background: white;
+    .drop{
+        background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
+    }
+}
+.cart{
+    display: flex;
+    gap: 10px;
+    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
+    padding: 15px 30px;
+}
+.input{
+    border-color: red;
+    width: 30rem;
+    height: 3rem;
+    &:hover{
+        border-color: red;
+    }
+}

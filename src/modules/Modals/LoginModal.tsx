@@ -48,7 +48,7 @@ const LoginModal = () => {
       <Input
         id="username"
         name="username"
-        label="Name"
+        label="Имя пользователя"
         type="text"
         disabled={isLoading}
         register={register}
@@ -57,7 +57,7 @@ const LoginModal = () => {
       />
       <Input
         id="password"
-        label="Password"
+        label="Пароль"
         name="password"
         type="password"
         disabled={isLoading}
@@ -77,7 +77,7 @@ const LoginModal = () => {
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          First time using Airbnb?
+          Впервые пользуетесь Технопромом?
           <span
             onClick={onToggle}
             className="
@@ -87,7 +87,7 @@ const LoginModal = () => {
             "
           >
             {" "}
-            Create an account
+            Завести аккаунт
           </span>
         </p>
       </div>

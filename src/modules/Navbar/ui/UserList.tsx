@@ -24,7 +24,6 @@ const UserList = () => {
         >
           <Menu mode="horizontal">
             <Menu.Item key="signup" onClick={registerModal.onOpen}>Sign up</Menu.Item>
-            <Menu.Item key="signin" onClick={loginModal.onOpen}>Sign in</Menu.Item>
           </Menu>
         </div>
       </div>
@@ -50,7 +49,7 @@ const UserList = () => {
               font-semibold
             "
           >
-            <NavLink to="/profile">My account</NavLink>
+            {/* надо что то добавить */}
           </div>
         </div>
       </div>

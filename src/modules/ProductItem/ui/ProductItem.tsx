@@ -4,7 +4,8 @@ import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail
 import { NavLink,  } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
-import './index.css'
+
+import cls from "./ProductItem.module.scss";
 interface IProos {
   product: IProduct;
 }
@@ -27,7 +28,7 @@ const ProductItem: FC<IProos> = (props) => {
           onClick={() => setProductId(props.product.id)}
         >
           <img
-            // className="rounded-t-lg"
+            className="w-full"
             src={props.product.mainimg}
             alt="product image"
           />
@@ -50,7 +51,7 @@ const ProductItem: FC<IProos> = (props) => {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <button onClick={() => handleAddToCart(props.product)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button onClick={() => handleAddToCart(props.product)} className={cls.button}>
               Добавить в корзину
             </button>
           </div>

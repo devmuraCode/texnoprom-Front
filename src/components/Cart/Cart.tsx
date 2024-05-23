@@ -9,7 +9,7 @@ import {
   getTotals,
   removeFromCart,
 } from "../../features/ShoppingSlice/CartSlice";
-
+import './index.css'
 interface Product {
   id: string;
   title: string;
@@ -96,7 +96,7 @@ const Cart: React.FC = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="cart-product-price">${cartItem.price}</div>
+                  <div className="cart-product-price">{cartItem.price} sum</div>
                   <div className="cart-product-quantity">
                     <button onClick={() => handleDecreaseCart(cartItem)}>
                       -
@@ -105,7 +105,7 @@ const Cart: React.FC = () => {
                     <button onClick={() => handleAddToCart(cartItem)}>+</button>
                   </div>
                   <div className="cart-product-total-price">
-                    ${cartItem.price * cartItem.cartQuantity}
+                    {cartItem.price * cartItem.cartQuantity} sum
                   </div>
                 </div>
               ))}
@@ -117,10 +117,10 @@ const Cart: React.FC = () => {
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">${cart.cartTotalAmount}</span>
+                <span className="amount">{cart.cartTotalAmount} sum</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <button>Check out</button>
+              <Link to="/payment"><button>Check out</button></Link>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
