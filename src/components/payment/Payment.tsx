@@ -3,17 +3,26 @@ import { useAppSelector } from "@/store/store";
 import Container from "../Container/Container";
 import { httpsClient } from "@/services/httpClient";
 
+import { useMask } from "@react-input/mask";
+
 const Payment = () => {
   const user_id = localStorage.getItem("user_id");
+  
   const [payLink, setPayLink] = useState(null);
-  console.log(payLink);
+
+  const inputRef = useMask({
+    mask: "+998_________",
+    replacement: { _: /\d/ },
+  });
 
   const [deliveryAddress, setDeliveryAddress] = useState("");
-
-  const { cartItems, cartTotalAmount, cartTotalQuantity } = useAppSelector(
+  const [phone, setPhone] = useState("");
+  const { cartItems, cartTotalAmount } = useAppSelector(
     (state) => state.cart
   );
-  console.log(cartItems, cartTotalAmount, cartTotalQuantity);
+
+  const id = cartItems.map((item) => item.id);
+
 
   const handlePaymeForm = async () => {
     const token = localStorage.getItem("token");
@@ -22,6 +31,8 @@ const Payment = () => {
       amount: cartTotalAmount,
       user: user_id,
       delivery_address: deliveryAddress,
+      phone_number: phone,
+      products: id
     };
 
     try {
@@ -30,7 +41,6 @@ const Payment = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Order created successfully:", res.data);
       setPayLink(res.data);
       return res.data;
     } catch (err) {
@@ -39,7 +49,8 @@ const Payment = () => {
     }
   };
 
-  const handlePaymeFormOrder = async (orderData: any) => {
+  // @ts-ignore
+  const handlePaymeFormOrder = async (orderData) => {
     const token = localStorage.getItem("token");
 
     const bodyLink = {
@@ -54,7 +65,6 @@ const Payment = () => {
         },
       });
       window.location.href = res.data.pay_link;
-      console.log("Payment link created successfully:", res.data);
     } catch (err) {
       console.error("Error creating payment link:", err);
     }
@@ -96,13 +106,21 @@ const Payment = () => {
                   onChange={(e) => setDeliveryAddress(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+                <br />
+                <input
+                  ref={inputRef}
+                  type="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white p-2 rounded"
               >
-                Подтвердить
+                <img className="w-40" src="https://uzpay.bitrix24.site/upload/sale/paysystem/logotip/c38/payme_01.png" alt="" />
               </button>
+              
             </form>
           </div>
         </div>

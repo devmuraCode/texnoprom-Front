@@ -6,15 +6,17 @@ import Category from "./Category";
 import { Input, Space } from "antd";
 import UserList from "./UserList";
 
+import logo from '@/assets/logo1.svg'
+import cls from './Navbar.module.scss'
 const Navbar: React.FC = () => {
   return (
-    <div>
-      <nav className="bg-white w-full">
+    <div className={cls.wrapper}>
+      <nav className="w-full">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/">
             <img
-              src="https://elmakon.uz/images/logos/8/elmakon.png"
-              className="w-40"
+              src={logo}
+              className="w-40 h-20" 
               alt="Flowbite Logo"
             />
           </Link>
@@ -25,7 +27,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </nav>
-      <nav className="bg-blue-600 w-full">
+      <nav className={cls.content}>
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between align-middle mx-auto py-4">
           <Dropdown dropdownRender={() => <Category />} trigger={["click"]}>
             <Space>Каталог таваров</Space>
@@ -36,12 +38,12 @@ const Navbar: React.FC = () => {
               <Dropdown dropdownRender={() => <UserList />} trigger={["click"]}>
                 <div className="flex gap-2">
                   <UserOutlined />
-                  <h1 className="text-white text-xl lg:block hidden">Войти</h1>
+                  <h1 className="text-white text-base lg:block hidden">Войти</h1>
                 </div>
               </Dropdown>
-              <NavLink to={"/cart"} className="flex gap-2">
+              <NavLink to={"/cart"} className={cls.cart}>
                 <ShoppingCartOutlined />
-                <h1 className="text-white lg:text-xl lg:block hidden">
+                <h1 className="text-white text-base lg:block hidden">
                   Корзина
                 </h1>
               </NavLink>
@@ -51,7 +53,7 @@ const Navbar: React.FC = () => {
             className="md:flex w-full md:w-auto md:order-1"
             id="navbar-sticky"
           >
-            <Input className="lg:w-[30rem] h-10" placeholder="Search product" />
+            <Input className={cls.input} placeholder="Search product" />
           </div>
         </div>
       </nav>

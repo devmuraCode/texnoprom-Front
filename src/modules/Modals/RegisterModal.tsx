@@ -46,12 +46,15 @@ const RegisterModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
+      <Heading
+        title="Добро пожаловать в Технопром"
+        subtitle="Завести аккаунт!"
+      />
 
       <Input
         id="username"
         name="username"
-        label="Name"
+        label="Имя пользователя"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -60,7 +63,7 @@ const RegisterModal = () => {
       <Input
         id="password"
         name="password"
-        label="Password"
+        label="Пароль"
         type="password"
         disabled={isLoading}
         register={register}
@@ -73,16 +76,7 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        onClick={() => console.log("Continue with Google")}
-      />
-      <Button
-        outline
-        label="Continue with Github"
-        onClick={() => console.log("Continue with Github")}
-      />
+
       <div
         className="
           text-neutral-500 
@@ -92,7 +86,7 @@ const RegisterModal = () => {
         "
       >
         <p>
-          Already have an account?
+          У вас уже есть аккаунт?
           <span
             onClick={onToggle}
             className="

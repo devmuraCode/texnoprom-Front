@@ -1,8 +1,8 @@
 import Container from "@/components/Container/Container";
-
+import './Footer.scss'
 const Footer = () => {
   return (
-    <div className=" bg-sky-600 w-full">
+    <div className="footer w-full">
       <Container>
         <div className="px-5 sm:flex flex-col">
           <div className="flex flex-wrap  justify-around mt-9 text-white">

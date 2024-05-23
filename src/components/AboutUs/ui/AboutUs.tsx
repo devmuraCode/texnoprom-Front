@@ -21,38 +21,6 @@ const AboutUs = () => {
             онлайн-магазина же вся инфраструктура реализована программно.
           </p>
         </div>
-        <div className="grid lg:grid-cols-2 gap-2">
-          <div className="bg-gray-100 text-center p-10 leading-10">
-            <h1 className="text-bold text-xl text-black font-bold">
-              Оставайтесь на связи
-            </h1>
-
-            <p className="text-gray-400 font-normal">
-              Подпишитесь на наши новости и будьте в курсе эксклюзивных акций!
-            </p>
-            <div className="flex">
-              <Input placeholder="E-mail" />
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded">
-                Подпишитесь
-              </button>
-            </div>
-          </div>
-          <div className="bg-gray-100 text-center p-10 leading-10">
-            <h1 className="text-bold text-xl text-black font-bold">
-              Присоединяйтесь!
-            </h1>
-
-            <p className="text-gray-400 font-normal">
-              Вступайте к нам в группу и узнавайте первыми все акции и
-              предложения!
-            </p>
-            <div className="flex justify-center">
-              <button className="bg-blue-500  hover:bg-blue-700 text-white font-bold px-4 rounded">
-                Подпишитесь
-              </button>
-            </div>
-          </div>
-        </div>
       </Container>
     </div>
   );
