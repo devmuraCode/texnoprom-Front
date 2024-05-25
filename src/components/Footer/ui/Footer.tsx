@@ -1,97 +1,74 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "@/components/Container/Container";
-import './Footer.scss'
+import logo from '@/assets/logo1.svg';
+import './Footer.scss';
+
+
+interface CatalogItem {
+  id: string;
+  title: string;
+}
+
 const Footer = () => {
+  const [catalog, setCatalog] = useState<CatalogItem[]>([]);
+
+  useEffect(() => {
+    const fetchCatalog = async () => {
+      try {
+        const response = await fetch("https://back-texnoprom.uz/brands/");
+        const data = await response.json();
+        setCatalog(data);
+      } catch (error) {
+        console.error("Error fetching catalog data:", error);
+      }
+    };
+
+    fetchCatalog();
+  }, []);
+
   return (
     <div className="footer w-full">
       <Container>
         <div className="px-5 sm:flex flex-col">
-          <div className="flex flex-wrap  justify-around mt-9 text-white">
+          <div className="flex flex-wrap justify-around mt-9 text-white">
             <div className="mb-6 w-full sm:w-auto text-start">
-              <h2 className="font-black text-lg">Моя учетная запись</h2>
-              <a href="#" className="text-sm block">
-                Войти или зарегистрироваться
-              </a>
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-40 h-20"
+                  alt="Flowbite Logo"
+                />
+              </Link>
             </div>
-            <div className="mb-6 w-full sm:w-auto text-start ">
-              <h2 className="font-black text-lg">Интернет-магазины</h2>
-              <a href="#" className="text-sm block">
-                О нас
-              </a>
-              <a href="#" className="text-sm block">
-                Жалобы и предложения
-              </a>
-              <a href="#" className="text-sm block">
-                Торговые предложения
-              </a>
-              <a href="#" className="text-sm block">
-                Карта сайта
-              </a>
-              <a href="#" className="text-sm block">
-                Блог
-              </a>
+
+            <div className="mb-6 w-full sm:w-auto text-start">
+              <h2 className="font-black text-lg">Каталог</h2>
+              {catalog.map((item) => (
+                <Link to={`/catalog/${item.id}`} className="text-sm block" key={item.id}>
+                  {item.title}
+                </Link>
+              ))}
             </div>
-            <div className="mb-6 w-full sm:w-auto text-start ">
-              <h2 className="font-black text-lg">Покупатель сервис</h2>
-              <a href="#" className="text-sm block">
-                Ваши магазины
-              </a>
-              <a href="#" className="text-sm block">
-                Отложенные
-              </a>
-              <a href="#" className="text-sm block">
-                Список сравнения
-              </a>
-              <a href="#" className="text-sm block">
-                Статус рассрочки
-              </a>
-              <a href="#" className="text-sm block">
-                Подарочные сертификаты
-              </a>
-              <a href="#" className="text-sm block">
-                Программа лояльности клиентов
-              </a>
-            </div>
-            <div className="mb-6 w-full sm:w-auto text-start ">
-              <h2 className="font-black text-lg">Информация</h2>
-              <a href="#" className="text-sm block">
-                Адрес магазина
-              </a>
-              <a href="#" className="text-sm block">
-                Оплата и доставка
-              </a>
-              <a href="#" className="text-sm block">
-                Условия рассрочки
-              </a>
-              <a href="#" className="text-sm block">
-                О персональных данных
-              </a>
-              <a href="#" className="text-sm block">
-                Возврат и обмен товаров
-              </a>
-              <a href="#" className="text-sm block">
-                Cashback
-              </a>
-              <a href="#" className="text-sm block">
-                Оферта
-              </a>
-            </div>
-            <div className="mb-6 w-full sm:w-auto text-start ">
+
+            <div className="mb-6 w-full sm:w-auto text-start">
               <h2 className="font-black text-lg">Контакты</h2>
               <a href="#" className="text-sm block">
-                г. Ташкент, Абдулла Кодирий 36Б
+                Узбекистан, г. Ташкент
               </a>
-              <a href="tel:+998-71-203-1203" className="text-sm block">
-                +998-71-203-1203
+              <a href="tel:+998938480008" className="text-sm block">
+              +998938480008
+              </a>
+              <a href="tel:+998946279592" className="text-sm block">
+              +998946279592
               </a>
               <a href="mailto:admin@elmakon.uz" className="text-sm block">
                 Пн-Вс 9.00 - 18.00
               </a>
               <a href="mailto:admin@elmakon.uz" className="text-sm block">
-                admin@elmakon.uz
+                info@texnoprom.net.uz
               </a>
-              <a href="#" className="text-sm block">
-                Посмотреть на карте
-              </a>
+              
             </div>
           </div>
         </div>
