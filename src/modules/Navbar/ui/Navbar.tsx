@@ -4,11 +4,14 @@ import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";
 import { Input, Space } from "antd";
-import UserList from "./UserList";
 
 import logo from '@/assets/logo1.svg'
 import cls from './Navbar.module.scss'
+import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 const Navbar: React.FC = () => {
+
+  const registerModal = useRegisterModal();
+
   return (
     <div className={cls.wrapper}>
       <nav className="w-full">
@@ -35,12 +38,12 @@ const Navbar: React.FC = () => {
 
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse lg:pb-0 pb-3">
             <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-white flex gap-5 text-xl">
-              <Dropdown dropdownRender={() => <UserList />} trigger={["click"]}>
+              <div className={cls.exit} onClick={ () => registerModal.onOpen()}>
                 <div className="flex gap-2">
                   <UserOutlined />
                   <h1 className="text-white text-base lg:block hidden">Войти</h1>
                 </div>
-              </Dropdown>
+              </div>
               <NavLink to={"/cart"} className={cls.cart}>
                 <ShoppingCartOutlined />
                 <h1 className="text-white text-base lg:block hidden">

@@ -7,7 +7,7 @@ const CollectionsCard = () => {
   return (
     <Container>
       <div className="grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-4 py-10">
-        {collection?.map((collection) => (
+        {collection?.slice(0,4).map((collection) => (
           <CollectionCardItem collection={collection} key={collection.id} />
         ))}
       </div>
