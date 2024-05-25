@@ -3,8 +3,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Container from "@/components/Container/Container";
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
+
 function Responsive() {
-  const { data: brands } = useAllBrands();
+  const { data: brands, isLoading, error } = useAllBrands();
 
   var settings = {
     dots: true,
@@ -13,6 +14,7 @@ function Responsive() {
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
+    autoplay: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -41,26 +43,27 @@ function Responsive() {
     ],
   };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading brands</div>;
+
   const Brand = () => {
     return (
-      <>
-        <div className="slider-container object-cover mb-10">
-          <Container>
-            <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
-            <Slider {...settings} autoplay>
-              {brands?.map((brand) => (
-                <div>
-                  <img
-                    className="h-20"
-                    src={brand.logo}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </Slider>
-          </Container>
-        </div>
-      </>
+      <div className="slider-container object-cover mb-10">
+        <Container>
+          <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
+          <Slider {...settings}>
+            {brands?.map((brand) => (
+              <div key={brand.id}>
+                <img
+                  className="h-20"
+                  src={brand.logo}
+                  alt={brand.title}
+                />
+              </div>
+            ))}
+          </Slider>
+        </Container>
+      </div>
     );
   };
 
