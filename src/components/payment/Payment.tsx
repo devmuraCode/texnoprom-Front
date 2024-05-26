@@ -4,8 +4,10 @@ import Container from "../Container/Container";
 import { httpsClient } from "@/services/httpClient";
 
 import { useMask } from "@react-input/mask";
+import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
 
 const Payment = () => {
+  const uzumModal = useUzumModal()
   const user_id = localStorage.getItem("user_id");
   
   const [payLink, setPayLink] = useState(null);
@@ -115,13 +117,19 @@ const Payment = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
+              <div>
               <button
                 type="submit"
               >
                 <img className="w-40" src="https://uzpay.bitrix24.site/upload/sale/paysystem/logotip/c38/payme_01.png" alt="" />
               </button>
               
+              </div>
             </form>
+            <br />
+            <button onClick={ () => uzumModal.onOpen() }>
+              <img className="w-40" src="https://images.seeklogo.com/logo-png/53/1/uzum-nasiya-logo-png_seeklogo-532666.png?v=638500244860000000" alt="" />
+            </button>
           </div>
         </div>
       </Container>
