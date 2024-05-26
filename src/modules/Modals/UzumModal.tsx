@@ -44,6 +44,34 @@ const UzumModal = () => {
     }
   };
 
+  const handleUzumFormOrder = async (orderData) => {
+    const token = localStorage.getItem("token");
+
+    const bodyLink = {
+      buyer_id: orderData.buyer_id,
+    };
+
+    try {
+      const res = await httpsClient.post(`/uzum/nasiya/calculate-tariffs/`, bodyLink, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.href = res.data.pay_link;
+    } catch (err) {
+      console.error("Error creating payment link:", err);
+    }
+  };
+
+  const handleFormSubmit = async (data: FieldValues) => {
+    try {
+      await onSubmit(data);
+      await handleUzumFormOrder(data);
+    } catch (err) {
+      console.error("Error processing payment:", err);
+    }
+  };
+
   const onToggle = useCallback(() => {
     uzumModal.onOpen();
   }, [uzumModal]);
@@ -97,7 +125,7 @@ const UzumModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={uzumModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
       body={bodyContent}
       footer={footerContent}
     />
