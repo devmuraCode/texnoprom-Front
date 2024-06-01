@@ -8,16 +8,20 @@ import Heading from "@/containers/Heading";
 import Input from "@/components/Input";
 
 import Modal from "./Modal";
+import { useAppSelector } from "@/store/store";
 import useUzumModal from "./hooks/useUzumModa";
 
 const UzumModal = () => {
   const uzumModal = useUzumModal();
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>();
+
+  const { cartItems } = useAppSelector((state) => state.cart);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
@@ -36,39 +40,12 @@ const UzumModal = () => {
         }
       );
       window.location.href = response.message.data.webview;
+      setData(response);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
       uzumModal.onClose();
-    }
-  };
-
-  const handleUzumFormOrder = async (orderData) => {
-    const token = localStorage.getItem("token");
-
-    const bodyLink = {
-      buyer_id: orderData.buyer_id,
-    };
-
-    try {
-      const res = await httpsClient.post(`/uzum/nasiya/calculate-tariffs/`, bodyLink, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      window.location.href = res.data.pay_link;
-    } catch (err) {
-      console.error("Error creating payment link:", err);
-    }
-  };
-
-  const handleFormSubmit = async (data: FieldValues) => {
-    try {
-      await onSubmit(data);
-      await handleUzumFormOrder(data);
-    } catch (err) {
-      console.error("Error processing payment:", err);
     }
   };
 
@@ -95,20 +72,12 @@ const UzumModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-
-      <div
-        className="
-      text-neutral-500 text-center mt-4 font-light"
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           First time using Airbnb?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Create an account
@@ -125,7 +94,7 @@ const UzumModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={uzumModal.onClose}
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />
