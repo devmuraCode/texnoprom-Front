@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useProductDetail } from "./hooks/useProductDetail";
+import { IProduct, useProductDetail } from "./hooks/useProductDetail";
 import Container from "@/components/Container/Container";
 import ProductDetails from "../ProductDetails/ui/ProductDetails";
 import { useAppDispatch } from "@/store/store";
@@ -9,19 +9,22 @@ const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const dispatch = useAppDispatch();
 
-  // @ts-ignore
-  const { data: product, isLoading, isError } = useProductDetail({ productId });
+  const { data: product, isLoading, isError } = useProductDetail({ productId: productId || '' });
+console.log(product);
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: IProduct) => {
+    // @ts-ignore
     dispatch(addToCart(product));
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-2xl">Loading...</div>;
   }
 
   if (isError || !product) {
-    return <div>Error loading product details.</div>;
+    return (
+      <div className="text-center text-2xl">Error loading product details.</div>
+    );
   }
 
   return (

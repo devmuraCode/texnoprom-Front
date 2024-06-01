@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
   const { data: products } = useProduct({ brandId });
-  
+  // const {data: brands} = useBrands()
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -54,7 +54,7 @@ const CatalogLayout: FC = () => {
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0, backgroundColor: "#eee" }}
           >
-            {brand?.map((item) => (
+            {brands?.map((item) => (
               <Menu.Item
                 key={item.id}
                 style={{ borderBottom: "1px solid #919191", borderRadius: "0" }}

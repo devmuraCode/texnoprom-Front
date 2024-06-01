@@ -17,6 +17,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
         <div className={cls.imageContainer}>
           <img className={cls.mainImage} src={product.mainimg} alt={product.title} />
           <div className={cls.thumbnailContainer}>
+            {/* @ts-ignore */}
             {product.images?.map((img, index) => (
               <img key={index} className={cls.thumbnail} src={img} alt={`${product.title} thumbnail ${index}`} />
             ))}
