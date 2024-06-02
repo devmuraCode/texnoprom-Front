@@ -91,6 +91,7 @@ const Cart: React.FC = () => {
                     <div>
                       <h3>{cartItem.title}</h3>
                       <p>{cartItem.description}</p>
+                      {/* @ts-ignore */}
                       <button onClick={() => handleRemoveFromCart(cartItem)}>
                         Remove
                       </button>
@@ -98,10 +99,12 @@ const Cart: React.FC = () => {
                   </div>
                   <div className="cart-product-price">{cartItem.price} sum</div>
                   <div className="cart-product-quantity">
+                     {/* @ts-ignore */}
                     <button onClick={() => handleDecreaseCart(cartItem)}>
                       -
                     </button>
                     <div className="count">{cartItem.cartQuantity}</div>
+                     {/* @ts-ignore */}
                     <button onClick={() => handleAddToCart(cartItem)}>+</button>
                   </div>
                   <div className="cart-product-total-price">

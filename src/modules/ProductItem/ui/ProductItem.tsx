@@ -6,19 +6,21 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import cls from "./ProductItem.module.scss";
 
-interface IProos {
+interface IProps {
   product: IProduct;
 }
 
-const ProductItem: FC<IProos> = (props) => {
+const ProductItem: FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((state) => state.cart);
   const [productId, setProductId] = useState<string | null>(null);
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   // @ts-ignore
   const { data: products } = useProductDetail({ productId });
 
   const handleAddToCart = (product: any) => {
     dispatch(addToCart(product));
+    setIsAddedToCart(true);
   };
 
   return (
@@ -56,8 +58,9 @@ const ProductItem: FC<IProos> = (props) => {
           <button
             onClick={() => handleAddToCart(props.product)}
             className={cls.button}
+            disabled={isAddedToCart}
           >
-            Добавить в корзину
+            {isAddedToCart ? "Добавлено" : "Добавить в корзину"}
           </button>
         </div>
       </div>

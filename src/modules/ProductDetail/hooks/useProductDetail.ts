@@ -19,14 +19,13 @@ interface IProps {
 }
 
 export const useProductDetail = ({ productId }: IProps) => {
-  return useQuery<IProduct, Error>({
+  return useQuery<IProduct>({
     queryKey: ["product", productId],
     queryFn: async () => {
       try {
         const response = await httpsClient.get(`/products/${productId}`);
         return response.data;
       } catch (error: any) {
-        console.error("Error fetching product details:", error);
         throw new Error(error.message || "Error fetching product details");
       }
     },
