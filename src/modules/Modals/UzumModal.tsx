@@ -14,6 +14,7 @@ import useUzumModal from "./hooks/useUzumModa";
 const UzumModal = () => {
   const uzumModal = useUzumModal();
   const [isLoading, setIsLoading] = useState(false);
+  // @ts-ignore
   const [data, setData] = useState([]);
   const {
     register,
@@ -21,6 +22,7 @@ const UzumModal = () => {
     formState: { errors },
   } = useForm<FieldValues>();
 
+  // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

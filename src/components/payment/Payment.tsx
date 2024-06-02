@@ -13,7 +13,7 @@ const districts = [
 const Payment = () => {
   const uzumModal = useUzumModal();
   const user_id = localStorage.getItem("user_id");
-
+// @ts-ignore
   const [payLink, setPayLink] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");

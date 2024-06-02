@@ -1,5 +1,4 @@
 import Container from "@/components/Container/Container";
-import { Input } from "antd";
 
 const AboutUs = () => {
   return (
