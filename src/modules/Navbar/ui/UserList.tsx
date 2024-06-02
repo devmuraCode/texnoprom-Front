@@ -1,10 +1,10 @@
 import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
 
 const UserList = () => {
   const registerModal = useRegisterModal();
+  // @ts-ignore
   const loginModal = useLoginModal();
   return (
     <div className="relative bg-white">

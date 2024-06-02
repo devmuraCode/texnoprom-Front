@@ -4,7 +4,6 @@ import useRegisterModal from "./hooks/useRegisterModal";
 import useLoginModal from "./hooks/useLoginModal";
 import Heading from "@/containers/Heading";
 import Input from "@/components/Input/Input";
-import Button from "@/containers/Button";
 import Modal from "./Modal";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { authUser } from "@/features/Auth/modal/service/AuthUser";
