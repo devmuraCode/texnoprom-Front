@@ -1,29 +1,75 @@
-.wrapper{
+.wrapper {
     background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
-}
-.content{
+  }
+  
+  .content {
     background: white;
-    .drop{
-        background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
+    .drop {
+      background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
     }
-}
-.cart{
+  }
+  
+  .cart {
     display: flex;
     gap: 10px;
     background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
     padding: 15px 30px;
-}
-.exit{
+  }
+  
+  .exit {
     display: flex;
     gap: 10px;
     background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
     padding: 15px 30px;
-}
-.input{
+  }
+  
+  .input {
     border-color: red;
-    width: 30rem;
+    width: 40rem;
     height: 3rem;
-    &:hover{
-        border-color: red;
+    &:hover {
+      border-color: red;
     }
-}
+  }
+  
+  @media (max-width: 768px) {
+    .ant-dropdown-menu{
+        width: 100px;
+    }
+    .wrapper {
+      nav:first-of-type {
+        // display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+      }
+      
+      .logo {
+        width: 100px;
+        height: auto;
+      }
+    }
+    
+    .content {
+        
+      .cart, .exit {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+        
+      }
+
+     
+      
+      .input {
+        width: calc(100% - 2rem);
+        height: 2.5rem;
+        margin: 0.5rem 0.5rem;
+      }
+      
+      .flex {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  
