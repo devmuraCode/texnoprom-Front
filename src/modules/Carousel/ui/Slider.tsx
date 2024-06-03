@@ -10,6 +10,7 @@ const Slider: FC = () => {
   const contentStyle: React.CSSProperties = {
     height: "60vh",
     width: "100%",
+    objectFit: "cover",
   };
 
   return (

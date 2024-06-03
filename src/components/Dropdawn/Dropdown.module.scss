@@ -5,3 +5,11 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+    .wrapper{
+       
+        padding: 10px 27px;
+        font-size: 0.8rem;
+    }   
+}
