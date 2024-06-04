@@ -1,62 +1,76 @@
 .footer {
     background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
     margin-top: 80px;
-
+  
     .footer__block_1 {
-        display: flex;
-        padding: 40px 0;
-        gap: 20rem;
-        line-height: 30px;
-
-        ul {
-
-            li {
-                color: rgba(255, 255, 255, 0.75);
-                font-size: 14px;
-                cursor: pointer;
-                list-style: none;
-                p {
-                    font-size: 15px;
-                    color: #fff;
-                    font-weight: 800;
-                    padding-bottom: 0;
-                }
-
-                a {
-                    color: rgba(255, 255, 255, 0.75);
-                }
-
-                a:hover {
-                    color: #fff;
-                }
-            }
+      display: flex;
+      padding: 40px 0;
+      gap: 20rem;
+      line-height: 30px;
+  
+      ul {
+        li {
+          color: rgba(255, 255, 255, 0.75);
+          font-size: 14px;
+          cursor: pointer;
+          list-style: none;
+          p {
+            font-size: 15px;
+            color: #fff;
+            font-weight: 800;
+            padding-bottom: 0;
+          }
+  
+          a {
+            color: rgba(255, 255, 255, 0.75);
+          }
+  
+          a:hover {
+            color: #fff;
+          }
         }
+      }
     }
-
+  
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+  
     p {
-        color: rgba(255, 255, 255, 0.75);
-        font-size: 14px;
-        padding-bottom: 10px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      padding-bottom: 10px;
     }
-
+  
     p:hover {
-        color: #fff;
+      color: #fff;
     }
-}
-
-@media all and (max-width: 768px) {
-    footer {
-        .footer__block_1 {
-            gap: 1rem !important;
-        }
+  }
+  
+  @media all and (max-width: 768px) {
+    .footer {
+      .footer__block_1 {
+        gap: 1rem !important;
+      }
+  
+      .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-}
-
-@media all and (max-width: 425px) {
-    footer {
-        .footer__block_1 {
-            display: grid !important;
-            grid-template-columns: repeat(1, 1fr) !important;
-        }
+  }
+  
+  @media all and (max-width: 425px) {
+    .footer {
+      .footer__block_1 {
+        display: grid !important;
+        grid-template-columns: repeat(1, 1fr) !important;
+      }
+  
+      .catalog-grid {
+        grid-template-columns: 1fr;
+      }
     }
-}
+  }
+  
