@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
       </nav>
       <nav className={cls.content}>
-        <div className=" flex flex-wrap items-center justify-between align-middle mx-auto py-4 ml-4">
+        <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between py-4 pl-4">
           <Dropdown dropdownRender={() => <Category />} trigger={["click"]}>
             <Space>Каталог товаров</Space>
           </Dropdown>

@@ -10,30 +10,33 @@ interface IProps {
   product: IProduct;
 }
 
-const ProductItem: FC<IProps> = (props) => {
+const ProductItem: FC<IProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);
   const [productId, setProductId] = useState<string | null>(null);
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   // @ts-ignore
   const { data: products } = useProductDetail({ productId });
 
   const handleAddToCart = (product: any) => {
     dispatch(addToCart(product));
     setIsAddedToCart(true);
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 500); // Остановка анимации после 0.5 секунд
   };
 
   return (
     <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100 hover:shadow dark:bg-white dark:border-x-gray-200">
       <NavLink
-        to={`/detail/${props.product.id}`}
-        onClick={() => setProductId(props.product.id)}
+        to={`/detail/${product.id}`}
+        onClick={() => setProductId(product.id)}
       >
         <div className={cls.imageContainer}>
           <img
             className={cls.image}
-            src={props.product.mainimg}
+            src={product.mainimg}
             alt="product image"
           />
         </div>
@@ -42,12 +45,12 @@ const ProductItem: FC<IProps> = (props) => {
       <div className="px-5 pb-5">
         <a href="#">
           <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
-            {props.product.title}
+            {product.title}
           </p>
         </a>
         <div className="column items-center justify-between">
           <span className="text-lg font-bold text-gray-900 dark:text-black">
-            ${props.product.price}
+            {product.price} s
           </span>
         </div>
         <div className="flex items-center justify-between">
@@ -57,8 +60,8 @@ const ProductItem: FC<IProps> = (props) => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            onClick={() => handleAddToCart(props.product)}
-            className={cls.button}
+            onClick={() => handleAddToCart(product)}
+            className={`${cls.button} ${isAddedToCart ? cls.buttonAdded : ''} ${isAnimating ? cls.buttonBounce : ''}`}
             disabled={isAddedToCart}
           >
             {isAddedToCart ? "Добавлено" : "Добавить в корзину"}

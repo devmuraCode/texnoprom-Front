@@ -11,7 +11,27 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   color: white;
+  transition: all 0.3s ease;
 }
+
+.buttonAdded {
+  background-color: #28a745; /* Зелёный цвет для состояния "Добавлено" */
+  color: white;
+}
+
+@keyframes buttonBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.buttonBounce {
+  animation: buttonBounce 0.5s;
+}
+
 .imageContainer {
   width: 100%;
   position: relative;
