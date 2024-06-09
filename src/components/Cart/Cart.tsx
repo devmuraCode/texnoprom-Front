@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@/store/store";
 import {
   addToCart,
@@ -10,6 +10,7 @@ import {
   removeFromCart,
 } from "../../features/ShoppingSlice/CartSlice";
 import './index.css'
+import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
 interface Product {
   id: string;
   title: string;
@@ -23,8 +24,11 @@ interface CartItem extends Product {
 }
 
 const Cart: React.FC = () => {
+  const navigate = useNavigate()
+  const loginModal = useLoginModal();
   const cart = useSelector((state: RootState) => state.cart);
   const dispatch: AppDispatch = useDispatch();
+  const user = localStorage.getItem("token")
 
   useEffect(() => {
     dispatch(getTotals());
@@ -47,7 +51,13 @@ const Cart: React.FC = () => {
   };
 
   console.log(cart.cartTotalAmount);
-  
+  const handleCheckout = () => {
+    if (!user) {
+      loginModal.onOpen();
+    } else {
+      navigate('/payment');
+    }
+  };
 
   return (
     <div className="cart-container">
@@ -123,7 +133,7 @@ const Cart: React.FC = () => {
                 <span className="amount">{cart.cartTotalAmount} sum</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <Link to="/payment"><button>Check out</button></Link>
+              <button onClick={handleCheckout}>Check out</button>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg

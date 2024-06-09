@@ -23,7 +23,7 @@ export const useProductDetail = ({ productId }: IProps) => {
     queryKey: ["product", productId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/products/${productId}`);
+        const response = await httpsClient.get(`/products/${productId}/`);
         return response.data;
       } catch (error: any) {
         throw new Error(error.message || "Error fetching product details");

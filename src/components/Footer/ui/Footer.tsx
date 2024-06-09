@@ -30,7 +30,7 @@ const Footer = () => {
     <div className="footer w-full">
       <Container>
         <div className="px-5 sm:flex flex-col">
-          <div className="flex flex-wrap justify-around mt-9 text-white">
+          <div className="flex flex-wrap justify-around text-white">
             <div className="mb-6 w-full sm:w-auto text-start">
               <Link to="/">
                 <img
