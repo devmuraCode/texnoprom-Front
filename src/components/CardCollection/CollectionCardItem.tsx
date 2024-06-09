@@ -1,31 +1,27 @@
-import { ICollection } from "@/modules/CollectionsCard/hooks/useCollectionsCard";
 import { FC } from "react";
+import { ICollection } from "@/modules/CollectionsCard/hooks/useCollectionsCard";
 import cls from "./CardCollection.module.scss";
 
 interface IProps {
-    collection: ICollection;
+  collection: ICollection;
 }
-const CollectionCardItem: FC<IProps> = (props) => {
-    const {collection} = props
 
+const CollectionCardItem: FC<IProps> = ({ collection }) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer">
+    <div className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform transform hover:scale-105">
       <div className={cls.imageContainerCollection}>
-      <img
-        className="object-cover w-full h-48"
-        src={collection.img}
-        alt="Flower and sky"
-        id={cls.imageCollection}
-      />
+        <img
+          className="object-cover w-full h-full"
+          src={collection.img}
+          alt={collection.title}
+          id={cls.imageCollection}
+        />
       </div>
-
-      <div className="absolute top-0 left-0 px-6 py-4">
-        <h4 className="mb-3 text-xl font-semibold tracking-tight text-white">
+      <div className={cls.textContainer}>
+        <h4 className="mb-1 text-lg font-semibold tracking-tight text-white">
           {collection.title}
         </h4>
-        <p className="leading-normal text-gray-100">
-          {collection.description}
-        </p>
+        <p className="text-sm leading-normal text-gray-200">{collection.description}</p>
       </div>
     </div>
   );

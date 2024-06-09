@@ -6,14 +6,23 @@ import { useMask } from "@react-input/mask";
 import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
 
 const districts = [
-  "Алмазарский район", "Бектемирский район", "Мирабадский район", "Мирзо-Улугбекский район", "Сергелийский район", 
-  "Чиланзарский район", "Шайхантаурский район", "Юнусабадский район", "Яккасарайский район", "Яшнабадский район", "Учтепинский район"
+  "Алмазарский район",
+  "Бектемирский район",
+  "Мирабадский район",
+  "Мирзо-Улугбекский район",
+  "Сергелийский район",
+  "Чиланзарский район",
+  "Шайхантаурский район",
+  "Юнусабадский район",
+  "Яккасарайский район",
+  "Яшнабадский район",
+  "Учтепинский район",
 ];
 
 const Payment = () => {
   const uzumModal = useUzumModal();
   const user_id = localStorage.getItem("user_id");
-// @ts-ignore
+  // @ts-ignore
   const [payLink, setPayLink] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");
@@ -93,81 +102,93 @@ const Payment = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 py-10">
       <Container>
-        <div>
-          <h1 className="text-3xl font-bold py-5">Оформить заказ</h1>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <h1 className="text-black text-xl font-bold">Адрес доставки</h1>
-              </div>
+        <div className="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+          <h1 className="text-3xl font-bold py-5 text-center">
+            Оформить заказ
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="street"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Улица
+              </label>
+              <input
+                type="text"
+                name="street"
+                id="street"
+                value={deliveryAddress}
+                onChange={(e) => setDeliveryAddress(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              />
+            </div>
 
-              <div className="mb-6">
-                <label
-                  htmlFor="street"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Улица
-                </label>
-                <input
-                  type="text"
-                  name="street"
-                  id="street"
-                  value={deliveryAddress}
-                  onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            <div>
+              <label
+                htmlFor="district"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Район
+              </label>
+              <select
+                id="district"
+                value={selectedDistrict}
+                onChange={(e) => setSelectedDistrict(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option value="" disabled>
+                  Выберите район
+                </option>
+                {districts.map((district) => (
+                  <option key={district} value={district}>
+                    {district}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label
+                htmlFor="phone"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Телефон
+              </label>
+              <input
+                ref={inputRef}
+                type="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              />
+            </div>
+
+            <div className="text-center flex gap-2">
+              <button
+                type="submit"
+                className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+              >
+                <img
+                  className="w-40 mx-auto"
+                  src="https://uzpay.bitrix24.site/upload/sale/paysystem/logotip/c38/payme_01.png"
+                  alt="Payme"
                 />
-              </div>
-              
-              <div className="mb-6">
-                <label
-                  htmlFor="district"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Район
-                </label>
-                <select
-                  id="district"
-                  value={selectedDistrict}
-                  onChange={(e) => setSelectedDistrict(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value="" disabled>Выберите район</option>
-                  {districts.map((district) => (
-                    <option key={district} value={district}>{district}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="mb-6">
-                <label
-                  htmlFor="phone"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Телефон
-                </label>
-                <input
-                  ref={inputRef}
-                  type="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <button type="submit">
-                  <img className="w-40" src="https://uzpay.bitrix24.site/upload/sale/paysystem/logotip/c38/payme_01.png" alt="" />
-                </button>
-              </div>
-            </form>
-            
-            <br />
-            <button onClick={() => uzumModal.onOpen()}>
-              <img className="w-40" src="https://images.seeklogo.com/logo-png/53/1/uzum-nasiya-logo-png_seeklogo-532666.png?v=638500244860000000" alt="" />
+              </button>
+              <button
+              onClick={() => uzumModal.onOpen()}
+              className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+            >
+              <img
+                className="w-40 mx-auto"
+                src="https://images.seeklogo.com/logo-png/53/1/uzum-nasiya-logo-png_seeklogo-532666.png?v=638500244860000000"
+                alt="Uzum"
+              />
             </button>
-          </div>
+            </div>
+          </form>
         </div>
       </Container>
     </div>
