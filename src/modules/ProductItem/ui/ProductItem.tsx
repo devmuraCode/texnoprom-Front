@@ -24,7 +24,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
     dispatch(addToCart(product));
     setIsAddedToCart(true);
     setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 500); // Остановка анимации после 0.5 секунд
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   return (

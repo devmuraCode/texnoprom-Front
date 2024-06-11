@@ -40,16 +40,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             <button className={cls.installmentButton}>В РАССРОЧКУ</button>
           </div>
           <div className={cls.contact}>
-            Продавец: <span className={cls.seller}>ELMAKON</span> <a href="tel:+998712031203">+998-71-203-1203</a>
+            Продавец: <span className={cls.seller}>ТЕХНОПРОМ</span> <a href="tel:+998712031203">+998-71-203-1203</a>
           </div>
         </div>
-      </div>
-      <div className={cls.tabs}>
-        <div className={cls.tab}>Описание</div>
-        <div className={cls.tab}>Характеристики</div>
-        <div className={cls.tab}>Теги</div>
-        <div className={cls.tab}>Отзывы</div>
-        <div className={cls.tab}>Наличие в магазинах</div>
       </div>
       <div className={cls.description}>
         {product.description}
