@@ -25,12 +25,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
         </div>
         <div className={cls.infoContainer}>
           <h1 className={cls.title}>{product.title}</h1>
-          
           <div className={cls.priceContainer}>
             <span className={cls.currentPrice}>{product.price} UZS</span>
             <span className={cls.monthlyPrice}>363,000 сум/мес.</span>
             <span className={cls.oldPrice}>3,599,000 UZS</span>
-            <span className={cls.discount}>Вы экономите: 600,000 UZS</span>
           </div>
           <div className={cls.availability}>
             Наличие в магазинах: <span className={cls.store}>Ташкент</span> В наличии в 1 магазине
