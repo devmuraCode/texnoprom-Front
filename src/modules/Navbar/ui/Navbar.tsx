@@ -48,7 +48,7 @@ const Navbar = () => {
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <a href="tel:+998712345678" className="text-black font-bold">
-              +998712345678
+            +998900222323
             </a>
           </div>
         </div>
