@@ -9,12 +9,13 @@ import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 import { useState } from "react";
 import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
+import { useAllCategory } from "@/modules/Catalog/hooks/useAllCategory";
 
 const Navbar = () => {
   const registerModal = useRegisterModal();
 
   const { data: products = [] } = useAllProducts();
-
+  const { data: category } = useAllCategory();
   const [productId, setProductId] = useState<string | null>(null);
   // @ts-ignore
   const { data: productsDetail } = useProductDetail({ productId });
@@ -46,9 +47,18 @@ const Navbar = () => {
           <Link to="/">
             <img src={logo} className="w-40 h-20" alt="Flowbite Logo" />
           </Link>
+          {category?.slice(0, 5).map((category) => (
+            <NavLink
+              key={category.id}
+              to={`/catalog/${category.id}`}
+              className="text-black font-bold"
+            >
+              {category.title}
+            </NavLink>
+          ))}
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <a href="tel:+998712345678" className="text-black font-bold">
-            +998900222323
+              +998900222323
             </a>
           </div>
         </div>
@@ -60,7 +70,7 @@ const Navbar = () => {
           </Dropdown>
 
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse lg:pb-0">
-            <div className="font-bold items-center py-2 px-4 border-0 bg-inherit text-white flex gap-5 text-xl">
+            <div className="font-bold items-center py-2 px-4 border-0 bg-inherit flex gap-5 text-xl">
               {!token ? (
                 <div
                   className={cls.exit}
@@ -68,26 +78,20 @@ const Navbar = () => {
                 >
                   <div className="flex gap-2">
                     <UserOutlined />
-                    <h1 className="text-white text-base lg:block hidden">
-                      Войти
-                    </h1>
+                    <h1 className=" text-base lg:block hidden">Войти</h1>
                   </div>
                 </div>
               ) : (
                 <div className={cls.exit} onClick={handleLogout}>
                   <div className="flex gap-2">
                     <UserOutlined />
-                    <h1 className="text-white text-base lg:block hidden">
-                      Выйти
-                    </h1>
+                    <h1 className=" text-base lg:block hidden">Выйти</h1>
                   </div>
                 </div>
               )}
               <NavLink to="/cart" className={cls.cart}>
                 <ShoppingCartOutlined />
-                <h1 className="text-white text-base lg:block hidden">
-                  Корзина
-                </h1>
+                <h1 className=" text-base lg:block hidden">Корзина</h1>
               </NavLink>
             </div>
           </div>

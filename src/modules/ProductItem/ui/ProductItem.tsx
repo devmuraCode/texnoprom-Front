@@ -28,7 +28,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
   };
 
   return (
-    <div className="w-full bg-white border-t border-x border-x-gray-200 duration-100 hover:shadow dark:bg-white dark:border-x-gray-200">
+    <div className="w-full bg-white border border-x-gray-200 duration-100 hover:shadow dark:bg-white dark:border-x-gray-200">
       <NavLink
         to={`/detail/${product.id}`}
         onClick={() => setProductId(product.id)}

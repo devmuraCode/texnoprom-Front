@@ -1,9 +1,10 @@
-import CollectionCardItem from "@/components/CardCollection/CollectionCardItem";
-import { useCollectionsCard } from "../hooks/useCollectionsCard";
 import Container from "@/components/Container/Container";
+import { useAllCategory } from "@/modules/Catalog/hooks/useAllCategory";
+import CollectionCardItem from "@/components/CardCollection/CollectionCardItem";
 
 const CollectionsCard = () => {
-  const { data: collection } = useCollectionsCard();
+  const { data: collection } = useAllCategory();
+
   return (
     <Container>
       <div className="grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-4 py-10">

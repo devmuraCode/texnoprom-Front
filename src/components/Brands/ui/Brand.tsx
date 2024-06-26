@@ -3,10 +3,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Container from "@/components/Container/Container";
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
+import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Responsive() {
+  const [brandId, setBrandId] = useState<string | null>(null);
   const { data: brands, isLoading, error } = useAllBrands();
-
+  // @ts-ignore
+  const { data: product } = useProduct({ brandId });
   var settings = {
     dots: true,
     infinite: false,
@@ -53,13 +58,14 @@ function Responsive() {
           <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
           <Slider {...settings}>
             {brands?.map((brand) => (
-              <div key={brand.id}>
+              <Link to={`/catalog/${brand.id}`} onClick={() => setBrandId(brand.id)} key={brand.id}>
                 <img
                   className="h-20"
                   src={brand.logo}
                   alt={brand.title}
+                  
                 />
-              </div>
+              </Link>
             ))}
           </Slider>
         </Container>

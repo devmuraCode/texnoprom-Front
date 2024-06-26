@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC  } from "react";
 import { Breadcrumb, Layout, Pagination, theme } from "antd";
 import Container from "@/components/Container/Container";
 import { NavLink, useParams } from "react-router-dom";
@@ -6,13 +6,11 @@ import ProductItem from "@/modules/ProductItem";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 import CollectionsCard from "@/modules/CollectionsCard";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
   const { data: products } = useProduct({ brandId });
-  // const {data: brands} = useBrands()
-  const [collapsed, setCollapsed] = useState<boolean>(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -24,46 +22,8 @@ const CatalogLayout: FC = () => {
         Название категории
       </h1>
 
-      {/* <h1 className="font-bold text-2xl text-black pb-4">
-        {category?.map((item) => (
-          <div key={item.id} className="bg-white">
-            <div className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">
-              {item.title}
-            </div>
-          </div>
-        ))}
-      </h1> */}
-
       <Layout>
-        <Sider
-          width={200}
-          style={{ background: colorBgContainer }}
-          breakpoint="lg"
-          collapsedWidth="0"
-          collapsed={collapsed}
-          onCollapse={(collapsed) => setCollapsed(collapsed)}
-          onBreakpoint={(broken) => {
-            if (!broken) {
-              setCollapsed(true);
-            }
-          }}
-        >
-          {/* <Menu
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            style={{ height: "100%", borderRight: 0, backgroundColor: "#eee" }}
-          >
-            {brands?.map((item) => (
-              <Menu.Item
-                key={item.id}
-                style={{ borderBottom: "1px solid #919191", borderRadius: "0" }}
-              >
-                {item.title}
-              </Menu.Item>
-            ))}
-          </Menu> */}
-        </Sider>
+
 
         <Layout style={{ padding: "0 24px 24px", backgroundColor: "#fff" }}>
           <Breadcrumb
@@ -87,7 +47,7 @@ const CatalogLayout: FC = () => {
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
               gap: "24px",
             }}
           >

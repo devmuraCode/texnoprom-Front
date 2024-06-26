@@ -1,75 +1,83 @@
 .wrapper {
-    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
-  }
-  
-  .content {
-    background: white;
-    .drop {
-      background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
-    }
-  }
-  
-  .cart {
-    display: flex;
-    gap: 10px;
-    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
-    padding: 15px 30px;
-  }
-  
-  .exit {
-    display: flex;
-    gap: 10px;
-    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
-    padding: 15px 30px;
-  }
-  
-  .input {
-    border-color: red;
-    width: 40rem;
-    height: 3rem;
-    &:hover {
-      border-color: red;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .ant-dropdown-menu{
-        width: 100px;
-    }
-    .wrapper {
-      nav:first-of-type {
-        // display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
-      }
-      
-      .logo {
-        width: 100px;
-        height: auto;
-      }
-    }
-    
-    .content {
-        
-      .cart, .exit {
-        padding: 10px 20px;
-        font-size: 0.875rem;
-        
-      }
+  background: rgb(185, 41, 41);
+}
 
-     
-      
-      .input {
-        width: calc(100% - 2rem);
-        height: 2.5rem;
-        margin: 0.5rem 0.5rem;
-      }
-      
-      .flex {
-        flex-direction: column;
-        align-items: center;
-      }
+.content {
+  background: white;
+
+  .drop {
+    background: linear-gradient(120deg, rgba(14, 14, 14, 1) 45%, rgba(0, 0, 0, 1) 52%, rgba(244, 11, 4, 1) 73%);
+  }
+}
+
+.cart {
+  display: flex;
+  gap: 10px;
+  border-radius: 15px;
+  color: black;
+  border: 1px solid rgb(201, 41, 41);
+  padding: 15px 30px;
+  &:hover {
+    background-color: rgb(201, 41, 41);
+    color: white;
+  }
+}
+
+.exit {
+  display: flex;
+  gap: 10px;
+  border-radius: 15px;
+  color: black;
+  padding: 15px 30px;
+  border: 1px solid rgb(201, 41, 41);
+  &:hover {
+    background-color: rgb(201, 41, 41);
+    color: white;
+  }
+}
+
+.input {
+  border-color: red;
+  width: 40rem;
+  height: 3rem;
+  &:hover {
+    border-color: red;
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-dropdown-menu {
+    width: 100px;
+  }
+
+  .wrapper {
+    nav:first-of-type {
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
     }
   }
-  
+
+  .content {
+    .cart, .exit {
+      padding: 10px 20px;
+      font-size: 0.875rem;
+    }
+
+    .input {
+      width: calc(100% - 2rem);
+      height: 2.5rem;
+      margin: 0.5rem 0.5rem;
+    }
+
+    .flex {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
