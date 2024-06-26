@@ -1,21 +1,21 @@
 .button {
-  background: linear-gradient(
-    120deg,
-    rgba(14, 14, 14, 1) 45%,
-    rgba(0, 0, 0, 1) 52%,
-    rgba(244, 11, 4, 1) 73%
-  );
   border: none;
   outline: none;
   margin-top: 0.7rem;
   padding: 0.5rem 1rem;
+  border: 1px solid rgb(201, 41, 41);
+  border-radius: 10px;
   cursor: pointer;
-  color: white;
+  color: black;
   transition: all 0.3s ease;
+  &:hover{
+    background-color: rgb(201, 41, 41);
+    color: white;
+}
 }
 
 .buttonAdded {
-  background-color: #28a745; /* Зелёный цвет для состояния "Добавлено" */
+  background-color: #28a745;
   color: white;
 }
 
