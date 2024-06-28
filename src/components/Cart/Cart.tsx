@@ -9,8 +9,9 @@ import {
   getTotals,
   removeFromCart,
 } from "../../features/ShoppingSlice/CartSlice";
-import './index.css'
+import './index.css';
 import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
+
 interface Product {
   id: string;
   title: string;
@@ -24,11 +25,11 @@ interface CartItem extends Product {
 }
 
 const Cart: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const loginModal = useLoginModal();
   const cart = useSelector((state: RootState) => state.cart);
   const dispatch: AppDispatch = useDispatch();
-  const user = localStorage.getItem("token")
+  const user = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(getTotals());
@@ -50,7 +51,15 @@ const Cart: React.FC = () => {
     dispatch(clearCart());
   };
 
-  console.log(cart.cartTotalAmount);
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'UZS',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price).replace('UZS', '').trim() + ' сум';
+  };
+
   const handleCheckout = () => {
     if (!user) {
       loginModal.onOpen();
@@ -93,35 +102,34 @@ const Cart: React.FC = () => {
             <h3 className="total">Total</h3>
           </div>
           <div className="cart-items">
-            {cart.cartItems &&
-              cart.cartItems.map((cartItem) => (
-                <div className="cart-item" key={cartItem.id}>
-                  <div className="cart-product">
-                    <img src={cartItem.mainimg} alt={cartItem.title} />
-                    <div>
-                      <h3>{cartItem.title}</h3>
-                      <p>{cartItem.description}</p>
-                      {/* @ts-ignore */}
-                      <button onClick={() => handleRemoveFromCart(cartItem)}>
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                  <div className="cart-product-price">{cartItem.price} sum</div>
-                  <div className="cart-product-quantity">
-                     {/* @ts-ignore */}
-                    <button onClick={() => handleDecreaseCart(cartItem)}>
-                      -
+            {cart.cartItems.map((cartItem) => (
+              <div className="cart-item" key={cartItem.id}>
+                <div className="cart-product">
+                  <img src={cartItem.mainimg} alt={cartItem.title} />
+                  <div>
+                    <h3>{cartItem.title}</h3>
+                    <p>{cartItem.description}</p>
+                    {/* @ts-ignore */}
+                    <button onClick={() => handleRemoveFromCart(cartItem)}>
+                      Remove
                     </button>
-                    <div className="count">{cartItem.cartQuantity}</div>
-                     {/* @ts-ignore */}
-                    <button onClick={() => handleAddToCart(cartItem)}>+</button>
-                  </div>
-                  <div className="cart-product-total-price">
-                    {cartItem.price * cartItem.cartQuantity} sum
                   </div>
                 </div>
-              ))}
+                <div className="cart-product-price">{formatPrice(cartItem.price)}</div>
+                <div className="cart-product-quantity">
+                  {/* @ts-ignore */}
+                  <button onClick={() => handleDecreaseCart(cartItem)}>
+                    -
+                  </button>
+                  <div className="count">{cartItem.cartQuantity}</div>
+                  {/* @ts-ignore */}
+                  <button onClick={() => handleAddToCart(cartItem)}>+</button>
+                </div>
+                <div className="cart-product-total-price">
+                  {formatPrice(cartItem.price * cartItem.cartQuantity)}
+                </div>
+              </div>
+            ))}
           </div>
           <div className="cart-summary">
             <button className="clear-btn" onClick={handleClearCart}>
@@ -130,7 +138,7 @@ const Cart: React.FC = () => {
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">{cart.cartTotalAmount} sum</span>
+                <span className="amount">{formatPrice(cart.cartTotalAmount)}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
               <button onClick={handleCheckout}>Check out</button>
@@ -159,4 +167,5 @@ const Cart: React.FC = () => {
     </div>
   );
 };
+
 export default Cart;

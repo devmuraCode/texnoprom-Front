@@ -22,14 +22,23 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
     return <div>Product not found</div>;
   }
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'UZS',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price).replace('UZS', '').trim() + ' сум';
+  };
+
   const markers = [
     { left: '-4px', top: '-3px', color: 'rgb(217, 46, 21)', number: 3 },
     { left: '50px', top: '-3px', color: 'rgb(217, 46, 21)', number: 6 },
-    { left: '100px', top: '-3px', color: 'rgb(217, 46, 21)', number: 9 },
-    { left: '150px', top: '-3px', color: 'rgb(245, 245, 246)', number: 12 },
-    { left: '200px', top: '-3px', color: 'rgb(245, 245, 246)', number: 15 },
-    { left: '250px', top: '-3px', color: 'rgb(245, 245, 246)', number: 18 },
-    { left: '310px', top: '-3px', color: 'rgb(245, 245, 246)', number: 24 }
+    { left: '105px', top: '-3px', color: 'rgb(217, 46, 21)', number: 9 },
+    { left: '155px', top: '-3px', color: 'rgb(245, 245, 246)', number: 12 },
+    { left: '205px', top: '-3px', color: 'rgb(245, 245, 246)', number: 15 },
+    { left: '255px', top: '-3px', color: 'rgb(245, 245, 246)', number: 18 },
+    { left: '315px', top: '-3px', color: 'rgb(245, 245, 246)', number: 24 }
   ];
 
   return (
@@ -63,7 +72,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
           <div className={cls.infoContainer}>
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
-              <span className={cls.currentPrice}>{product.price} сум</span>
+              {/* @ts-ignore */}
+              <span className={cls.currentPrice}>{formatPrice(product.price)}</span>
               <span className={cls.monthlyPrice}>363,000 сум/мес.</span>
               <span className={cls.oldPrice}>3,599,000 сум</span>
               <span>{product.description}</span>
@@ -76,7 +86,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             <div className="px-6 py-4">
               <h2>Цена товара</h2>
               <br />
-              <h1 className="font-bold text-xl">{product.price} сум</h1>
+              {/* @ts-ignore */}
+              <h1 className="font-bold text-xl">{formatPrice(product.price)}</h1>
             </div>
             <div className="px-6 pt-4 pb-2">
               <button

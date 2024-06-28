@@ -6,7 +6,6 @@ import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 function Responsive() {
   const [brandId, setBrandId] = useState<string | null>(null);
   const { data: brands, isLoading, error } = useAllBrands();
@@ -59,12 +58,13 @@ function Responsive() {
           <Slider {...settings}>
             {brands?.map((brand) => (
               <Link to={`/catalog/${brand.id}`} onClick={() => setBrandId(brand.id)} key={brand.id}>
+                <div>
                 <img
                   className="h-20"
                   src={brand.logo}
                   alt={brand.title}
-                  
                 />
+                </div>
               </Link>
             ))}
           </Slider>

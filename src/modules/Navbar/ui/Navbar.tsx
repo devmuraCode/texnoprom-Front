@@ -51,13 +51,13 @@ const Navbar = () => {
             <NavLink
               key={category.id}
               to={`/catalog/${category.id}`}
-              className="text-black font-bold"
+              className="text-black font-bold block hidden sm:block"
             >
               {category.title}
             </NavLink>
           ))}
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <a href="tel:+998712345678" className="text-black font-bold">
+            <a href="tel:+998712345678" className="text-white font-bold">
               +998900222323
             </a>
           </div>
