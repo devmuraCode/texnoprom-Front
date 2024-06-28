@@ -172,7 +172,7 @@ const Payment = () => {
             <div className="text-center flex gap-2">
               <button
                 type="submit"
-                className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
               >
                 <img
                   className="w-40 mx-auto"
@@ -182,11 +182,11 @@ const Payment = () => {
               </button>
               <button
               onClick={() => uzumModal.onOpen()}
-              className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+              className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
             >
               <img
                 className="w-40 mx-auto"
-                src="https://images.seeklogo.com/logo-png/53/1/uzum-nasiya-logo-png_seeklogo-532666.png?v=638500244860000000"
+                src="https://docs.click.uz/wp-content/themes/click_help/assets/images/logo.png"
                 alt="Uzum"
               />
             </button>
