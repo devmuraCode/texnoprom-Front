@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+  import { FC, useState } from "react";
 import { IProduct } from "../hooks/useProduct";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { NavLink } from "react-router-dom";

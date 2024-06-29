@@ -51,7 +51,7 @@ const Navbar = () => {
             <NavLink
               key={category.id}
               to={`/catalog/${category.id}`}
-              className="text-black font-bold block hidden sm:block"
+              className="text-white font-bold block hidden sm:block"
             >
               {category.title}
             </NavLink>
