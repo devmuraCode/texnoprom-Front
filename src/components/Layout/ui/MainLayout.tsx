@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import RegisterModal from "@/modules/Modals/RegisterModal";
 import LoginModal from "@/modules/Modals/LoginModal";
 import UzumModal from "@/modules/Modals/UzumModal";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 const Main: FC = () => {
   return (
@@ -17,6 +18,7 @@ const Main: FC = () => {
       </div>
       <FooterApp />
       <RegisterModal />
+      <ToasterProvider/>
       <LoginModal/>
       <UzumModal />
     </div>

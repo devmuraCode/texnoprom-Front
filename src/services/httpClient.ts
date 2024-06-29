@@ -10,7 +10,7 @@ httpsClient.interceptors.request.use((config) => {
   if (token) {
     config.headers = Object.assign(config.headers, {
       Authorization: `Bearer ${token}`,
-    });
+    }); 
   }
   return config;
 }); 

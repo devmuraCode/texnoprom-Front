@@ -22,7 +22,7 @@ export const useProduct = ({ brandId }: IProps) => {
     queryKey: ["product", brandId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/products/brands/${brandId}`);
+        const response = await httpsClient.get(`/products/categories/${brandId}`);
         if (response && response.data) {
           return response.data.results;
         } else {

@@ -10,15 +10,18 @@ import { useState } from "react";
 import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { useAllCategory } from "@/modules/Catalog/hooks/useAllCategory";
+import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCategory";
 
 const Navbar = () => {
   const registerModal = useRegisterModal();
-
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   const { data: products = [] } = useAllProducts();
   const { data: category } = useAllCategory();
   const [productId, setProductId] = useState<string | null>(null);
   // @ts-ignore
   const { data: productsDetail } = useProductDetail({ productId });
+  // @ts-ignore
+  const {data: categoryid} = useProductByCategory({categoryId});
 
   const token = localStorage.getItem("token");
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,6 +54,7 @@ const Navbar = () => {
             <NavLink
               key={category.id}
               to={`/catalog/${category.id}`}
+              onClick={() => setCategoryId(category.id)}
               className="text-white font-bold block hidden sm:block"
             >
               {category.title}

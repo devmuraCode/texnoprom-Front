@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "./hooks/useRegisterModal";
 import useLoginModal from "./hooks/useLoginModal";
 import Heading from "@/containers/Heading";
 import Input from "@/components/Input/Input";
 import Modal from "./Modal";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-import { authUser } from "@/features/Auth/modal/service/AuthUser";
-import { useNavigate } from "react-router-dom";
-
+import { useAppDispatch } from "@/store/store";
+import { authUser, loginUser } from "@/features/Auth/modal/service/AuthUser";
+import toast from 'react-hot-toast';
 type Inputs = {
   username: string;
   password: string;
@@ -17,10 +16,8 @@ type Inputs = {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const loginForm = useAppSelector((state) => state.loginForm);
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,20 +25,22 @@ const RegisterModal = () => {
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    dispatch(authUser(data));
-  };
-
-  useEffect(() => {
-    if (loginForm.fulfilled) {
+    setIsLoading(true);
+    try {
+      await dispatch(authUser(data)).unwrap();
+      await dispatch(loginUser(data)).unwrap();
+      toast.success('Аккаунт успешно создан')
       registerModal.onClose();
-      loginModal.onOpen();
+    } catch (error) {
+      toast.error('Аккаунт уже существует');
+    } finally {
+      setIsLoading(false);
     }
-  }, [loginForm, navigate]);
+  };
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
-    loginModal.onOpen();
-  }, [registerModal]);
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -49,7 +48,6 @@ const RegisterModal = () => {
         title="Добро пожаловать в Технопром"
         subtitle="Завести аккаунт!"
       />
-
       <Input
         id="username"
         name="username"
@@ -75,7 +73,6 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-
       <div
         className="
           text-neutral-500 
@@ -101,6 +98,7 @@ const RegisterModal = () => {
       </div>
     </div>
   );
+
   return (
     <div>
       <Modal
