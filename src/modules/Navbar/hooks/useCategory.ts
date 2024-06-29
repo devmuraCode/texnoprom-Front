@@ -1,5 +1,5 @@
 
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICategory {
@@ -26,7 +26,7 @@ export const useCategory = ({ collectionId } : IProps) => {
     queryKey: ["categiry", collectionId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/categories/brands/collection/${collectionId}`);
+        const response = await http.request.get(`/categories/brands/collection/${collectionId}`);
         if (response && response.data) {
           return response.data;
         } else {

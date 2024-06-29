@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
 import Container from "../Container/Container";
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 import { useMask } from "@react-input/mask";
 import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
 
@@ -56,7 +56,7 @@ const Payment = () => {
     };
 
     try {
-      const res = await httpsClient.post(`/orders/`, orderData, {
+      const res = await http.request.post(`/orders/`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -79,7 +79,7 @@ const Payment = () => {
     };
 
     try {
-      const res = await httpsClient.post(`/pay-link/`, bodyLink, {
+      const res = await http.request.post(`/pay-link/`, bodyLink, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

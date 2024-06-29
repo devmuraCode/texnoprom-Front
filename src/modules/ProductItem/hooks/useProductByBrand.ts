@@ -1,4 +1,4 @@
-import { httpsClient } from "@/services/httpClient";
+import { http } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 
 export interface IProduct {
@@ -22,7 +22,7 @@ export const useProductByBrand = ({ brandId }: IProps) => {
     queryKey: ["product", brandId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/products/brands/${brandId}`);
+        const response = await http.request.get(`/products/brands/${brandId}`);
         if (response && response.data) {
           return response.data.results;
         } else {

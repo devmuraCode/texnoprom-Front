@@ -1,13 +1,14 @@
 import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "./hooks/useRegisterModal";
-import useLoginModal from "./hooks/useLoginModal";
 import Heading from "@/containers/Heading";
 import Input from "@/components/Input/Input";
 import Modal from "./Modal";
 import { useAppDispatch } from "@/store/store";
 import { authUser, loginUser } from "@/features/Auth/modal/service/AuthUser";
 import toast from 'react-hot-toast';
+import useLoginModal from "./hooks/useLoginModal";
+
 type Inputs = {
   username: string;
   password: string;
@@ -22,15 +23,15 @@ const RegisterModal = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FieldValues>();
+  } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsLoading(true);
     try {
       await dispatch(authUser(data)).unwrap();
       await dispatch(loginUser(data)).unwrap();
-      toast.success('Аккаунт успешно создан')
       registerModal.onClose();
+      
     } catch (error) {
       toast.error('Аккаунт уже существует');
     } finally {
@@ -40,7 +41,8 @@ const RegisterModal = () => {
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
-  }, [registerModal, loginModal]);
+    loginModal.onOpen();
+  }, [registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -62,7 +64,7 @@ const RegisterModal = () => {
         name="password"
         label="Пароль"
         type="password"
-        disabled={isLoading}
+        disabled={isLoading}  
         register={register}
         errors={errors}
         required
@@ -92,7 +94,7 @@ const RegisterModal = () => {
             "
           >
             {" "}
-            Log in
+            Войти
           </span>
         </p>
       </div>
@@ -104,10 +106,9 @@ const RegisterModal = () => {
       <Modal
         disabled={isLoading}
         isOpen={registerModal.isOpen}
-        title="Register"
-        actionLabel="Continue"
+        title="Регистрация"
+        actionLabel="Продолжить"
         onClose={registerModal.onClose}
-        // @ts-ignore
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}

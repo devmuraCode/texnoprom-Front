@@ -1,5 +1,5 @@
 
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICollection {
@@ -16,7 +16,7 @@ export const useCollectionNavbar = () => {
     queryKey: ["collection"],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get('/collections/');
+        const response = await http.request.get('/collections/');
         if (response && response.data) {
           return response.data;
         } else {

@@ -1,4 +1,4 @@
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICharacteristics {
@@ -20,7 +20,7 @@ export const useCharacteristics = ({ productId }: IProps) => {
     queryKey: ["characteristics", productId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/characteristics/${productId}`);
+        const response = await http.request.get(`/characteristics/${productId}`);
         if (response && response.data) {
           return response.data;
         } else {
