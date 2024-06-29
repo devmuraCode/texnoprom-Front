@@ -1,5 +1,5 @@
 .footer {
-    background: linear-gradient(120deg, rgba(14,14,14,1) 45%, rgba(0,0,0,1) 52%, rgba(244,11,4,1) 73%);
+    background: black;
   
     .footer__block_1 {
       display: flex;
@@ -33,8 +33,8 @@
   
     .catalog-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
     }
   
     p {

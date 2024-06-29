@@ -14,7 +14,7 @@ interface CatalogItem {
 const Footer = () => {
   const {data: brands} = useAllBrands()
   const [brandId, setBrandId] = useState<string | null>(null);
-
+// @ts-ignore
   const { data: products = [] } = useProductByBrand({ brandId });
   
   return (
