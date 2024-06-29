@@ -10,23 +10,23 @@ interface IProps {
 
 const CollectionCardItem: FC<IProps> = ({ collection }) => {
   const [productId, setProductId] = useState<string | null>(null);
-      // @ts-ignore
-      const { data: products } = useProductByCategory({ productId });
+  // @ts-ignore
+  const { data: products } = useProductByCategory({ productId });
 
   return (
     <Link to={`/catalog/${collection.id}`} onClick={() => setProductId(collection.id)} className={cls.card}>
-        <div className={cls.imageContainer}>
-          <img
-            className={cls.image}
-            src={collection.img}
-            alt="product image"
-          />
-        </div>
+      <div className={cls.imageContainer}>
+        <img
+          className={cls.image}
+          src={collection.img}
+          alt="product image"
+        />
+      </div>
       <div className={cls.content}>
-        <div>
+
         <h3 className={cls.title}>{collection.title}</h3>
         <p className={cls.description}>{collection.description}</p>
-        </div>
+
       </div>
     </Link>
   );

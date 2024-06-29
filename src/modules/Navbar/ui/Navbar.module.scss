@@ -1,5 +1,6 @@
 .wrapper {
-  background: rgb(185, 41, 41);
+  background: black;
+  color: white;
 }
 
 .content {
@@ -15,10 +16,11 @@
   gap: 10px;
   border-radius: 15px;
   color: black;
-  border: 1px solid rgb(201, 41, 41);
+  border: 1px solid black ;
   padding: 15px 30px;
   &:hover {
-    background-color: rgb(201, 41, 41);
+    background-color: black ;
+    transition: 0.5s;
     color: white;
   }
 }
@@ -29,19 +31,20 @@
   border-radius: 15px;
   color: black;
   padding: 15px 30px;
-  border: 1px solid rgb(201, 41, 41);
+  border: 1px solid black;
   &:hover {
-    background-color: rgb(201, 41, 41);
+    background-color: black;
+    transition: 0.5s;
     color: white;
   }
 }
 
 .input {
-  border-color: red;
+  border-color: black;
   width: 40rem;
   height: 3rem;
   &:hover {
-    border-color: red;
+    border-color: black;
   }
 }
 

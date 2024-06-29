@@ -4,7 +4,7 @@ import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
 import { Dropdown } from "antd";
 import { useBrands } from "@/modules/Brands/hooks/useBrands";
 import { useCategory } from "../hooks/useCategory";
-
+import cls from './Navbar.module.scss'
 const Category: FC = () => {
   // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -18,7 +18,7 @@ const Category: FC = () => {
 
   const SubMenuCollection: FC = () => {
     return (
-      <div>
+      <div >
         {category?.map((item) => (
           <div key={item.category_id} className="bg-white p-5">
             <p className="font-semibold">{item.category_title}</p>
@@ -36,9 +36,9 @@ const Category: FC = () => {
   };
 
   return (
-    <div>
+    <div className={cls.collection}>
       {collection?.map((item) => (
-        <div key={item.id} className="bg-white">
+        <div key={item.id} className="bg-black">
           <Dropdown
             overlay={<SubMenuCollection />}
             // @ts-ignore
@@ -47,7 +47,7 @@ const Category: FC = () => {
           >
             <div
               onClick={() => setCollectionId(item.id)}
-              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black hover:text-white cursor-pointer "
             >
               {item.title}
             </div>
