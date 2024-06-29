@@ -10,18 +10,15 @@ import { useState } from "react";
 import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { useAllCategory } from "@/modules/Catalog/hooks/useAllCategory";
-import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCategory";
 
 const Navbar = () => {
   const registerModal = useRegisterModal();
-  const [categoryId, setCategoryId] = useState<string | null>(null);
+
   const { data: products = [] } = useAllProducts();
   const { data: category } = useAllCategory();
   const [productId, setProductId] = useState<string | null>(null);
   // @ts-ignore
   const { data: productsDetail } = useProductDetail({ productId });
-  // @ts-ignore
-  const {data: categoryid} = useProductByCategory({categoryId});
 
   const token = localStorage.getItem("token");
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,12 +51,12 @@ const Navbar = () => {
             <NavLink
               key={category.id}
               to={`/catalog/${category.id}`}
-              onClick={() => setCategoryId(category.id)}
-              className="text-white font-bold block hidden sm:block"
+              className="text-white font-bold block hidden sm:block shadow hover:shadow-white"
             >
               {category.title}
             </NavLink>
           ))}
+
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <a href="tel:+998712345678" className="text-white font-bold">
               +998900222323
