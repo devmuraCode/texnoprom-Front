@@ -3,14 +3,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Container from "@/components/Container/Container";
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
-import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 function Responsive() {
   const [brandId, setBrandId] = useState<string | null>(null);
   const { data: brands, isLoading, error } = useAllBrands();
   // @ts-ignore
-  const { data: product } = useProduct({ brandId });
+  const { data: product } = useProductByBrand({ brandId });
   var settings = {
     dots: true,
     infinite: false,

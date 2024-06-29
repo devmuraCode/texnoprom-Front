@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@/store/store";
@@ -9,7 +9,7 @@ import {
   getTotals,
   removeFromCart,
 } from "../../features/ShoppingSlice/CartSlice";
-import './index.css';
+import "./index.css";
 import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
 
 interface Product {
@@ -31,6 +31,10 @@ const Cart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const user = localStorage.getItem("token");
 
+  const [installmentPlans, setInstallmentPlans] = useState<{
+    [key: string]: number;
+  }>({});
+
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
@@ -51,29 +55,49 @@ const Cart: React.FC = () => {
     dispatch(clearCart());
   };
 
+  const handleInstallmentChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    cartItemId: string
+  ) => {
+    setInstallmentPlans({
+      ...installmentPlans,
+      [cartItemId]: parseInt(e.target.value),
+    });
+  };
+
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('ru-RU', {
-      style: 'currency',
-      currency: 'UZS',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price).replace('UZS', '').trim() + ' сум';
+    return (
+      new Intl.NumberFormat("ru-RU", {
+        style: "currency",
+        currency: "UZS",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })
+        .format(price)
+        .replace("UZS", "")
+        .trim() + " сум"
+    );
+  };
+  
+
+  const formatInstallmentPrice = (price: number, months: number) => {
+    return formatPrice(price / months) + ` / месяц x ${months}`;
   };
 
   const handleCheckout = () => {
     if (!user) {
       loginModal.onOpen();
     } else {
-      navigate('/payment');
+      navigate("/payment");
     }
   };
 
   return (
     <div className="cart-container">
-      <h2>Shopping Cart</h2>
+      <h2>Корзина</h2>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
-          <p>Your cart is currently empty</p>
+          <p>Ваша корзина на данный момент пуста</p>
           <div className="start-shopping">
             <Link to="/">
               <svg
@@ -89,17 +113,17 @@ const Cart: React.FC = () => {
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
-              <span>Start Shopping</span>
+              <span>Начать покупки</span>
             </Link>
           </div>
         </div>
       ) : (
         <div>
           <div className="titles">
-            <h3 className="product-title">Product</h3>
-            <h3 className="price">Price</h3>
-            <h3 className="quantity">Quantity</h3>
-            <h3 className="total">Total</h3>
+            <h3 className="product-title">Продукт</h3>
+            <h3 className="price">Цена</h3>
+            <h3 className="quantity">Количество</h3>
+            <h3 className="installment">Рассрочка</h3>
           </div>
           <div className="cart-items">
             {cart.cartItems.map((cartItem) => (
@@ -108,40 +132,59 @@ const Cart: React.FC = () => {
                   <img src={cartItem.mainimg} alt={cartItem.title} />
                   <div>
                     <h3>{cartItem.title}</h3>
-                    <p>{cartItem.description}</p>
                     {/* @ts-ignore */}
                     <button onClick={() => handleRemoveFromCart(cartItem)}>
-                      Remove
+                      Удалить
                     </button>
                   </div>
                 </div>
-                <div className="cart-product-price">{formatPrice(cartItem.price)}</div>
+                <div className="cart-product-price">
+                  {formatPrice(cartItem.price)}
+                </div>
                 <div className="cart-product-quantity">
                   {/* @ts-ignore */}
-                  <button onClick={() => handleDecreaseCart(cartItem)}>
-                    -
-                  </button>
+                  <button onClick={() => handleDecreaseCart(cartItem)}>-</button>
                   <div className="count">{cartItem.cartQuantity}</div>
                   {/* @ts-ignore */}
                   <button onClick={() => handleAddToCart(cartItem)}>+</button>
                 </div>
-                <div className="cart-product-total-price">
-                  {formatPrice(cartItem.price * cartItem.cartQuantity)}
+                <div className="cart-product-installment">
+                  <select
+                    value={installmentPlans[cartItem.id] || 0}
+                    onChange={(e) => handleInstallmentChange(e, cartItem.id)}
+                  >
+                    <option value={0}>Без рассрочки</option>
+                    {[3, 6, 9, 12, 15, 18, 24].map((months) => (
+                      <option key={months} value={months}>
+                        {months} месяцев
+                      </option>
+                    ))}
+                  </select>
+                  {installmentPlans[cartItem.id] > 0 && (
+                    <div>
+                      {formatInstallmentPrice(
+                        cartItem.price,
+                        installmentPlans[cartItem.id]
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
           <div className="cart-summary">
             <button className="clear-btn" onClick={handleClearCart}>
-              Clear Cart
+              Очистить
             </button>
             <div className="cart-checkout">
               <div className="subtotal">
-                <span>Subtotal</span>
-                <span className="amount">{formatPrice(cart.cartTotalAmount)}</span>
+                <span>Промежуточный итог</span>
+                <span className="amount">
+                  {formatPrice(cart.cartTotalAmount)}
+                </span>
               </div>
-              <p>Taxes and shipping calculated at checkout</p>
-              <button onClick={handleCheckout}>Check out</button>
+              <p>Налоги и доставка рассчитываются при оформлении заказа</p>
+              <button onClick={handleCheckout}>Оформить заказ</button>
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
@@ -157,7 +200,7 @@ const Cart: React.FC = () => {
                       d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                     />
                   </svg>
-                  <span>Continue Shopping</span>
+                  <span>Продолжить покупки</span>
                 </Link>
               </div>
             </div>

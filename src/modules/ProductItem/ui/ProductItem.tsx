@@ -1,10 +1,10 @@
   import { FC, useState } from "react";
-import { IProduct } from "../hooks/useProduct";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import cls from "./ProductItem.module.scss";
+import { IProduct } from "../hooks/useAllProducts";
 
 interface IProps {
   product: IProduct;
