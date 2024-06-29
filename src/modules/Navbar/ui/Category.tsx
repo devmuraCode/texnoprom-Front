@@ -47,7 +47,7 @@ const Category: FC = () => {
           >
             <div
               onClick={() => setCollectionId(item.id)}
-              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black hover:text-white cursor-pointer "
+              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black cursor-pointer "
             >
               {item.title}
             </div>

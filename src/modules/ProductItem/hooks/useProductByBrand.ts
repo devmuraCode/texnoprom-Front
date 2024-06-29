@@ -14,15 +14,15 @@ export interface IProduct {
   brand: string;
 }
 interface IProps {
-  categoryId: string | undefined;
+  brandId: string | undefined;
 }
 
-export const useProductByCategory = ({ categoryId }: IProps) => {
+export const useProductByBrand = ({ brandId }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["product", categoryId],
+    queryKey: ["product", brandId],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/products/categories/${categoryId}`);
+        const response = await httpsClient.get(`/products/brands/${brandId}`);
         if (response && response.data) {
           return response.data.results;
         } else {
@@ -32,6 +32,6 @@ export const useProductByCategory = ({ categoryId }: IProps) => {
         throw new Error("Error fetching banners: ");
       }
     },
-    enabled: !!categoryId,
+    enabled: !!brandId,
   });
 };

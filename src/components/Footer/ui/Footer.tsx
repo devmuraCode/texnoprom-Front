@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "@/components/Container/Container";
-import logo from '@/assets/logo1.svg';
-import './Footer.scss';
+import logo from "@/assets/logo1.svg";
+import "./Footer.scss";
+import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
+import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 
 interface CatalogItem {
   id: string;
@@ -10,22 +12,11 @@ interface CatalogItem {
 }
 
 const Footer = () => {
-  const [catalog, setCatalog] = useState<CatalogItem[]>([]);
+  const {data: brands} = useAllBrands()
+  const [brandId, setBrandId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchCatalog = async () => {
-      try {
-        const response = await fetch("https://back-texnoprom.uz/brands/");
-        const data = await response.json();
-        setCatalog(data);
-      } catch (error) {
-        console.error("Error fetching catalog data:", error);
-      }
-    };
-
-    fetchCatalog();
-  }, []);
-
+  const { data: products = [] } = useProductByBrand({ brandId });
+  
   return (
     <div className="footer w-full">
       <Container>
@@ -33,19 +24,20 @@ const Footer = () => {
           <div className="flex flex-wrap justify-around text-white">
             <div className="mb-6 w-full sm:w-auto text-start">
               <Link to="/">
-                <img
-                  src={logo}
-                  className="w-40 h-20"
-                  alt="Flowbite Logo"
-                />
+                <img src={logo} className="w-40 h-20" alt="Flowbite Logo" />
               </Link>
             </div>
 
             <div className="mb-6 w-full sm:w-auto text-start">
               <h2 className="font-black text-lg">Каталог</h2>
               <div className="catalog-grid">
-                {catalog.map((item) => (
-                  <Link to={`/catalog/${item.id}`} className="text-sm block" key={item.id}>
+                {brands?.map((item) => (
+                  <Link
+                    to={`/catalog/${item.id}`}
+                    onClick={() => setBrandId(item.id)}
+                    className="text-sm block"
+                    key={item.id}
+                  >
                     {item.title}
                   </Link>
                 ))}

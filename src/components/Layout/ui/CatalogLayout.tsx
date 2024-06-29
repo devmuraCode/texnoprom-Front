@@ -5,12 +5,15 @@ import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 import CollectionsCard from "@/modules/CollectionsCard";
+import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 
 const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
-  const { data: products } = useProduct({ brandId });
+  const { data: products } = useProductByBrand({ brandId });
+  console.log(products);
+  
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
