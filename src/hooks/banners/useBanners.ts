@@ -1,4 +1,4 @@
-import { httpsClient } from "../../services/httpClient";
+import http from "../../services/http";
 import { useQuery } from "@tanstack/react-query";
 
 export interface IBanners {
@@ -15,7 +15,7 @@ export const useBanners = () => {
     queryKey: ["banners"],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get("/banners/");
+        const response = await http.request.get("/banners/");
         if (response && response.data) {
           return response.data;
         } else {

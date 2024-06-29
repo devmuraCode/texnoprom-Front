@@ -18,9 +18,9 @@
   color: black;
   border: 1px solid black ;
   padding: 15px 30px;
+  transition: all 0.5s ease ;
   &:hover {
     background-color: black ;
-    transition: 0.5s;
     color: white;
   }
 }
@@ -32,9 +32,9 @@
   color: black;
   padding: 15px 30px;
   border: 1px solid black;
+  transition: all 0.5s ease;
   &:hover {
     background-color: black;
-    transition: 0.5s;
     color: white;
   }
 }

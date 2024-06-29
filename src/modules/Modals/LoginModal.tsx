@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 
 import useLoginModal from "./hooks/useLoginModal";
 import useRegisterModal from "./hooks/useRegisterModal";
@@ -26,7 +26,7 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await httpsClient.post("/users/token/", data);
+      const response = await http.request.post("/users/token/", data);
       localStorage.setItem("token", response.data.access);
       localStorage.setItem("user_id", response.data.user_id);
       loginModal.onClose();
