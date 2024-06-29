@@ -38,7 +38,7 @@ const formatPrice = (price: number) => {
 };
 
   return (
-    <div className="w-full bg-white border border-x-gray-200 duration-100 hover:shadow dark:bg-white dark:border-x-gray-200">
+    <div className="w-full bg-white border border-x-gray-200 rounded-md	 duration-100 hover:shadow dark:bg-white dark:border-x-gray-300">
       <NavLink
         to={`/detail/${product.id}`}
         onClick={() => setProductId(product.id)}
