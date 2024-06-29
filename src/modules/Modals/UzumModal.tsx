@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 
 import Heading from "@/containers/Heading";
 
@@ -34,7 +34,7 @@ const UzumModal = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const { data: response } = await httpsClient.post(
+      const { data: response } = await http.request.post(
         "uzum/nasiya/check-status",
         data,
         {

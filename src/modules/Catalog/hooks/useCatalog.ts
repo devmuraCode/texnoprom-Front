@@ -1,5 +1,5 @@
 
-import { httpsClient } from "@/services/httpClient";
+import http from "@/services/http";
 import { useQuery } from "@tanstack/react-query";
 
 export interface ICollection {
@@ -16,7 +16,7 @@ export const useCatalog = (id: string) => {
     queryKey: ["catalog"],
     queryFn: async () => {
       try {
-        const response = await httpsClient.get(`/category/${id}`);
+        const response = await http.request.get(`/category/${id}`);
         if (response && response.data) {
             console.log(response.data);
             
