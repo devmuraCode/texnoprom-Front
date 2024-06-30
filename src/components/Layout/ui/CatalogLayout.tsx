@@ -5,7 +5,6 @@ import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import CollectionsCard from "@/modules/CollectionsCard";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
-import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 
 const { Content } = Layout;
 
