@@ -5,7 +5,7 @@ import Heading from "@/containers/Heading";
 import Input from "@/components/Input/Input";
 import Modal from "./Modal";
 import { useAppDispatch } from "@/store/store";
-import { authUser, loginUser } from "@/features/Auth/modal/service/AuthUser";
+import { authUser } from "@/features/Auth/modal/service/AuthUser";
 import toast from 'react-hot-toast';
 import useLoginModal from "./hooks/useLoginModal";
 
@@ -29,9 +29,7 @@ const RegisterModal = () => {
     setIsLoading(true);
     try {
       await dispatch(authUser(data)).unwrap();
-      await dispatch(loginUser(data)).unwrap();
       registerModal.onClose();
-      
     } catch (error) {
       toast.error('Аккаунт уже существует');
     } finally {
@@ -55,6 +53,7 @@ const RegisterModal = () => {
         name="username"
         label="Имя пользователя"
         disabled={isLoading}
+        // @ts-ignore
         register={register}
         errors={errors}
         required
@@ -65,6 +64,7 @@ const RegisterModal = () => {
         label="Пароль"
         type="password"
         disabled={isLoading}  
+        // @ts-ignore
         register={register}
         errors={errors}
         required

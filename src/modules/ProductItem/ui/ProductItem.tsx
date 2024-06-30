@@ -53,11 +53,11 @@ const formatPrice = (price: number) => {
       </NavLink>
 
       <div className="px-5 pb-5">
-        <a href="#">
+        <NavLink to={`/detail/${product.id}`}>
           <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
             {product.title}
           </p>
-        </a>
+        </NavLink>
         <div className="column items-center justify-between">
           <span className="text-lg font-bold text-gray-900 dark:text-black">
             {/* @ts-ignore */}

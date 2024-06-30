@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import cls from "./ProductDetails.module.scss";
 import { useCharacteristics } from "../hooks/useCharacteristics";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
@@ -144,11 +144,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               {installment?.map((installment, index) => (
                 <div key={index} className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer">
                   <img src={installment.logo} className=" h-10" alt="s" />
-                  <span className="font-normal text-sm">{formatPrice(installment.monthly_payment)}</span>
+                  <span className="font-normal text-sm">{formatPrice(installment.monthly_payment)}/мес</span>
                 </div>
               ))}
               
-              <button className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded">Подтвердить</button>
+              <button  className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded" onClick={() => onAddToCart(product)}><Link to={"/cart"} >Подтвердить</Link></button>
             </div>
           </div>
         </div>
