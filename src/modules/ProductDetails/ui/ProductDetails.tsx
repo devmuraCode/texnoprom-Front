@@ -100,7 +100,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
         <div className={cls.priceCard}>
           <div className="w-full rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
-              <h2>Цена товара</h2>
+              <h2 className="font-bold text-xl">Цена товара</h2>
               <br />
               <h1 className="font-bold text-xl">
                 {/* @ts-ignore */}
@@ -119,7 +119,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
 
           <div className="w-full rounded overflow-hidden shadow-lg mt-2">
             <div className="px-6 py-4">
-              <h2>Варианты рассрочки</h2>
+              <h2 className="font-bold text-xl">Варианты рассрочки</h2>
               <br />
               <div className="flex flex-row gap-9">
                 {markers.map((marker, index) => (
@@ -142,11 +142,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </div>
             <div className="px-6 pt-4 pb-2">
               {installment?.map((installment, index) => (
-                <div key={index} className="border hover:border-red-700 text- w-full mb-1 font-bold py-2 px-4 rounded flex between items-center gap-8 pointer">
-                  <img src={installment.logo} className="w-10 h-10" alt="s" />
-                  <span>{installment.monthly_payment}</span>
+                <div key={index} className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer">
+                  <img src={installment.logo} className=" h-10" alt="s" />
+                  <span className="font-normal text-sm">{formatPrice(installment.monthly_payment)}</span>
                 </div>
               ))}
+              
               <button className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded">Подтвердить</button>
             </div>
           </div>
@@ -165,8 +166,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               className={`${
                 state
                   ? "text-yellow-400 border-b-yellow-400"
-                  : "text-gray-400 border-б-gray-300"
-              } border border-t-0 border-l-0 border-r-0 border-б-2 font-medium text-lg w-full py-3 flex justify-center items-center`}
+                  : "text-gray-400 border-b-gray-300"
+              } border border-t-0 border-l-0 border-r-0 border-b-2 font-medium text-lg w-full py-3 flex justify-center items-center`}
             >
               Описание
             </button>
@@ -178,9 +179,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               }}
               className={`${
                 state2
-                  ? "text-yellow-400 border-б-yellow-400"
-                  : "text-gray-400 border-б-gray-300"
-              } border border-т-0 border-л-0 border-р-0 border-б-2 font-medium text-lg w-full py-3 flex justify-центр items-center`}
+                  ? "text-yellow-400 border-b-yellow-400"
+                  : "text-gray-400 border-b-gray-300"
+              } border border-t-0 border-l-0 border-r-0 border-b-2 font-medium text-lg w-full py-3 flex justify-center items-center`}
             >
               Характеристики
             </button>
@@ -192,9 +193,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               }}
               className={`${
                 state3
-                  ? "text-yellow-400 border-б-yellow-400"
-                  : "text-gray-400 border-б-gray-300"
-              } border border-т-0 border-л-0 border-р-0 border-б-2 font-medium text-lg w-full py-3 flex justify-центр items-center`}
+                  ? "text-yellow-400 border-b-yellow-400"
+                  : "text-gray-400 border-b-gray-300"
+              } border border-t-0 border-l-0 border-r-0 border-b-2 font-medium text-lg w-full py-3 flex justify-center items-center`}
             >
               Отзывы
             </button>

@@ -83,7 +83,7 @@ class Http {
          }
          case StatusCode.Unauthorized: {
             toast.error("Неавторизованный доступ.");
-            localStorage.clear(); // Очищаем локальное хранилище в случае Unauthorized
+            localStorage.clear();
             break;
          }
          case StatusCode.TooManyRequests: {
@@ -91,7 +91,7 @@ class Http {
             break;
          }
          default: {
-            toast.error(`Ошибка: ${status}`);
+            console.error(`Ошибка: ${status}`);
             break;
          }
       }
