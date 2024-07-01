@@ -1,9 +1,8 @@
-import { FC  } from "react";
+import { FC } from "react";
 import { Breadcrumb, Layout, Pagination, theme } from "antd";
 import Container from "@/components/Container/Container";
 import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
-import { useProduct } from "@/modules/ProductItem/hooks/useProduct";
 import CollectionsCard from "@/modules/CollectionsCard";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 
@@ -12,12 +11,10 @@ const { Content } = Layout;
 const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
   const { data: products } = useProductByBrand({ brandId });
-  console.log(products);
-  
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
 
   return (
     <Container>
@@ -26,8 +23,6 @@ const CatalogLayout: FC = () => {
       </h1>
 
       <Layout>
-
-
         <Layout style={{ padding: "0 24px 24px", backgroundColor: "#fff" }}>
           <Breadcrumb
             items={[

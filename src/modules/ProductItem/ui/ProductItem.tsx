@@ -1,10 +1,10 @@
   import { FC, useState } from "react";
-import { IProduct } from "../hooks/useProduct";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import cls from "./ProductItem.module.scss";
+import { IProduct } from "../hooks/useAllProducts";
 
 interface IProps {
   product: IProduct;
@@ -53,12 +53,14 @@ const formatPrice = (price: number) => {
       </NavLink>
 
       <div className="px-5 pb-5">
-        <a href="#">
-          <p className="text-slate-600 h-24 font-normal tracking-tight dark:text-grey-900 py-5">
+
+        <NavLink to={`/detail/${product.id}`}>
+          <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
             {product.title}
           </p>
-        </a>
-        <div className="flex flex-col">
+        </NavLink>
+        <div className="column items-center justify-between">
+
           <span className="text-lg font-bold text-gray-900 dark:text-black">
             {/* @ts-ignore */}
             {formatPrice(product.price)}
