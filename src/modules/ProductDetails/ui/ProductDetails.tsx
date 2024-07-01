@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { FC, useState, useEffect } from "react";
 import cls from "./ProductDetails.module.scss";
 import { useCharacteristics } from "../hooks/useCharacteristics";
@@ -6,22 +7,32 @@ import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
 
+export interface IProductExt extends IProduct {
+  images?: string[];
+  installment?: number;
+  installmentService?: { title: string; monthly_payment: number };
+  cartQuantity?: number;
+}
+
 interface ProductDetailsProps {
-  product: IProduct;
-  onAddToCart: (product: IProduct) => void;
+  product: IProductExt;
+  onAddToCart: (product: IProductExt) => void;
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
 
-  
   const [state, setState] = useState(true);
   const [state2, setState2] = useState(false);
   const [state3, setState3] = useState(false);
 
   const [selectedInstallment, setSelectedInstallment] = useState<number>(6);
   const { data: installment, refetch } = useInstallment({ productId, months: selectedInstallment });
+
+  const [installmentService, setInstallmentService] = useState<
+    Partial<IProductExt["installmentService"]>
+  >({});
 
   useEffect(() => {
     refetch();
@@ -71,7 +82,6 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               alt={product.title}
             />
             <div className={cls.thumbnailContainer}>
-              {/* @ts-ignore */}
               {product.images?.map((img, index) => (
                 <img
                   key={index}
@@ -87,8 +97,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
               <span className={cls.currentPrice}>
-                {/* @ts-ignore */}
-                {formatPrice(product.price)}
+                {formatPrice(+product.price)}
               </span>
               <span className={cls.monthlyPrice}>363,000 сум/мес.</span>
               <span className={cls.oldPrice}>3,599,000 сум</span>
@@ -103,8 +112,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               <h2 className="font-bold text-xl">Цена товара</h2>
               <br />
               <h1 className="font-bold text-xl">
-                {/* @ts-ignore */}
-                {formatPrice(product.price)}
+                {formatPrice(+product.price)}
               </h1>
             </div>
             <div className="px-6 pt-4 pb-2">
@@ -142,13 +150,43 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </div>
             <div className="px-6 pt-4 pb-2">
               {installment?.map((installment, index) => (
-                <div key={index} className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer">
+                <div
+                  key={index}
+                  className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer"
+                  onClick={() =>
+                    setInstallmentService({
+                      title: installment.title,
+                      monthly_payment: installment.monthly_payment,
+                    })
+                  }
+                  style={{
+                    borderColor:
+                      installmentService?.title === installment.title
+                        ? "#b91c1c"
+                        : "#e5e7eb",
+                  }}
+                >
                   <img src={installment.logo} className=" h-10" alt="s" />
-                  <span className="font-normal text-sm">{formatPrice(installment.monthly_payment)}/мес</span>
+                  <span className="font-normal text-sm">
+                    {formatPrice(installment.monthly_payment)}/мес
+                  </span>
                 </div>
               ))}
-              
-              <button  className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded" onClick={() => onAddToCart(product)}><Link to={"/cart"} >Подтвердить</Link></button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
+                onClick={() =>
+                  onAddToCart({
+                    ...product,
+                    installment: selectedInstallment,
+                    installmentService: {
+                      title: installmentService?.title!,
+                      monthly_payment: installmentService?.monthly_payment!,
+                    },
+                  })
+                }
+              >
+                <Link to={"/cart"}>Подтвердить</Link>
+              </button>
             </div>
           </div>
         </div>
