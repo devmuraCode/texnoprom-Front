@@ -6,7 +6,8 @@ import http from "@/services/http";
 import { useMask } from "@react-input/mask";
 import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
 import axios from "axios";
-import { IProductExt } from "@/modules/ProductDetails/ui/ProductDetails";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const districts = [
   "Алмазарский район",
@@ -30,6 +31,7 @@ const Payment = () => {
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const navigate = useNavigate();
 
   const { cartItems, cartTotalAmount } = useAppSelector((state) => state.cart);
   const id = cartItems.map((item) => item.id);
@@ -105,7 +107,10 @@ const Payment = () => {
   };
 
   const handleInstallment = async () => {
-    if (!selectedDistrict && !deliveryAddress && !phone) return;
+    if (!selectedDistrict && !deliveryAddress && !phone) {
+      toast.error("Не все поля заполнены");
+      return;
+    }
 
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("user_id");
@@ -118,27 +123,31 @@ const Payment = () => {
       },
     });
 
-    axios.post(
-      `https://api.telegram.org/bot${
-        import.meta.env.VITE_BOT_TOKEN
-      }/sendMessage`,
-      {
-        chat_id: import.meta.env.VITE_CHAT_ID,
-        text: `Имя: ${
-          userData.username
-        }\nРайон: ${selectedDistrict}\nАдрес: ${deliveryAddress}\nНомер: ${phone}\nВид оплаты: Рассрочка\n\n${filteredItems
-          .map(
-            // @ts-expect-error abc
-            (item: IProductExt) =>
-              `${item.title}\nКоличество: ${item.cartQuantity}\nРассрочка: ${
-                item.installmentService?.title
-              } ${item.installment} мес. ${(
-                item.installmentService?.monthly_payment! * item.cartQuantity!
-              ).toLocaleString()} сум\n\n`
-          )
-          .join("")}`,
-      }
-    );
+    axios
+      .post(
+        `https://api.telegram.org/bot${
+          import.meta.env.VITE_BOT_TOKEN
+        }/sendMessage`,
+        {
+          chat_id: import.meta.env.VITE_CHAT_ID,
+          text: `Имя: ${
+            userData.username
+          }\nРайон: ${selectedDistrict}\nАдрес: ${deliveryAddress}\nНомер: ${phone}\nВид оплаты: Рассрочка\n\n${filteredItems
+            .map(
+              (item) =>
+                `${item.title}\nКоличество: ${item.cartQuantity}\nРассрочка: ${
+                  item.installmentService?.title
+                } ${item.installment} мес. ${(
+                  item.installmentService?.monthly_payment! * item.cartQuantity!
+                ).toLocaleString()} сум\n\n`
+            )
+            .join("")}`,
+        }
+      )
+      .then(() => {
+        toast.success("Ваш заказ оформлен, ждите звонка");
+        navigate("/");
+      });
   };
 
   return (

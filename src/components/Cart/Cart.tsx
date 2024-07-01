@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import {
   decreaseCart,
   getTotals,
   removeFromCart,
+  updateInstallment,
 } from "../../features/ShoppingSlice/CartSlice";
 import "./index.css";
 import useLoginModal from "@/modules/Modals/hooks/useLoginModal";
@@ -57,15 +59,24 @@ const Cart: React.FC = () => {
 
   const handleInstallmentChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    cartItemId: string
+    cartItemId: string,
+    monthlyPayment: number
   ) => {
     setInstallmentPlans({
       ...installmentPlans,
       [cartItemId]: parseInt(e.target.value),
     });
+
+    dispatch(
+      updateInstallment({
+        id: cartItemId,
+        installment: parseInt(e.target.value),
+        monthly_payment: monthlyPayment,
+      })
+    );
   };
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, quantity?: number) => {
     return (
       new Intl.NumberFormat("ru-RU", {
         style: "currency",
@@ -73,15 +84,18 @@ const Cart: React.FC = () => {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       })
-        .format(price)
+        .format(quantity ? price * quantity! : price)
         .replace("UZS", "")
         .trim() + " сум"
     );
   };
-  
 
-  const formatInstallmentPrice = (price: number, months: number) => {
-    return formatPrice(price / months) + ` / месяц x ${months}`;
+  const formatInstallmentPrice = (
+    price: number,
+    months: number,
+    quantity: number
+  ) => {
+    return formatPrice(price, quantity) + ` / месяц x ${months}`;
   };
 
   const handleCheckout = () => {
@@ -139,19 +153,29 @@ const Cart: React.FC = () => {
                   </div>
                 </div>
                 <div className="cart-product-price">
-                  {formatPrice(cartItem.price)}
+                  {formatPrice(cartItem.price, cartItem.cartQuantity)}
                 </div>
                 <div className="cart-product-quantity">
                   {/* @ts-ignore */}
-                  <button onClick={() => handleDecreaseCart(cartItem)}>-</button>
+                  <button onClick={() => handleDecreaseCart(cartItem)}>
+                    -
+                  </button>
                   <div className="count">{cartItem.cartQuantity}</div>
                   {/* @ts-ignore */}
                   <button onClick={() => handleAddToCart(cartItem)}>+</button>
                 </div>
                 <div className="cart-product-installment">
                   <select
-                    value={installmentPlans[cartItem.id] || 0}
-                    onChange={(e) => handleInstallmentChange(e, cartItem.id)}
+                    value={
+                      installmentPlans[cartItem.id] || cartItem.installment
+                    }
+                    onChange={(e) =>
+                      handleInstallmentChange(
+                        e,
+                        cartItem.id,
+                        cartItem.installmentService?.monthly_payment!
+                      )
+                    }
                   >
                     <option value={0}>Без рассрочки</option>
                     {[3, 6, 9, 12, 15, 18, 24].map((months) => (
@@ -163,8 +187,9 @@ const Cart: React.FC = () => {
                   {installmentPlans[cartItem.id] > 0 && (
                     <div>
                       {formatInstallmentPrice(
-                        cartItem.price,
-                        installmentPlans[cartItem.id]
+                        cartItem.installmentService?.monthly_payment!,
+                        installmentPlans[cartItem.id],
+                        cartItem.cartQuantity
                       )}
                     </div>
                   )}

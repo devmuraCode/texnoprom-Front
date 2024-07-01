@@ -8,6 +8,8 @@ interface CartItem {
   id: string;
   price: number;
   cartQuantity: number;
+  installment?: number;
+  installmentService?: Partial<{ title: string; monthly_payment: number }>;
 }
 
 interface CartState {
@@ -53,6 +55,26 @@ const cartSlice = createSlice({
         });
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    updateInstallment(
+      state,
+      action: PayloadAction<{
+        id: string;
+        installment: number;
+        monthly_payment: number;
+      }>
+    ) {
+      const { id, installment, monthly_payment } = action.payload;
+      const existingIndex = state.cartItems.findIndex((item) => item.id === id);
+
+      if (existingIndex >= 0) {
+        const cartItem = state.cartItems[existingIndex];
+        cartItem.installment = installment;
+        if (cartItem.installmentService) {
+          cartItem.installmentService.monthly_payment = monthly_payment;
+        }
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      }
     },
     decreaseCart(state, action: PayloadAction<{ id: string }>) {
       const itemIndex = state.cartItems.findIndex(
@@ -109,21 +131,40 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = parseFloat(total.toFixed(2));
 
-      localStorage.setItem("cartTotalQuantity", JSON.stringify(state.cartTotalQuantity));
-      localStorage.setItem("cartTotalAmount", JSON.stringify(state.cartTotalAmount));
+      localStorage.setItem(
+        "cartTotalQuantity",
+        JSON.stringify(state.cartTotalQuantity)
+      );
+      localStorage.setItem(
+        "cartTotalAmount",
+        JSON.stringify(state.cartTotalAmount)
+      );
     },
     clearCart(state) {
       state.cartItems = [];
       state.cartTotalQuantity = 0;
       state.cartTotalAmount = 0;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      localStorage.setItem("cartTotalQuantity", JSON.stringify(state.cartTotalQuantity));
-      localStorage.setItem("cartTotalAmount", JSON.stringify(state.cartTotalAmount));
+      localStorage.setItem(
+        "cartTotalQuantity",
+        JSON.stringify(state.cartTotalQuantity)
+      );
+      localStorage.setItem(
+        "cartTotalAmount",
+        JSON.stringify(state.cartTotalAmount)
+      );
       toast.error("Cart cleared", { position: "bottom-left" });
     },
   },
 });
 
-export const { addToCart, decreaseCart, removeFromCart, getTotals, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  updateInstallment,
+  decreaseCart,
+  removeFromCart,
+  getTotals,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

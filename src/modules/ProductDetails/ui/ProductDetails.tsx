@@ -7,7 +7,7 @@ import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
 
-export interface IProductExt extends IProduct {
+interface IProductExt extends IProduct {
   images?: string[];
   installment?: number;
   installmentService?: { title: string; monthly_payment: number };
