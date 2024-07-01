@@ -20,7 +20,7 @@ const Category: FC = () => {
     return (
       <div >
         {category?.map((item) => (
-          <div key={item.category_id} className="bg-white p-5">
+          <div key={item.category_id} className="bg-black text-white p-5">
             <p className="font-semibold">{item.category_title}</p>
             <div>
               <ul>

@@ -96,11 +96,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
           <div className={cls.infoContainer}>
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
-              <span className={cls.currentPrice}>
-                {formatPrice(+product.price)}
-              </span>
-              <span className={cls.monthlyPrice}>363,000 сум/мес.</span>
-              <span className={cls.oldPrice}>3,599,000 сум</span>
+
+              {/* @ts-ignore */}
+              <span className={cls.currentPrice}>{formatPrice(product.price)}</span>
+              <span className={cls.monthlyPrice}>{product.priceusd} $</span>
+
               <span>{product.description}</span>
             </div>
           </div>
