@@ -22,6 +22,8 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
+  console.log(product);
+  
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
 
