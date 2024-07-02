@@ -23,7 +23,7 @@ interface ProductDetailsProps {
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   console.log(product);
-  
+
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
 
@@ -136,7 +136,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               </h1>
             </div>
             <div className="px-6 pt-4 pb-2">
-            <button
+              <button
                 onClick={() => handleAddToCart(product)}
                 className={`${cls.button} ${
                   isAddedToCart ? cls.buttonAdded : ""
@@ -172,10 +172,22 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               </div>
             </div>
             <div className="px-6 pt-4 pb-2">
-            {installment?.map((installment, index) => (
+              {installment?.map((installment, index) => (
                 <div
                   key={index}
                   className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer"
+                  onClick={() =>
+                    setInstallmentService({
+                      title: installment.title,
+                      monthly_payment: installment.monthly_payment,
+                    })
+                  }
+                  style={{
+                    borderColor:
+                      installmentService?.title === installment.title
+                        ? "#b91c1c"
+                        : "#e5e7eb",
+                  }}
                 >
                   <img src={installment.logo} className=" h-10" alt="s" />
                   <span className="font-normal text-sm">
@@ -256,15 +268,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               <p className="leading-loose mb-4">{product.description}</p>
             )}
             {state2 && (
-              <div
-              className={cls.leading_loose}
-              style={{ columnCount: 2 }}
-            >
-              {characteristics?.map((item) => (
-                <div className={cls.centeredCharacteristics}>
-                  <Characteristics key={item.id} characteristics={item} />
-                </div>
-              ))}
+              <div className={cls.leading_loose} style={{ columnCount: 2 }}>
+                {characteristics?.map((item) => (
+                  <div className={cls.centeredCharacteristics}>
+                    <Characteristics key={item.id} characteristics={item} />
+                  </div>
+                ))}
               </div>
             )}
             {state3 && <p className="leading-loose mb-4">d</p>}
