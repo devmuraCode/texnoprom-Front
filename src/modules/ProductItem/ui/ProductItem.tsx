@@ -1,10 +1,10 @@
   import { FC, useState } from "react";
-import { IProduct } from "../hooks/useProduct";
 import { useProductDetail } from "@/modules/ProductDetail/hooks/useProductDetail";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import cls from "./ProductItem.module.scss";
+import { IProduct } from "../hooks/useAllProducts";
 
 interface IProps {
   product: IProduct;
@@ -38,7 +38,7 @@ const formatPrice = (price: number) => {
 };
 
   return (
-    <div className="w-full bg-white border border-x-gray-200 rounded-md	 duration-100 hover:shadow dark:bg-white dark:border-x-gray-300">
+    <div className="w-full  bg-white border border-x-gray-200 rounded-md	 duration-100 hover:shadow dark:bg-white dark:border-x-gray-300">
       <NavLink
         to={`/detail/${product.id}`}
         onClick={() => setProductId(product.id)}
@@ -53,15 +53,21 @@ const formatPrice = (price: number) => {
       </NavLink>
 
       <div className="px-5 pb-5">
-        <a href="#">
+
+        <NavLink to={`/detail/${product.id}`}>
           <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
             {product.title}
           </p>
-        </a>
+        </NavLink>
         <div className="column items-center justify-between">
+
           <span className="text-lg font-bold text-gray-900 dark:text-black">
             {/* @ts-ignore */}
             {formatPrice(product.price)}
+          </span>
+          <span className="text-md font-bold text-gray-900 dark:text-black">
+            {/* @ts-ignore */}
+            {product.priceusd} $
           </span>
         </div>
         <div className="flex items-center justify-between">

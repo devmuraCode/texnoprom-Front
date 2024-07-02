@@ -14,15 +14,15 @@ import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCa
 
 const Navbar = () => {
   const registerModal = useRegisterModal();
-  const [categoryId, setCategoryId] = useState<string | null>(null);
+
   const { data: products = [] } = useAllProducts();
   const { data: category } = useAllCategory();
   const [productId, setProductId] = useState<string | null>(null);
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   // @ts-ignore
   const { data: productsDetail } = useProductDetail({ productId });
   // @ts-ignore
-  const {data: categoryid} = useProductByCategory({categoryId});
-
+  const { data: productcByCategory } = useProductByCategory({ categoryId });
   const token = localStorage.getItem("token");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -55,11 +55,12 @@ const Navbar = () => {
               key={category.id}
               to={`/catalog/${category.id}`}
               onClick={() => setCategoryId(category.id)}
-              className="text-white font-bold block hidden sm:block"
+              className={cls.category}
             >
               {category.title}
             </NavLink>
           ))}
+
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <a href="tel:+998712345678" className="text-white font-bold">
               +998900222323

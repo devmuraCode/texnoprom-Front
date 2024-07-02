@@ -10,6 +10,19 @@
     background: linear-gradient(120deg, rgba(14, 14, 14, 1) 45%, rgba(0, 0, 0, 1) 52%, rgba(244, 11, 4, 1) 73%);
   }
 }
+.category{
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    text-shadow:
+    0 0 10px #fff,
+    0 0 10px #fff,
+    0 0 10px #fff,
+    0 0 10px #fff;
+
+  }
+}
 
 .cart {
   display: flex;

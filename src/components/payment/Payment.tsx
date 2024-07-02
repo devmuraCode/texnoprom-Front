@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import { useState, useEffect, FormEvent } from "react";
 import { useAppSelector } from "@/store/store";
 import Container from "../Container/Container";
 import http from "@/services/http";
 import { useMask } from "@react-input/mask";
 import useUzumModal from "@/modules/Modals/hooks/useUzumModa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const districts = [
   "Алмазарский район",
@@ -22,11 +26,12 @@ const districts = [
 const Payment = () => {
   const uzumModal = useUzumModal();
   const user_id = localStorage.getItem("user_id");
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [payLink, setPayLink] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const navigate = useNavigate();
 
   const { cartItems, cartTotalAmount } = useAppSelector((state) => state.cart);
   const id = cartItems.map((item) => item.id);
@@ -69,7 +74,7 @@ const Payment = () => {
     }
   };
 
-  // @ts-ignore
+  // @ts-expect-error abc
   const handlePaymeFormOrder = async (orderData) => {
     const token = localStorage.getItem("token");
 
@@ -90,7 +95,7 @@ const Payment = () => {
     }
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       localStorage.setItem("selectedDistrict", selectedDistrict);
@@ -99,6 +104,50 @@ const Payment = () => {
     } catch (err) {
       console.error("Error processing payment:", err);
     }
+  };
+
+  const handleInstallment = async () => {
+    if (!selectedDistrict && !deliveryAddress && !phone) {
+      toast.error("Не все поля заполнены");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("user_id");
+
+    const filteredItems = cartItems.filter((item) => "installment" in item);
+
+    const { data: userData } = await http.request.get(`/users/${userId}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    axios
+      .post(
+        `https://api.telegram.org/bot${
+          import.meta.env.VITE_BOT_TOKEN
+        }/sendMessage`,
+        {
+          chat_id: import.meta.env.VITE_CHAT_ID,
+          text: `Имя: ${
+            userData.username
+          }\nРайон: ${selectedDistrict}\nАдрес: ${deliveryAddress}\nНомер: ${phone}\nВид оплаты: Рассрочка\n\n${filteredItems
+            .map(
+              (item) =>
+                `${item.title}\nКоличество: ${item.cartQuantity}\nРассрочка: ${
+                  item.installmentService?.title
+                } ${item.installment} мес. ${(
+                  item.installmentService?.monthly_payment! * item.cartQuantity!
+                ).toLocaleString()} сум\n\n`
+            )
+            .join("")}`,
+        }
+      )
+      .then(() => {
+        toast.success("Ваш заказ оформлен, ждите звонка");
+        navigate("/");
+      });
   };
 
   return (
@@ -181,15 +230,18 @@ const Payment = () => {
                 />
               </button>
               <button
-              onClick={() => uzumModal.onOpen()}
-              className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
-            >
-              <img
-                className="w-40 mx-auto"
-                src="https://docs.click.uz/wp-content/themes/click_help/assets/images/logo.png"
-                alt="Uzum"
-              />
-            </button>
+                onClick={() => uzumModal.onOpen()}
+                className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+              >
+                <img
+                  className="w-40 mx-auto"
+                  src="https://docs.click.uz/wp-content/themes/click_help/assets/images/logo.png"
+                  alt="Uzum"
+                />
+              </button>
+              <button type="button" onClick={handleInstallment}>
+                Рассрочка
+              </button>
             </div>
           </form>
         </div>
