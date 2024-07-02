@@ -34,6 +34,7 @@ const Footer = () => {
                 {brands?.map((item) => (
                   <Link
                     to={`/catalog/${item.id}`}
+                    
                     onClick={() => setBrandId(item.id)}
                     className="text-sm block"
                     key={item.id}
