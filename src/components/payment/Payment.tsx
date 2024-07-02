@@ -221,7 +221,7 @@ const Payment = () => {
             <div className="text-center flex gap-2">
               <button
                 type="submit"
-                className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                className="inline-block hover:bg-blue-600 border text-white font-bold py-2 px-4 rounded-lg transition duration-300"
               >
                 <img
                   className="w-40 mx-auto"
@@ -231,7 +231,7 @@ const Payment = () => {
               </button>
               <button
                 onClick={() => uzumModal.onOpen()}
-                className="inline-block hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                className="inline-block hover:bg-blue-600 border text-white font-bold py-2 px-4 rounded-lg transition duration-300"
               >
                 <img
                   className="w-40 mx-auto"
@@ -239,7 +239,7 @@ const Payment = () => {
                   alt="Uzum"
                 />
               </button>
-              <button type="button" onClick={handleInstallment}>
+              <button className="text-black border inline-block hover:bg-blue-600 font-bold py-2 px-10 text-lg rounded-lg transition duration-300" type="button" onClick={handleInstallment}>
                 Рассрочка
               </button>
             </div>
