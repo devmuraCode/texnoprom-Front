@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Breadcrumb, Layout, Pagination, theme } from "antd";
 import Container from "@/components/Container/Container";
 import { NavLink, useParams } from "react-router-dom";
@@ -12,9 +12,18 @@ const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
   const { data: products } = useProductByBrand({ brandId });
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedProducts = products?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <Container>
@@ -49,7 +58,8 @@ const CatalogLayout: FC = () => {
               gap: "24px",
             }}
           >
-            {products?.map((product) => (
+            {paginatedProducts?.map((product) => (
+              // @ts-ignore
               <ProductItem key={product.id} product={product} />
             ))}
           </Content>
@@ -57,8 +67,10 @@ const CatalogLayout: FC = () => {
       </Layout>
       <Pagination
         className="flex justify-center"
-        defaultCurrent={1}
-        total={50}
+        current={currentPage}
+        pageSize={pageSize}
+        total={products?.length || 0}
+        onChange={handlePageChange}
       />
       <CollectionsCard />
     </Container>
