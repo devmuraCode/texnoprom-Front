@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 
 interface ProductDetailsProps {
   product: IProduct;
@@ -14,18 +16,31 @@ interface ProductDetailsProps {
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
+  const dispatch = useAppDispatch();
 
-  
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [state, setState] = useState(true);
   const [state2, setState2] = useState(false);
   const [state3, setState3] = useState(false);
 
   const [selectedInstallment, setSelectedInstallment] = useState<number>(6);
-  const { data: installment, refetch } = useInstallment({ productId, months: selectedInstallment });
+  const { data: installment, refetch } = useInstallment({
+    productId,
+    months: selectedInstallment,
+  });
 
   useEffect(() => {
     refetch();
   }, [selectedInstallment, refetch]);
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
+    setIsAddedToCart(true);
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
 
   if (!product) {
     return <div>Product not found</div>;
@@ -90,8 +105,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                 {/* @ts-ignore */}
                 {formatPrice(product.price)}
               </span>
-              <span className={cls.monthlyPrice}>363,000 сум/мес.</span>
-              <span className={cls.oldPrice}>3,599,000 сум</span>
+              <span className={cls.usd}>{product.priceusd} $</span>
               <span>{product.description}</span>
             </div>
           </div>
@@ -109,10 +123,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </div>
             <div className="px-6 pt-4 pb-2">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
-                onClick={() => onAddToCart(product)}
+                onClick={() => handleAddToCart(product)}
+                className={`${cls.button} ${
+                  isAddedToCart ? cls.buttonAdded : ""
+                } ${isAnimating ? cls.buttonBounce : ""}`}
+                disabled={isAddedToCart}
               >
-                В Корзину
+                {isAddedToCart ? "Добавлено" : "Добавить в корзину"}
               </button>
             </div>
           </div>
@@ -142,13 +159,23 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </div>
             <div className="px-6 pt-4 pb-2">
               {installment?.map((installment, index) => (
-                <div key={index} className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer">
+                <div
+                  key={index}
+                  className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer"
+                >
                   <img src={installment.logo} className=" h-10" alt="s" />
-                  <span className="font-normal text-sm">{formatPrice(installment.monthly_payment)}/мес</span>
+                  <span className="font-normal text-sm">
+                    {formatPrice(installment.monthly_payment)}/мес
+                  </span>
                 </div>
               ))}
-              
-              <button  className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded" onClick={() => onAddToCart(product)}><Link to={"/cart"} >Подтвердить</Link></button>
+
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
+                onClick={() => onAddToCart(product)}
+              >
+                <Link to={"/cart"}>Подтвердить</Link>
+              </button>
             </div>
           </div>
         </div>
@@ -156,7 +183,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
 
       <div className="py-16">
         <div className="container mx-auto">
-          <div className="flex space-x-4">
+          <div className="flex">
             <button
               onClick={() => {
                 setState(true);
@@ -201,14 +228,16 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </button>
           </div>
 
-          <div className="mt-8 text-lg">
-            {state && (
-              <p className="leading-loose mb-4">{product.description}</p>
-            )}
+          <div className="text-lg">
             {state2 && (
-              <div className="leading-loose mb-4">
+              <div
+                className={cls.leading_loose}
+                style={{ columnCount: 2 }}
+              >
                 {characteristics?.map((item) => (
-                  <Characteristics key={item.id} characteristics={item} />
+                  <div className={cls.centeredCharacteristics}>
+                    <Characteristics key={item.id} characteristics={item} />
+                  </div>
                 ))}
               </div>
             )}

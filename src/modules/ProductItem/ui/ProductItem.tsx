@@ -54,14 +54,17 @@ const formatPrice = (price: number) => {
 
       <div className="px-5 pb-5">
         <NavLink to={`/detail/${product.id}`}>
-          <p className="text-slate-600 font-normal tracking-tight dark:text-grey-900 py-5">
+          <p className="text-slate-600 h-20 font-normal tracking-tight dark:text-grey-900 py-5">
             {product.title}
           </p>
         </NavLink>
-        <div className="column items-center justify-between">
+        <div className="flex flex-col">
           <span className="text-lg font-bold text-gray-900 dark:text-black">
             {/* @ts-ignore */}
             {formatPrice(product.price)}
+          </span>
+          <span className="text-lg font-bold text-gray-900 dark:text-black">
+          {product.priceusd} $
           </span>
         </div>
         <div className="flex items-center justify-between">
