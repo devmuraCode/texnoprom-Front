@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 
 interface IProductExt extends IProduct {
   images?: string[];
@@ -23,12 +25,21 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
 
+  const dispatch = useAppDispatch();
+
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+
   const [state, setState] = useState(true);
   const [state2, setState2] = useState(false);
   const [state3, setState3] = useState(false);
 
   const [selectedInstallment, setSelectedInstallment] = useState<number>(6);
-  const { data: installment, refetch } = useInstallment({ productId, months: selectedInstallment });
+  const { data: installment, refetch } = useInstallment({
+    productId,
+    months: selectedInstallment,
+  });
 
   const [installmentService, setInstallmentService] = useState<
     Partial<IProductExt["installmentService"]>
@@ -37,6 +48,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   useEffect(() => {
     refetch();
   }, [selectedInstallment, refetch]);
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
+    setIsAddedToCart(true);
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
 
   if (!product) {
     return <div>Product not found</div>;
@@ -96,11 +114,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
           <div className={cls.infoContainer}>
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
-
-              {/* @ts-ignore */}
-              <span className={cls.currentPrice}>{formatPrice(product.price)}</span>
-              <span className={cls.monthlyPrice}>{product.priceusd} $</span>
-
+              <span className={cls.currentPrice}>
+                {/* @ts-ignore */}
+                {formatPrice(product.price)}
+              </span>
+              <span className={cls.usd}>{product.priceusd} $</span>
               <span>{product.description}</span>
             </div>
           </div>
@@ -116,11 +134,14 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               </h1>
             </div>
             <div className="px-6 pt-4 pb-2">
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
-                onClick={() => onAddToCart(product)}
+            <button
+                onClick={() => handleAddToCart(product)}
+                className={`${cls.button} ${
+                  isAddedToCart ? cls.buttonAdded : ""
+                } ${isAnimating ? cls.buttonBounce : ""}`}
+                disabled={isAddedToCart}
               >
-                В Корзину
+                {isAddedToCart ? "Добавлено" : "Добавить в корзину"}
               </button>
             </div>
           </div>
@@ -149,22 +170,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               </div>
             </div>
             <div className="px-6 pt-4 pb-2">
-              {installment?.map((installment, index) => (
+            {installment?.map((installment, index) => (
                 <div
                   key={index}
                   className="flex justify-between items-center border hover:border-red-700 mb-1 font-bold py-2 px-4 rounded gap-8 pointer"
-                  onClick={() =>
-                    setInstallmentService({
-                      title: installment.title,
-                      monthly_payment: installment.monthly_payment,
-                    })
-                  }
-                  style={{
-                    borderColor:
-                      installmentService?.title === installment.title
-                        ? "#b91c1c"
-                        : "#e5e7eb",
-                  }}
                 >
                   <img src={installment.logo} className=" h-10" alt="s" />
                   <span className="font-normal text-sm">
@@ -172,6 +181,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                   </span>
                 </div>
               ))}
+
               <button
                 className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
                 onClick={() =>
@@ -194,7 +204,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
 
       <div className="py-16">
         <div className="container mx-auto">
-          <div className="flex space-x-4">
+          <div className="flex">
             <button
               onClick={() => {
                 setState(true);
@@ -239,15 +249,20 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             </button>
           </div>
 
-          <div className="mt-8 text-lg">
+          <div className="text-lg">
             {state && (
               <p className="leading-loose mb-4">{product.description}</p>
             )}
             {state2 && (
-              <div className="leading-loose mb-4">
-                {characteristics?.map((item) => (
+              <div
+              className={cls.leading_loose}
+              style={{ columnCount: 2 }}
+            >
+              {characteristics?.map((item) => (
+                <div className={cls.centeredCharacteristics}>
                   <Characteristics key={item.id} characteristics={item} />
-                ))}
+                </div>
+              ))}
               </div>
             )}
             {state3 && <p className="leading-loose mb-4">d</p>}

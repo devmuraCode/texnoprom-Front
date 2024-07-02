@@ -12,6 +12,7 @@ export interface IProduct {
   stock_quantity: number;
   category: string;
   brand: string;
+  priceusd: string;
 }
 
 export const useAllProducts = () => {
