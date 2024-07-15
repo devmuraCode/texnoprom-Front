@@ -1,5 +1,5 @@
-
 // ProductDetails.module.scss
+
 .productDetailPage {
   padding: 20px;
 }
@@ -15,19 +15,29 @@
   cursor: pointer;
   color: black;
   transition: all 0.5s ease;
-  &:hover{
-    background-color: black;
-    color: white;
 }
+.productDetailContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
 }
 
 .buttonAdded {
   background-color: #28a745;
   color: white;
 }
+.infoContainer {
+  width: 100%;
+}
 
 @keyframes buttonBounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -51,6 +61,7 @@
 
 .flexContainer {
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
 }
 
@@ -69,13 +80,14 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
   flex: 2;
 }
+
 .centeredCharacteristics {
   display: flex;
   align-items: center;
 }
+
 @media (max-width: 768px) {
   .leading_loose {
     display: flex;
@@ -86,26 +98,49 @@
 }
 
 .imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  margin: 20px;
+  width: 100%;
   flex: 1;
   max-width: 100%;
 }
 
 .mainImage {
   width: 100%;
-  border-radius: 8px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.mainImage:hover {
+  transform: scale(1.05);
 }
 
 .thumbnailContainer {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 5px;
   margin-top: 10px;
   flex-wrap: wrap;
 }
 
 .thumbnail {
-  width: 100%;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  object-fit: cover;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.thumbnail:hover {
+  transform: scale(1.1);
+  border: 2px solid #007bff;
 }
 
 .infoContainer {
@@ -124,7 +159,7 @@
   margin-bottom: 10px;
 }
 
-.usd{
+.usd {
   font-size: 22px;
   font-weight: bold;
   color: #000;

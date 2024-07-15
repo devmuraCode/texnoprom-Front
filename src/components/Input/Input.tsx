@@ -1,6 +1,6 @@
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
-interface InputProps {
+interface InputProps<T> {
   id: string;
   name: string;
   label: string;
@@ -8,11 +8,11 @@ interface InputProps {
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = <T extends Record<string, unknown>>({
   id,
   label,
   name,
@@ -22,13 +22,13 @@ const Input: React.FC<InputProps> = ({
   register,
   required,
   errors,
-}) => {
+}: InputProps<T>) => {
   return (
     <div className="w-full relative">
       <input
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        {...register(id as any, { required })}
         name={name}
         placeholder=" "
         type={type}
