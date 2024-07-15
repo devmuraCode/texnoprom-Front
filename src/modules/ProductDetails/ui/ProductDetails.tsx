@@ -8,6 +8,7 @@ import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
+import { useLightHouse } from "../hooks/useLightHouse";
 
 interface IProductExt extends IProduct {
   images?: string[];
@@ -22,27 +23,18 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
-  console.log(product);
-
   const { productId } = useParams<{ productId: string }>();
   const { data: characteristics } = useCharacteristics({ productId });
-
+  const { data: lighthouse } = useLightHouse({ productId });
   const dispatch = useAppDispatch();
-
   const { cartItems } = useAppSelector((state) => state.cart);
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
-  const [state, setState] = useState(true);
-  const [state2, setState2] = useState(false);
-  const [state3, setState3] = useState(false);
-
   const [selectedInstallment, setSelectedInstallment] = useState<number>(6);
   const { data: installment, refetch } = useInstallment({
     productId,
     months: selectedInstallment,
   });
-
   const [installmentService, setInstallmentService] = useState<
     Partial<IProductExt["installmentService"]>
   >({});
@@ -51,7 +43,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
     refetch();
   }, [selectedInstallment, refetch]);
 
-  const handleAddToCart = (product: any) => {
+  const [state, setState] = useState(true);
+  const [state2, setState2] = useState(false);
+  const [state3, setState3] = useState(false);
+
+  const handleAddToCart = (product: IProductExt) => {
+    // @ts-ignore
     dispatch(addToCart(product));
     setIsAddedToCart(true);
     setIsAnimating(true);
@@ -102,12 +99,12 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               alt={product.title}
             />
             <div className={cls.thumbnailContainer}>
-              {product.images?.map((img, index) => (
+              {lighthouse?.map((el) => (
                 <img
-                  key={index}
+                  key={el.id}
                   className={cls.thumbnail}
-                  src={img}
-                  alt={`${product.title} thumbnail ${index}`}
+                  src={el.img}
+                  alt="thumbnail"
                 />
               ))}
             </div>
@@ -116,8 +113,9 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
           <div className={cls.infoContainer}>
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
+             
               <span className={cls.currentPrice}>
-                {/* @ts-ignore */}
+                 {/* @ts-ignore */}
                 {formatPrice(product.price)}
               </span>
               <span className={cls.usd}>{product.priceusd} $</span>
@@ -131,8 +129,10 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             <div className="px-6 py-4">
               <h2 className="font-bold text-xl">Цена товара</h2>
               <br />
+              
               <h1 className="font-bold text-xl">
-                {formatPrice(+product.price)}
+                {/* @ts-ignore */}
+                {formatPrice(product.price)}
               </h1>
             </div>
             <div className="px-6 pt-4 pb-2">
@@ -189,13 +189,16 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                         : "#e5e7eb",
                   }}
                 >
-                  <img src={installment.logo} className=" h-10" alt="s" />
+                  <img
+                    src={installment.logo}
+                    className="h-10"
+                    alt={installment.title}
+                  />
                   <span className="font-normal text-sm">
                     {formatPrice(installment.monthly_payment)}/мес
                   </span>
                 </div>
               ))}
-
               <button
                 className="bg-red-500 hover:bg-red-700 text-white w-full font-bold py-2 px-4 rounded"
                 onClick={() =>
@@ -270,13 +273,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             {state2 && (
               <div className={cls.leading_loose} style={{ columnCount: 2 }}>
                 {characteristics?.map((item) => (
-                  <div className={cls.centeredCharacteristics}>
-                    <Characteristics key={item.id} characteristics={item} />
+                  <div key={item.id} className={cls.centeredCharacteristics}>
+                    <Characteristics characteristics={item} />
                   </div>
                 ))}
               </div>
             )}
-            {state3 && <p className="leading-loose mb-4">d</p>}
+            {state3 && <p className="leading-loose mb-4">Отзывы</p>}
           </div>
         </div>
       </div>
