@@ -6,14 +6,19 @@ import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
+import cls from './Brand.module.scss'
+
 function Responsive() {
   const [brandId, setBrandId] = useState<string | null>(null);
   const { data: brands, isLoading, error } = useAllBrands();
+  console.log(brands);
+  
   // @ts-ignore
   const { data: product } = useProductByBrand({ brandId });
-  var settings = {
+
+  const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -41,7 +46,8 @@ function Responsive() {
         breakpoint: 480,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
+          dots: false, // Hide dots for mobile
         },
       },
     ],
@@ -59,11 +65,11 @@ function Responsive() {
             {brands?.map((brand) => (
               <Link to={`/catalog/${brand.id}`} onClick={() => setBrandId(brand.id)} key={brand.id}>
                 <div>
-                <img
-                  className="h-20"
-                  src={brand.logo}
-                  alt={brand.title}
-                />
+                  <img
+                    className={cls.brand_image}
+                    src={brand.logo}
+                    alt={brand.title}
+                  />
                 </div>
               </Link>
             ))}

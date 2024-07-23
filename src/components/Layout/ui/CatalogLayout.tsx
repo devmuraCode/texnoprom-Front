@@ -5,12 +5,16 @@ import { NavLink, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import CollectionsCard from "@/modules/CollectionsCard";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
+import { useProductByBrandCategory } from "@/modules/ProductItem/hooks/useProductsByBrandCategory";
 
 const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
   const { brandId } = useParams<string>();
-  const { data: products } = useProductByBrand({ brandId });
+  const { data: productsByBrand } = useProductByBrand({ brandId });
+  const { data: productsByBrandCategory } = useProductByBrandCategory({ brandId });
+
+  const products = [...(productsByBrand || []), ...(productsByBrandCategory || [])];
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;

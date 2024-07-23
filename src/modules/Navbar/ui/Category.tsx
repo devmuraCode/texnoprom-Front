@@ -2,9 +2,11 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
 import { Dropdown } from "antd";
-import { useBrands } from "@/modules/Brands/hooks/useBrands";
 import { useCategory } from "../hooks/useCategory";
-import cls from './Navbar.module.scss'
+import cls from "./Navbar.module.scss";
+
+import { useBrandCategory } from "@/modules/Brands/hooks/useBrandCategory";
+
 const Category: FC = () => {
   // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -14,18 +16,27 @@ const Category: FC = () => {
   const { data: collection } = useCollectionNavbar();
   const { data: category } = useCategory({ collectionId });
   // @ts-ignore
-  const { data: brands } = useBrands({ categoryId });
+  const { data: brands } = useBrandCategory({ categoryId });
 
   const SubMenuCollection: FC = () => {
     return (
-      <div >
+      <div
+        style={{ height: "100vh", overflowY: "auto" }} 
+        className="grid grid-cols-3"
+      >
         {category?.map((item) => (
-          <div key={item.category_id} className="bg-black text-white p-5">
+          <div key={item.category_id} className="bg-teal-500 text-white p-5">
             <p className="font-semibold">{item.category_title}</p>
             <div>
               <ul>
                 {item.children.map((brand) => (
-                  <Link to={`/catalog/${brand.brand_id}`} onClick={() => setBrandId(brand.brand_id)}><li key={brand.brand_id}>{brand.brand_title}</li></Link>
+                  <Link
+                    to={`/catalog/${brand.brand_id}`}
+                    onClick={() => setBrandId(brand.brand_id)}
+                    key={brand.brand_id}
+                  >
+                    <li>{brand.brand_title}</li>
+                  </Link>
                 ))}
               </ul>
             </div>
@@ -36,9 +47,9 @@ const Category: FC = () => {
   };
 
   return (
-    <div className={cls.collection}>
+    <div className={`${cls.collection} h-screen`} style={{ width: "100%" }}>
       {collection?.map((item) => (
-        <div key={item.id} className="bg-black">
+        <div key={item.id} className="bg-teal-500 w-full">
           <Dropdown
             overlay={<SubMenuCollection />}
             // @ts-ignore
@@ -47,7 +58,8 @@ const Category: FC = () => {
           >
             <div
               onClick={() => setCollectionId(item.id)}
-              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black cursor-pointer "
+              // @ts-ignore
+              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black cursor-pointer"
             >
               {item.title}
             </div>
