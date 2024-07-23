@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import Dropdown from "@/components/Dropdawn/Dropdown";
 import Category from "./Category";

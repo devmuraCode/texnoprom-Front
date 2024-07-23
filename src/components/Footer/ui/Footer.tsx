@@ -12,11 +12,11 @@ interface CatalogItem {
 }
 
 const Footer = () => {
-  const {data: brands} = useAllBrands()
+  const { data: brands } = useAllBrands();
   const [brandId, setBrandId] = useState<string | null>(null);
-// @ts-ignore
+  // @ts-ignore
   const { data: products = [] } = useProductByBrand({ brandId });
-  
+
   return (
     <div className="footer w-full">
       <Container>
@@ -29,20 +29,7 @@ const Footer = () => {
             </div>
 
             <div className="mb-6 w-full sm:w-auto text-start">
-              <h2 className="font-black text-lg">Каталог</h2>
-              <div className="catalog-grid">
-                {brands?.map((item) => (
-                  <Link
-                    to={`/catalog/${item.id}`}
-                    
-                    onClick={() => setBrandId(item.id)}
-                    className="text-sm block"
-                    key={item.id}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
+              {/* content */}
             </div>
 
             <div className="mb-6 w-full sm:w-auto text-start">

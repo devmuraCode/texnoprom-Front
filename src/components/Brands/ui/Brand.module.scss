@@ -1,0 +1,22 @@
+@media (max-width: 480px) {
+    .slider-container img {
+      width: 100px; 
+      height: 80px; 
+    }
+    .slick-dots {
+      display: none;
+    }
+  }
+  
+  .brand_image {
+    width: 9rem;
+    height: 6rem;
+  }
+  
+  @media (max-width: 480px) {
+    .brand_image {
+      width: 100px;
+      height: 80px; 
+    }
+  }
+  
