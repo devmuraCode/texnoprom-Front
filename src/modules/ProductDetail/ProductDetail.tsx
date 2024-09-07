@@ -29,6 +29,7 @@ console.log(product);
 
   return (
     <Container>
+      {/* @ts-ignore */}
       <ProductDetails product={product} onAddToCart={handleAddToCart} />
     </Container>
   );

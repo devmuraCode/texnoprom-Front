@@ -2,14 +2,22 @@ import { http } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 
 export interface IProduct {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  title: string;
-  description: string;
-  mainimg: string;
-  price: string;
-  stock_quantity: number;
+  id: string,
+  discounted_price: string,
+  created_at: string,
+  updated_at: string,
+  title: string,
+  description: string,
+  mainimg: string,
+  stock_quantity: number,
+  discount_percent: string,
+  package_code: string,
+  code: string,
+  price: string,
+  vat_percent: string,
+  brandcategory: string,
+  brands: string
+  installment: string;
   category: string;
   brand: string;
 }

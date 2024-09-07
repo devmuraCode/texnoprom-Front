@@ -74,6 +74,8 @@ function Responsive() {
               </Link>
             ))}
           </Slider>
+          
+          
         </Container>
       </div>
     );

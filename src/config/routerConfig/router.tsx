@@ -1,5 +1,7 @@
+import AboutPage from "@/Pages/About/AboutPage";
 import CartPage from "@/Pages/CartPage/CartPage";
 import Catalog from "@/Pages/Catalog/Catalog";
+import DeliveryPage from "@/Pages/DeliveryPage/DeliveryPage";
 import MainPage from "@/Pages/MainPage/MainPage";
 import PaymentPage from "@/Pages/PaymentPage/PaymentPage";
 import User from "@/Pages/User/ui/User";
@@ -13,7 +15,9 @@ export enum AppRoutes {
   CART = "/cart",
   DETAIL = "/detail",
   PROFILE = "/profile",
-  PAYMENT = "/payment"
+  PAYMENT = "/payment",
+  ABOUT = "/about",
+  DELIVERY = "/delivery",
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -22,7 +26,9 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.CART]: "/cart",
   [AppRoutes.DETAIL]: "/detail/:productId",
   [AppRoutes.PROFILE]: "/profile" ,
-  [AppRoutes.PAYMENT]: "/payment"
+  [AppRoutes.PAYMENT]: "/payment",
+  [AppRoutes.ABOUT]: "/about",
+  [AppRoutes.DELIVERY]: "/delivery",
 };
 
 export const router = createBrowserRouter([
@@ -53,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: RoutePath["/payment"],
         element: <PaymentPage />,
+      },
+      {
+        path: RoutePath["/about"],
+        element: <AboutPage />,
+      },
+      {
+        path: RoutePath["/delivery"],
+        element: <DeliveryPage />,
       },
     ],
   },

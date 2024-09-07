@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import "./index.css";
+import "./index.scss";
 import Root from "./Root.tsx";
 import { store } from "./store/store.ts";
 

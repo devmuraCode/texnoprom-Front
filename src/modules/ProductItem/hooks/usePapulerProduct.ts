@@ -3,30 +3,25 @@ import { useQuery } from "@tanstack/react-query";
 
 export interface IProduct {
   id: string;
-  discounted_price: string;
   created_at: string;
   updated_at: string;
   title: string;
   description: string;
-  installment: string;
   mainimg: string;
-  stock_quantity: number;
-  discount_percent: string;
-  package_code: string;
-  code: string;
   price: string;
-  vat_percent: string;
+  stock_quantity: number;
   category: string;
-  brandcategory: string;
-  brands: string;
+  brand: string;
+  installment: string;
+  priceusd: string;
 }
 
-export const useAllProducts = () => {
+export const usePapulerProduct = () => {
   return useQuery<IProduct[]>({
     queryKey: ["product"],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/products/`);
+        const response = await http.request.get(`/products/popular/`);
         if (response && response.data) {
           return response.data.results;
         } else {
