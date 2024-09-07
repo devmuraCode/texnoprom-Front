@@ -9,7 +9,7 @@ import ToasterProvider from "@/providers/ToasterProvider";
 
 const Main: FC = () => {
   return (
-    <div className=" flex-col h-screen">
+    <div className="flex-col h-screen">
       <Navbar />
       <div className="grow">
         <Suspense fallback={<div>Loading...</div>}>

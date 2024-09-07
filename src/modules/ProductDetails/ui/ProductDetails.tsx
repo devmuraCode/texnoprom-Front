@@ -9,7 +9,7 @@ import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import { useLightHouse } from "../hooks/useLightHouse";
-
+// @ts-ignore
 interface IProductExt extends IProduct {
   images?: string[];
   installment?: number;
@@ -27,6 +27,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { data: characteristics } = useCharacteristics({ productId });
   const { data: lighthouse } = useLightHouse({ productId });
   const dispatch = useAppDispatch();
+  // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
@@ -118,8 +119,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                  {/* @ts-ignore */}
                 {formatPrice(product.price)}
               </span>
-              <span className={cls.usd}>{product.priceusd} $</span>
-              <span>{product.description}</span>
+              <span className={cls.usd}>{product.discounted_price} </span>
             </div>
           </div>
         </div>

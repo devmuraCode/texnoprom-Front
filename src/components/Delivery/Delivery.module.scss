@@ -1,0 +1,49 @@
+.deliveryWrapper {
+    padding: 0px;
+    background-color: #f8f9fa;
+  }
+  
+  .deliverySection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .deliveryOptions {
+    margin-bottom: 20px;
+    text-align: start;
+    
+  }
+  
+  .deliveryTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .deliveryText {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .deliveryBenefits {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .deliveryBenefits li {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .deliveryIllustration img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

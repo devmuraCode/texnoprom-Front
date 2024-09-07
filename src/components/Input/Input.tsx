@@ -8,7 +8,9 @@ interface InputProps<T> {
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
+  // @ts-ignore
   register: UseFormRegister<T>;
+  // @ts-ignore
   errors: FieldErrors<T>;
 }
 

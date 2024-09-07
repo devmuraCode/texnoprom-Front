@@ -14,7 +14,7 @@ class Http {
    private instance: AxiosInstance;
 
    private defaults: AxiosRequestConfig = {
-      baseURL: "https://back-texnoprom.uz",
+      baseURL: "http://172.20.10.3:8000",
       headers: {
          Accept: 'application/json',
          'Content-Type': 'application/json; charset=utf-8'

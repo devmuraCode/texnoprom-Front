@@ -27,6 +27,7 @@ const Payment = () => {
   const uzumModal = useUzumModal();
   const user_id = localStorage.getItem("user_id");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // @ts-ignore
   const [payLink, setPayLink] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [phone, setPhone] = useState("");

@@ -20,7 +20,7 @@ export const useBrandCategory = ({ categoryId }: IProps) => {
     queryFn: async () => {
       try {
         const response = await http.request.get(
-          `/brands/brandscategory/${categoryId}`
+          `/brands/category/${categoryId}`
         );
         if (response && response.data) {
           return response.data;

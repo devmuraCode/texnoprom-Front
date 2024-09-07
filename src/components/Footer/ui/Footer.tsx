@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "@/components/Container/Container";
 import logo from "@/assets/logo1.svg";
@@ -6,13 +6,10 @@ import "./Footer.scss";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 
-interface CatalogItem {
-  id: string;
-  title: string;
-}
-
 const Footer = () => {
+  // @ts-ignore
   const { data: brands } = useAllBrands();
+  // @ts-ignore
   const [brandId, setBrandId] = useState<string | null>(null);
   // @ts-ignore
   const { data: products = [] } = useProductByBrand({ brandId });

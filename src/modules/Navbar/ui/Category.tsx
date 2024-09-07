@@ -1,32 +1,43 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCollectionNavbar } from "../hooks/useCollectionNavbar";
-import { Dropdown } from "antd";
 import { useCategory } from "../hooks/useCategory";
-import cls from "./Navbar.module.scss";
-
+import cls from "./Category.module.scss";
 import { useBrandCategory } from "@/modules/Brands/hooks/useBrandCategory";
 
 const Category: FC = () => {
-  // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [collectionId, setCollectionId] = useState<string | null>(null);
-  // @ts-ignore
   const [brandId, setBrandId] = useState<string | null>(null);
+
   const { data: collection } = useCollectionNavbar();
   const { data: category } = useCategory({ collectionId });
-  // @ts-ignore
   const { data: brands } = useBrandCategory({ categoryId });
 
-  const SubMenuCollection: FC = () => {
-    return (
-      <div
-        style={{ height: "100vh", overflowY: "auto" }} 
-        className="grid grid-cols-3"
-      >
+  useEffect(() => {
+    if (collection && collection.length > 0) {
+      setCollectionId(collection[0].id);
+    }
+  }, [collection]);
+
+  return (
+    <div className={cls.container}>
+      <div className={cls.collection}>
+        {collection?.map((item) => (
+          <div key={item.id} className={cls.collectionItem}>
+            <div
+              onClick={() => setCollectionId(item.id)}
+              className={`${cls.collectionLink} flex items-center gap-x-3.5 py-2 px-3 cursor-pointer`}
+            >
+              {item.title}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className={cls.categoryContainer}>
         {category?.map((item) => (
-          <div key={item.category_id} className="bg-teal-500 text-white p-5">
-            <p className="font-semibold">{item.category_title}</p>
+          <div key={item.category_id} className={cls.categoryItem}>
+            <p className="font-bold text-center">{item.category_title}</p>
             <div>
               <ul>
                 {item.children.map((brand) => (
@@ -43,29 +54,6 @@ const Category: FC = () => {
           </div>
         ))}
       </div>
-    );
-  };
-
-  return (
-    <div className={`${cls.collection} h-screen`} style={{ width: "100%" }}>
-      {collection?.map((item) => (
-        <div key={item.id} className="bg-teal-500 w-full">
-          <Dropdown
-            overlay={<SubMenuCollection />}
-            // @ts-ignore
-            placement="left"
-            trigger={["click"]}
-          >
-            <div
-              onClick={() => setCollectionId(item.id)}
-              // @ts-ignore
-              className="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-700 text-white hover:bg-white hover:text-black cursor-pointer"
-            >
-              {item.title}
-            </div>
-          </Dropdown>
-        </div>
-      ))}
     </div>
   );
 };
