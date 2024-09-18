@@ -6,15 +6,29 @@ import ProductItem from "@/modules/ProductItem";
 import CollectionsCard from "@/modules/CollectionsCard";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 import { useProductByBrandCategory } from "@/modules/ProductItem/hooks/useProductsByBrandCategory";
+import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCategory";
 
 const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
+  const { categoryId } = useParams<string>();
+  console.log(categoryId);
+  
   const { brandId } = useParams<string>();
-  const { data: productsByBrand } = useProductByBrand({ brandId });
-  const { data: productsByBrandCategory } = useProductByBrandCategory({ brandId });
 
-  const products = [...(productsByBrand || []), ...(productsByBrandCategory || [])];
+  const { data: productsByBrandCategory } = useProductByBrandCategory({
+    brandId,
+  });
+
+  const { data: productsByBrand } = useProductByBrand({ brandId });
+
+  const { data: productsByCategory } = useProductByCategory({ categoryId });
+
+  const products = [
+    ...(productsByCategory || []),
+    ...(productsByBrand || []),
+    ...(productsByBrandCategory || []),
+  ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -27,7 +41,10 @@ const CatalogLayout: FC = () => {
     setCurrentPage(page);
   };
 
-  const paginatedProducts = products?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedProducts = products?.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
     <Container>
