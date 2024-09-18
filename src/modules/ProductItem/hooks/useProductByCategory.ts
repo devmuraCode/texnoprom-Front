@@ -22,12 +22,12 @@ export interface IProduct {
   brand: string;
 }
 interface IProps {
-  categoryId: string | undefined;
+  categoryId: string | null;
 }
 
 export const useProductByCategory = ({ categoryId }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["product", categoryId],
+    queryKey: ["category", categoryId],
     queryFn: async () => {
       try {
         const response = await http.request.get(`/products/categories/${categoryId}`);

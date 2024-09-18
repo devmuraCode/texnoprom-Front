@@ -1,9 +1,14 @@
 import Slider from "react-slick";
 import { useAllCategory } from "../Catalog/hooks/useAllCategory";
 import Container from "@/components/Container/Container";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "./CarouselCategory.scss"; 
 
 function CarouselCategory() {
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   const { data: category } = useAllCategory();
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -12,14 +17,47 @@ function CarouselCategory() {
     slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 1200, 
+        settings: {
+          slidesToShow: 7,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 992, 
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 576, 
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
+  
   return (
     <Container>
-      <div className="slider-container" style={{ padding: "30px 0" }}>
+      <div className="slider-container">
         <Slider {...settings}>
           {category?.map((item) => (
-            <div key={item.id}> 
-              <h3>{item.title}</h3>
+            <div key={item.id}>
+              <Link to={`/catalog/${item.id}`} onClick={() => setCategoryId(item.id)}> 
+                <h3 className="cursor-pointer">{item.title}</h3>
+              </Link>
             </div>
           ))}
         </Slider>

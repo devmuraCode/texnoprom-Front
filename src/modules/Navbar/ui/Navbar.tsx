@@ -17,17 +17,17 @@ import { Link } from "react-router-dom";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 import useCatalogModal from "@/modules/Modals/hooks/useCatalogModal";
 import CatalogModal from "@/modules/Modals/CatalogModal";
+import { useMediaQuery } from "react-responsive";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggler = () => setMenuOpen((prev) => !prev);
- 
 
   const registerModal = useRegisterModal();
   const catalogModal = useCatalogModal();
 
   const [searchTerm, setSearchTerm] = useState("");
-
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
@@ -58,12 +58,15 @@ const Navbar = () => {
             Ташкент
           </p>
         </div>
-        <div>
+        
+        <div className={styles.desktopOnly}>
           <ul className={styles.top__navbar__catalog}>
             <li>
               <Link to={"/about"}>О нас</Link>
             </li>
-            <li><Link to={"/delivery"}>Доставка</Link></li>
+            <li>
+              <Link to={"/delivery"}>Доставка</Link>
+            </li>
             <li>Магазины</li>
             <li>Связаться с нами!</li>
           </ul>
@@ -73,7 +76,7 @@ const Navbar = () => {
         <div className={styles.header__content}>
           <div className={styles.header__left}>
             <Link to="/">
-              <img src={logo} className="w-40 h-20" alt="Flowbite Logo" />
+              <img src={logo} className={styles.header__logo} alt="Logo" />
             </Link>
             <button
               className={styles.header__button}
@@ -91,27 +94,23 @@ const Navbar = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <div>
-            <div className={styles.header__button__container}>
-              <div className={styles.header__button__status}>
-                <CiTimer />
-                <button>Статус заказа</button>
-              </div>
-              <div className={styles.header__button__status}>
+          <div className={`${styles.header__button__container} ${styles.desktopOnly}`}>
+            <div className={styles.header__button__status}>
+              <CiTimer />
+              <button>Статус заказа</button>
+            </div>
+            <div className={styles.header__button__status}>
               <CiShoppingCart />
               <Link to="/cart">Корзина</Link>
-              </div>
-              <div className={styles.header__button__status}>
-                <CiUser />
-                <button onClick={() => registerModal.onOpen()}>Войти</button>
-              </div>
             </div>
-              
-              <button className={styles.header__toggler} onClick={menuToggler}>
-                {!menuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
-              </button>
-           
+            <div className={styles.header__button__status}>
+              <CiUser />
+              <button onClick={() => registerModal.onOpen()}>Войти</button>
+            </div>
           </div>
+          <button className={styles.header__toggler} onClick={menuToggler}>
+            {!menuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
+          </button>
         </div>
       </div>
       <CatalogModal />
@@ -120,3 +119,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

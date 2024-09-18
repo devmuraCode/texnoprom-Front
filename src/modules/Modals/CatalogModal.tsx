@@ -16,14 +16,12 @@ const CatalogModal = () => {
   const { data: brands } = useBrandCategory({ categoryId });
 
   useEffect(() => {
-    // При открытии модального окна автоматически выбираем первую коллекцию и категорию
     if (isOpen && collections && collections.length > 0 && !collectionId) {
       setCollectionId(collections[0].id);
     }
   }, [isOpen, collections, collectionId]);
 
   useEffect(() => {
-    // После выбора коллекции автоматически выбираем первую категорию
     if (collectionId && categories && categories.length > 0 && !categoryId) {
       setCategoryId(categories[0].category_id);
     }
