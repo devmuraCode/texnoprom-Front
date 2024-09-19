@@ -80,11 +80,11 @@
   @media (max-width: 768px) {
     width: 100%;
     padding: 10px;
-    order: 1; /* Изменение порядка */
+    order: 2; /* Изменение порядка */
   }
 
   h3 {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 
     @media (max-width: 768px) {

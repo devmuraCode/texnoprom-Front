@@ -1,17 +1,12 @@
 import { useState } from "react";
 import logo from "@/assets/logo.png";
-
 import styles from "./Navbar.module.scss";
-
 import { BiMenuAltRight } from "react-icons/bi";
-import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { MdOutlinePhone } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import { CiTimer } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
-
 import { Input } from "antd";
 import { Link } from "react-router-dom";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
@@ -21,13 +16,12 @@ import { useMediaQuery } from "react-responsive";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuToggler = () => setMenuOpen((prev) => !prev);
-
+  const [menuOpenTwo, setMenuOpenTwo] = useState(false);
   const registerModal = useRegisterModal();
   const catalogModal = useCatalogModal();
-
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
@@ -38,7 +32,11 @@ const Navbar = () => {
     } else {
       catalogModal.onOpen();
     }
-    menuToggler();
+    setMenuOpen((prev) => !prev);
+  };
+
+  const handlerMenuToggle = () => {
+    setMenuOpenTwo((prev) => !prev);
   };
 
   return (
@@ -46,38 +44,33 @@ const Navbar = () => {
       <div className={styles.top__navbar}>
         <div className={styles.top__navbar__text__container}>
           <p className={styles.top__navbar__text}>
-            <span>
-              <MdOutlinePhone />
-            </span>{" "}
-            +998 71 203 33 33
+            <span><MdOutlinePhone /></span> +998 71 203 33 33
           </p>
           <p className={styles.top__navbar__text}>
-            <span>
-              <IoLocationOutline />
-            </span>
-            Ташкент
+            <span><IoLocationOutline /></span> Ташкент
           </p>
         </div>
-        
-        <div className={styles.desktopOnly}>
-          <ul className={styles.top__navbar__catalog}>
-            <li>
-              <Link to={"/about"}>О нас</Link>
-            </li>
-            <li>
-              <Link to={"/delivery"}>Доставка</Link>
-            </li>
-            <li>Магазины</li>
-            <li>Связаться с нами!</li>
-          </ul>
-        </div>
+
+        {!isMobile && (
+          <div className={styles.desktopOnly}>
+            <ul className={styles.top__navbar__catalog}>
+              <li><Link to="/about">О нас</Link></li>
+              <li><Link to="/delivery">Доставка</Link></li>
+              <li>Магазины</li>
+              <li>Связаться с нами!</li>
+            </ul>
+          </div>
+        )}
       </div>
+
       <div className={styles.header}>
         <div className={styles.header__content}>
           <div className={styles.header__left}>
-            <Link to="/">
-              <img src={logo} className={styles.header__logo} alt="Logo" />
-            </Link>
+            {!isMobile && (
+              <Link to="/">
+                <img src={logo} className={styles.header__logo} alt="Logo" />
+              </Link>
+            )}
             <button
               className={styles.header__button}
               onClick={handleCatalogToggle}
@@ -86,6 +79,7 @@ const Navbar = () => {
               Каталог
             </button>
           </div>
+
           <div>
             <Input
               className={styles.header__input}
@@ -94,29 +88,38 @@ const Navbar = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <div className={`${styles.header__button__container} ${styles.desktopOnly}`}>
-            <div className={styles.header__button__status}>
-              <CiTimer />
-              <button>Статус заказа</button>
-            </div>
+
+          <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
               <CiShoppingCart />
               <Link to="/cart">Корзина</Link>
             </div>
             <div className={styles.header__button__status}>
               <CiUser />
-              <button onClick={() => registerModal.onOpen()}>Войти</button>
+              <button onClick={registerModal.onOpen}>Войти</button>
             </div>
           </div>
-          <button className={styles.header__toggler} onClick={menuToggler}>
-            {!menuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
+
+          <button className={styles.header__toggler} onClick={handlerMenuToggle}>
+            {!menuOpenTwo ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
           </button>
         </div>
       </div>
+
+      {isMobile && (
+        <nav className={`${styles.nav} ${menuOpenTwo ? styles.navOpen : ''}`}>
+          <ul>
+            <li><Link to="/about">О нас</Link></li>
+            <li><Link to="/delivery">Доставка</Link></li>
+            <li>Магазины</li>
+            <li>Связаться с нами!</li>
+          </ul>
+        </nav>
+      )}
+
       <CatalogModal />
     </div>
   );
 };
 
 export default Navbar;
-

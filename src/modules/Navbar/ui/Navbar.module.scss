@@ -33,6 +33,10 @@
     display: flex;
     gap: 2rem;
     align-items: center;
+    @media screen and (max-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .top__navbar__text {
@@ -289,7 +293,9 @@
 
   .header__logo {
     width: 100px;
-
+    @media (max-width: 576px){
+      display: none;
+    }
     @include breakpoint(sm) {
       display: none;
     }
@@ -303,3 +309,100 @@
     display: block;
   }
 }
+
+.container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.top__navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background: #fff;
+
+  @include breakpoint(md) {
+    padding: 0 32px;
+  }
+
+  .top__navbar__text__container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .top__navbar__text {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .top__navbar__catalog {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+.header {
+  height: 10vh;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 1px 5px rgb(226, 209, 209);
+
+  .header__input {
+    width: 100%;
+    padding: 12px;
+
+    @include breakpoint(md) {
+      width: 700px;
+    }
+  }
+
+  &__content {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__button__container {
+    display: none;
+
+    @include breakpoint(md) {
+      display: flex;
+      gap: 3rem;
+    }
+  }
+
+  .header__button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: red;
+    padding: 10px 14px;
+    border-radius: 5px;
+    color: white;
+  }
+
+  .header__logo {
+    width: 100px;
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+}
+
+.desktopOnly {
+  display: none;
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
