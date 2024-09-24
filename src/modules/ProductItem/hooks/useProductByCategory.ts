@@ -21,6 +21,7 @@ export interface IProduct {
   category: string;
   brand: string;
 }
+
 interface IProps {
   categoryId: string | null;
 }
@@ -29,6 +30,7 @@ export const useProductByCategory = ({ categoryId }: IProps) => {
   return useQuery<IProduct[]>({
     queryKey: ["category", categoryId],
     queryFn: async () => {
+      if (!categoryId) return [];
       try {
         const response = await http.request.get(`/products/categories/${categoryId}`);
         if (response && response.data) {
@@ -37,7 +39,7 @@ export const useProductByCategory = ({ categoryId }: IProps) => {
           throw new Error("Response data is undefined");
         }
       } catch (error) {
-        throw new Error("Error fetching banners: ");
+        throw new Error("Error fetching products by category.");
       }
     },
     enabled: !!categoryId,

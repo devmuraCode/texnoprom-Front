@@ -13,7 +13,7 @@ export const useAllPapulerCategory = () => {
     queryKey: ["papularCategory"],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/categories/popular/`);
+        const response = await http.request.get("/categories/popular/");
         if (response && response.data) {
           return response.data[0]?.category || []; 
         } else {

@@ -11,21 +11,21 @@ import { createBrowserRouter } from "react-router-dom";
 
 export enum AppRoutes {
   MAIN = "main",
-  CATALOG = "/catalog",
-  CART = "/cart",
-  DETAIL = "/detail",
-  PROFILE = "/profile",
-  PAYMENT = "/payment",
-  ABOUT = "/about",
-  DELIVERY = "/delivery",
+  CATALOG = "catalog",
+  CART = "cart",
+  DETAIL = "detail",
+  PROFILE = "profile",
+  PAYMENT = "payment",
+  ABOUT = "about",
+  DELIVERY = "delivery",
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: "/",
-  [AppRoutes.CATALOG]: "/catalog/:brandId",
+  [AppRoutes.CATALOG]: "/catalog/:brandId?/:categoryId?",
   [AppRoutes.CART]: "/cart",
   [AppRoutes.DETAIL]: "/detail/:productId",
-  [AppRoutes.PROFILE]: "/profile" ,
+  [AppRoutes.PROFILE]: "/profile",
   [AppRoutes.PAYMENT]: "/payment",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.DELIVERY]: "/delivery",
@@ -37,35 +37,35 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: RoutePath.main,
+        path: RoutePath[AppRoutes.MAIN],
         element: <MainPage />,
       },
       {
-        path: RoutePath["/catalog"],
+        path: RoutePath[AppRoutes.CATALOG],
         element: <Catalog />,
       },
       {
-        path: RoutePath["/cart"],
+        path: RoutePath[AppRoutes.CART],
         element: <CartPage />,
       },
       {
-        path: RoutePath["/detail"],
+        path: RoutePath[AppRoutes.DETAIL],
         element: <ProductDetail />,
       },
       {
-        path: RoutePath["/profile"],
+        path: RoutePath[AppRoutes.PROFILE],
         element: <User />,
       },
       {
-        path: RoutePath["/payment"],
+        path: RoutePath[AppRoutes.PAYMENT],
         element: <PaymentPage />,
       },
       {
-        path: RoutePath["/about"],
+        path: RoutePath[AppRoutes.ABOUT],
         element: <AboutPage />,
       },
       {
-        path: RoutePath["/delivery"],
+        path: RoutePath[AppRoutes.DELIVERY],
         element: <DeliveryPage />,
       },
     ],

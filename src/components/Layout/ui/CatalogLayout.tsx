@@ -12,9 +12,9 @@ const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
   const { categoryId } = useParams<string>();
-  console.log(categoryId);
-  
-  const { brandId } = useParams<string>();
+  const { brandId , } = useParams<string>();
+
+  console.log("brandId:", brandId);
 
   const { data: productsByBrandCategory } = useProductByBrandCategory({
     brandId,
@@ -23,6 +23,10 @@ const CatalogLayout: FC = () => {
   const { data: productsByBrand } = useProductByBrand({ brandId });
 
   const { data: productsByCategory } = useProductByCategory({ categoryId });
+
+  console.log("productsByBrandCategory:", productsByBrandCategory);
+  console.log("productsByBrand:", productsByBrand);
+  console.log("productsByCategory:", productsByCategory);
 
   const products = [
     ...(productsByCategory || []),

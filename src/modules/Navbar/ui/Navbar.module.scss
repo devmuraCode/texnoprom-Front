@@ -406,3 +406,44 @@
   }
 }
 
+.mobileMenu {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  height: 20vh;
+  background-color: white;
+  z-index: 1000;
+  padding: 16px;
+
+  nav {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 12px 0;
+        font-size: 18px;
+        text-align: center;
+
+        a {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .header__button__container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+
+    .header__button__status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

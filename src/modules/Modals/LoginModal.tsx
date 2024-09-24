@@ -26,7 +26,7 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await http.request.post("/users/token/", data);
+      const response = await http.request.post("/users/verify-phone/", data);
       localStorage.setItem("token", response.data.access);
       localStorage.setItem("user_id", response.data.user_id);
       loginModal.onClose();
@@ -46,19 +46,19 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4">
       <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
-        id="username"
-        name="username"
-        label="Имя пользователя"
-        type="text"
+        id="phone"
+        name="phone"
+        label="Номер телефона"
+        type="phone"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
       <Input
-        id="password"
+        id="verification_code"
         label="Пароль"
-        name="password"
+        name="verification_code"
         type="password"
         disabled={isLoading}
         register={register}

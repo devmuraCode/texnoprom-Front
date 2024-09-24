@@ -5,9 +5,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CarouselCategory.scss"; 
 
-function CarouselCategory() {
+const CarouselCategory= () => {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const { data: category } = useAllCategory();
+  console.log(category);
+  
   
   const settings = {
     dots: false,
@@ -55,7 +57,7 @@ function CarouselCategory() {
         <Slider {...settings}>
           {category?.map((item) => (
             <div key={item.id}>
-              <Link to={`/catalog/${item.id}`} onClick={() => setCategoryId(item.id)}> 
+              <Link to={`/catalog/brandId/${item.id}`}> 
                 <h3 className="cursor-pointer">{item.title}</h3>
               </Link>
             </div>

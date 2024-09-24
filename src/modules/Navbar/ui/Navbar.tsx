@@ -3,7 +3,7 @@ import logo from "@/assets/logo.png";
 import styles from "./Navbar.module.scss";
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiShoppingCart, CiUser } from "react-icons/ci";
-import { MdOutlinePhone } from "react-icons/md";
+import { MdOutlinePhone, MdOutlineSignalWifiStatusbarNull } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
@@ -16,7 +16,7 @@ import { useMediaQuery } from "react-responsive";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuOpenTwo, setMenuOpenTwo] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Состояние для мобильного меню
   const registerModal = useRegisterModal();
   const catalogModal = useCatalogModal();
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,8 +35,8 @@ const Navbar = () => {
     setMenuOpen((prev) => !prev);
   };
 
-  const handlerMenuToggle = () => {
-    setMenuOpenTwo((prev) => !prev);
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen((prev) => !prev); // Переключение состояния модального окна
   };
 
   return (
@@ -91,6 +91,10 @@ const Navbar = () => {
 
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
+              <MdOutlineSignalWifiStatusbarNull />
+              <Link to={"/status"}>Статус заказа</Link>
+            </div>
+            <div className={styles.header__button__status}>
               <CiShoppingCart />
               <Link to="/cart">Корзина</Link>
             </div>
@@ -100,21 +104,39 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button className={styles.header__toggler} onClick={handlerMenuToggle}>
-            {!menuOpenTwo ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
-          </button>
+          {isMobile && (
+            <button className={styles.header__toggler} onClick={handleMobileMenuToggle}>
+              {!mobileMenuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
+            </button>
+          )}
         </div>
       </div>
 
-      {isMobile && (
-        <nav className={`${styles.nav} ${menuOpenTwo ? styles.navOpen : ''}`}>
-          <ul>
-            <li><Link to="/about">О нас</Link></li>
-            <li><Link to="/delivery">Доставка</Link></li>
-            <li>Магазины</li>
-            <li>Связаться с нами!</li>
-          </ul>
-        </nav>
+      {isMobile && mobileMenuOpen && (
+        <div className={styles.mobileMenu}>
+          <nav className={styles.nav}>
+            <ul>
+              <li><Link to="/about">О нас</Link></li>
+              <li><Link to="/delivery">Доставка</Link></li>
+              <li>Магазины</li>
+              <li>Связаться с нами!</li>
+            </ul>
+          </nav>
+          <div className={styles.header__button__container}>
+            <div className={styles.header__button__status}>
+              <MdOutlineSignalWifiStatusbarNull />
+              <Link to={"/status"}>Статус заказа</Link>
+            </div>
+            <div className={styles.header__button__status}>
+              <CiShoppingCart />
+              <Link to="/cart">Корзина</Link>
+            </div>
+            <div className={styles.header__button__status}>
+              <CiUser />
+              <button onClick={registerModal.onOpen}>Войти</button>
+            </div>
+          </div>
+        </div>
       )}
 
       <CatalogModal />
