@@ -35,6 +35,7 @@ const RegisterModal = () => {
       toast.error('Аккаунт уже существует');
     } finally {
       setIsLoading(false);
+      loginModal.onOpen();
     }
   };
 
