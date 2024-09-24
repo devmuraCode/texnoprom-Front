@@ -17,7 +17,7 @@ function Responsive() {
   const { data: product } = useProductByBrand({ brandId });
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -46,7 +46,7 @@ function Responsive() {
         breakpoint: 480,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
           dots: false, // Hide dots for mobile
         },
       },

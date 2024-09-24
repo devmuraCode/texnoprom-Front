@@ -12,6 +12,7 @@ import useLoginModal from "./hooks/useLoginModal";
 type Inputs = {
   username: string;
   password: string;
+  phone_number: string;
 };
 
 const RegisterModal = () => {
@@ -63,6 +64,17 @@ const RegisterModal = () => {
         name="password"
         label="Пароль"
         type="password"
+        disabled={isLoading}  
+        // @ts-ignore
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="phone_number"
+        name="phone_number"
+        label="Номер телефона"
+        type="tel"
         disabled={isLoading}  
         // @ts-ignore
         register={register}

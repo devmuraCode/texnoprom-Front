@@ -1,0 +1,14 @@
+// News.module.scss
+
+.slider_container {
+    .slick-track {
+      width: 100% !important;
+    }
+  
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  

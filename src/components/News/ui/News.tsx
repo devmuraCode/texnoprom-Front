@@ -2,8 +2,10 @@ import Container from "@/components/Container/Container";
 import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 import ProductItem from "@/modules/ProductItem/ui/ProductItem";
 import Slider from "react-slick";
-import styles from "./News.module.scss";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import styled from './News.module.scss'
+import { usePapulerProduct } from "@/modules/ProductItem/hooks/usePapulerProduct";
 // @ts-ignore
 const NextArrow = ({ className, style, onClick }) => (
   <div
@@ -12,34 +14,33 @@ const NextArrow = ({ className, style, onClick }) => (
       ...style,
       display: "block",
       right: "10px",
-      zIndex: 2, // Увеличен z-index
+      zIndex: 2,
       color: "#ff0000",
       fontSize: "30px",
-      backgroundColor: "black", // Добавлен фон
-      border: "1px solid #ff0000", // Добавлена граница
+      backgroundColor: "black",
+      border: "1px solid #ff0000",
     }}
     onClick={onClick}
   />
 );
-// @ts-ignore
+//@ts-ignore
 const PrevArrow = ({ className, style, onClick }) => (
   <div
     className={className}
     style={{
       ...style,
-      // display: "block",
       left: "10px",
-      zIndex: 2, // Увеличен z-index
+      zIndex: 2,
       fontSize: "30px",
-      backgroundColor: "black", // Добавлен фон
-      border: "1px solid #ff0000", // Добавлена граница
+      backgroundColor: "black",
+      border: "1px solid #ff0000",
     }}
     onClick={onClick}
   />
 );
 
 const News = () => {
-  const { data: products } = useAllProducts();
+  const { data: products } = usePapulerProduct();
 
   // Slider settings
   const settings = {
@@ -54,23 +55,24 @@ const News = () => {
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1024, // For tablets
+        breakpoint: 1280,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: true,
           dots: true,
         },
       },
       {
-        breakpoint: 768, // For mobile
+        breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
+          initialSlide: 2,
         },
       },
       {
-        breakpoint: 480, // For very small screens
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -80,16 +82,19 @@ const News = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styled.container}>
       <Container>
         <h1 className="font-bold text-2xl text-black pb-4 pt-9">Хиты продаж</h1>
-        <Slider {...settings}>
-          {products?.map((product) => (
-            <div key={product.id} className="flex gap-4">
-              <ProductItem product={product} />
-            </div>
-          ))}
-        </Slider>
+
+        <div className={styled.slider_container}>
+          <Slider {...settings}>
+            {products?.map((product) => (
+              <div key={product.id} className="flex gap-4">
+                <ProductItem product={product} />
+              </div>
+            ))}
+          </Slider>
+        </div>
       </Container>
     </div>
   );

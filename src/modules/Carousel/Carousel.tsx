@@ -12,40 +12,40 @@ function Carousel() {
 
   // Ловим размеры экрана
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1024px)" });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 768px) and (max-width: 1024px)",
+  });
 
-    //@ts-ignore
-    const NextArrow = ({ className, style, onClick }) => (
-      <div
-        className={className}
-        style={{
-          ...style,
-          display: "block",
-          right: "10px",
-          zIndex: 1,
-          color: "#ff0000",
-          fontSize: "30px",
-        }}
-        onClick={onClick}
-      />
-    );
-    //@ts-ignore
-    const PrevArrow = ({ className, style, onClick }) => (
-      <div
-        className={className}
-        style={{
-          ...style,
-          display: "block",
-          left: "10px",
-          zIndex: 1,
-          color: "#ff0000",
-          fontSize: "30px",
-        }}
-        onClick={onClick}
-      />
-    );
-  
-  
+  //@ts-ignore
+  const NextArrow = ({ className, style, onClick }) => (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        right: "10px",
+        zIndex: 1,
+        color: "#ff0000",
+        fontSize: "30px",
+      }}
+      onClick={onClick}
+    />
+  );
+  //@ts-ignore
+  const PrevArrow = ({ className, style, onClick }) => (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        left: "10px",
+        zIndex: 1,
+        color: "#ff0000",
+        fontSize: "30px",
+      }}
+      onClick={onClick}
+    />
+  );
 
   const bannerSliderSettings = {
     dots: false,
@@ -85,13 +85,13 @@ function Carousel() {
   };
 
   const cardStyle: React.CSSProperties = {
-    border: 'none',
+    border: "none",
   };
 
   const cardImageStyle: React.CSSProperties = {
     height: isMobile ? "150px" : "150px",
     objectFit: "contain",
-    borderRadius: "8px 8px 0 0",  
+    borderRadius: "8px 8px 0 0",
   };
 
   const product = {
@@ -127,13 +127,13 @@ function Carousel() {
     timeLeft: "2 дня 10 часов",
   };
 
-  
-
   return (
     <div style={{ paddingBottom: "20px" }}>
       <Container>
         <div className="grid grid-cols-12 gap-6 flex items-center">
-          <div className={isMobile ? "col-span-12" : "col-span-8 slider-container"}>
+          <div
+            className={isMobile ? "col-span-12" : "col-span-8 slider-container"}
+          >
             <Slider {...bannerSliderSettings}>
               {banners?.map((banner, index) => (
                 <div key={index}>
@@ -149,7 +149,10 @@ function Carousel() {
                 {[product, product2, product3].map((product, index) => (
                   <div key={index}>
                     <Card
-                      style={{ ...cardStyle, height: isMobile ? "auto" : "200px" }}
+                      style={{
+                        ...cardStyle,
+                        height: isMobile ? "auto" : "200px",
+                      }}
                       title={"Товар дня"}
                       bordered
                       cover={
