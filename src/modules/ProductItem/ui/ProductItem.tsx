@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 import cls from "./ProductItem.module.scss";
-import { IProduct } from "../hooks/useAllProducts";
+import { IProduct } from "../hooks/usePapulerProduct";
 
 interface IProps {
   product: IProduct;

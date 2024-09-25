@@ -40,8 +40,11 @@ const PrevArrow = ({ className, style, onClick }) => (
 );
 
 const News = () => {
-  const { data: products } = usePapulerProduct();
-
+  const { data: productsData } = usePapulerProduct();
+  // @ts-ignore
+  const allProducts = productsData?.flatMap(item => item.products) || [];
+  console.log(allProducts);
+  
   // Slider settings
   const settings = {
     dots: false,
@@ -57,7 +60,7 @@ const News = () => {
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 5,
           slidesToScroll: 3,
           infinite: true,
           dots: true,
@@ -88,8 +91,8 @@ const News = () => {
 
         <div className={styled.slider_container}>
           <Slider {...settings}>
-            {products?.map((product) => (
-              <div key={product.id} className="flex gap-4">
+            {allProducts?.map((product) => (
+              <div key={product.id}>
                 <ProductItem product={product} />
               </div>
             ))}

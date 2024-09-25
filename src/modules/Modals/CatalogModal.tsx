@@ -52,9 +52,18 @@ const CatalogModal = () => {
 
           {isMobile ? (
             <div className={styles.content}>
-              {/* Сначала отображаем выбранную коллекцию */}
+              {/* Сначала отображаем все коллекции */}
+              <div className={styles.grid}>
+                {collections?.map((item) => (
+                  <div key={item.id}>
+                    <h3>{item.title}</h3>
+                  </div>
+                ))}
+              </div>
+
+              {/* Затем отображаем выбранную коллекцию и её категории */}
               {collectionId && (
-                <div>
+                <div className={styles.mobileCollection}>
                   {categories?.map((item) => (
                     <div key={item.category_id}>
                       <h3
@@ -83,14 +92,6 @@ const CatalogModal = () => {
                   ))}
                 </div>
               )}
-              {/* Затем отображаем остальные коллекции */}
-              <div className={styles.grid}>
-                {collections?.map((item) => (
-                  <div key={item.id}>
-                    <h3>{item.title}</h3>
-                  </div>
-                ))}
-              </div>
             </div>
           ) : (
             <div className={styles.content}>
