@@ -1,6 +1,7 @@
 import Container from "@/components/Container/Container";
 import { useAllPapulerCategory } from "@/modules/ProductItem/hooks/useAllPapulerCategory";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 const PapularCategory: FC = () => {
   const { data: papularCategory } = useAllPapulerCategory();
@@ -54,6 +55,7 @@ const PapularCategory: FC = () => {
 
         <Slider {...settings}>
           {papularCategory?.map((category) => (
+            <Link to={`/catalog/${category.id}`} key={category.id}>
             <div
               key={category.id}
               className="flex flex-col direction-col items-center"
@@ -65,6 +67,7 @@ const PapularCategory: FC = () => {
               />
               <span className="text-lg font-semibold">{category.title}</span>
             </div>
+            </Link>
           ))}
         </Slider>
       </Container>

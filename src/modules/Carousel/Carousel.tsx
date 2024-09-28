@@ -151,7 +151,7 @@ function Carousel() {
                     <Card
                       style={{
                         ...cardStyle,
-                        height: isMobile ? "auto" : "200px",
+                        height: isMobile ? "auto" : "auto", // Keeping it flexible for mobile view
                       }}
                       title={"Товар дня"}
                       bordered
@@ -187,7 +187,7 @@ function Carousel() {
                           color: "#888",
                         }}
                       >
-                        {product.timeLeft}
+                        Осталось {product.timeLeft}
                       </div>
 
                       <Button
