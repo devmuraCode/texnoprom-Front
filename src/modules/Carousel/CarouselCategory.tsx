@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "./CarouselCategory.scss"; 
 
 const CarouselCategory= () => {
+  // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const { data: category } = useAllCategory();
   console.log(category);

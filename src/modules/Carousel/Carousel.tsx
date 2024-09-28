@@ -12,6 +12,7 @@ function Carousel() {
 
   // Ловим размеры экрана
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  // @ts-ignore
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1024px)",
   });

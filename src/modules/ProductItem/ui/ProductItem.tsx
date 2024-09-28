@@ -12,6 +12,7 @@ interface IProps {
 
 const ProductItem: FC<IProps> = ({ product }) => {
   const dispatch = useAppDispatch();
+  // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);
   const [productId, setProductId] = useState<string | null>(null);
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);

@@ -1,5 +1,4 @@
 import Container from "@/components/Container/Container";
-import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 import ProductItem from "@/modules/ProductItem/ui/ProductItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
