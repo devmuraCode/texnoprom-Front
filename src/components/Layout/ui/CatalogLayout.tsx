@@ -21,7 +21,7 @@ const CatalogLayout: FC = () => {
   });
 
   const { data: productsByBrand } = useProductByBrand({ brandId });
-
+// @ts-ignore
   const { data: productsByCategory } = useProductByCategory({ categoryId });
 
   console.log("productsByBrandCategory:", productsByBrandCategory);

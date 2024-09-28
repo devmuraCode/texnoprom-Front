@@ -23,6 +23,7 @@ export interface IProduct {
 }
 
 interface IProps {
+  // @ts-ignore
   categoryId: string | null;
 }
 

@@ -1,4 +1,3 @@
-import AboutUs from "../AboutUs/ui/AboutUs";
 import Container from "../Container/Container";
 
 const Iframe = () => {
