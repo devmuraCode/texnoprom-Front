@@ -2,8 +2,11 @@ import { useState } from "react";
 import logo from "@/assets/logo.png";
 import styles from "./Navbar.module.scss";
 import { BiMenuAltRight } from "react-icons/bi";
-import { CiShoppingCart, CiUser } from "react-icons/ci";
-import { MdOutlinePhone, MdOutlineSignalWifiStatusbarNull } from "react-icons/md";
+import { CiClock1, CiShoppingCart, CiUser } from "react-icons/ci";
+import {
+  MdOutlinePhone,
+  MdOutlineSignalWifiStatusbarNull,
+} from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
@@ -43,19 +46,29 @@ const Navbar = () => {
     <div className={styles.container}>
       <div className={styles.top__navbar}>
         <div className={styles.top__navbar__text__container}>
-          <p className={styles.top__navbar__text}>
-            <span><MdOutlinePhone /></span> +998 71 203 33 33
-          </p>
-          <p className={styles.top__navbar__text}>
-            <span><IoLocationOutline /></span> Ташкент
-          </p>
+          <a href="tel:+998712033333" className={styles.top__navbar__text}>
+            <span>
+              <MdOutlinePhone />
+            </span>{" "}
+            +998 71 203 33 33
+          </a>
+          <Link to="/about" className={styles.top__navbar__text}>
+            <span>
+              <IoLocationOutline />
+            </span>{" "}
+            Ташкент
+          </Link>
         </div>
 
         {!isMobile && (
           <div className={styles.desktopOnly}>
             <ul className={styles.top__navbar__catalog}>
-              <li><Link to="/about">О нас</Link></li>
-              <li><Link to="/delivery">Доставка</Link></li>
+              <li>
+                <Link to="/about">О нас</Link>
+              </li>
+              <li>
+                <Link to="/delivery">Доставка</Link>
+              </li>
               <li>Магазины</li>
               <li>Связаться с нами!</li>
             </ul>
@@ -91,7 +104,7 @@ const Navbar = () => {
 
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
-              <MdOutlineSignalWifiStatusbarNull />
+              <CiClock1 />
               <Link to={"/status"}>Статус заказа</Link>
             </div>
             <div className={styles.header__button__status}>
@@ -105,7 +118,10 @@ const Navbar = () => {
           </div>
 
           {isMobile && (
-            <button className={styles.header__toggler} onClick={handleMobileMenuToggle}>
+            <button
+              className={styles.header__toggler}
+              onClick={handleMobileMenuToggle}
+            >
               {!mobileMenuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
             </button>
           )}
@@ -116,8 +132,12 @@ const Navbar = () => {
         <div className={styles.mobileMenu}>
           <nav className={styles.nav}>
             <ul>
-              <li><Link to="/about">О нас</Link></li>
-              <li><Link to="/delivery">Доставка</Link></li>
+              <li>
+                <Link to="/about">О нас</Link>
+              </li>
+              <li>
+                <Link to="/delivery">Доставка</Link>
+              </li>
               <li>Магазины</li>
               <li>Связаться с нами!</li>
             </ul>

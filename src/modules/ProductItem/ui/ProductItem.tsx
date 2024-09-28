@@ -83,12 +83,13 @@ const ProductItem: FC<IProps> = ({ product }) => {
               Скидка: {product.discount_percent}%
             </span>
           )}
-          {/* Display installment information */}
+         
           {product.installment && (
             <div className="text-sm text-gray-700 dark:text-gray-900 mt-2">
               Рассрочка: от {product.installment} / мес
             </div>
           )}
+
         </div>
         <div className="flex items-center justify-between">
           <button

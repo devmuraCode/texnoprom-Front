@@ -3,32 +3,27 @@ import { useCategory } from "../Navbar/hooks/useCategory";
 import { useCollectionNavbar } from "../Navbar/hooks/useCollectionNavbar";
 import styles from "./CatalogModal.module.scss";
 import useCatalogModal from "./hooks/useCatalogModal";
-import { useBrandCategory } from "../Brands/hooks/useBrandCategory";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 const CatalogModal = () => {
   const [collectionId, setCollectionId] = useState<string | null>(null);
-  const [categoryId, setCategoryId] = useState<string | null>(null);
-  const [brandId, setBrandId] = useState<string | null>(null);
   const { onClose, isOpen } = useCatalogModal();
   const { data: collections } = useCollectionNavbar();
   const { data: categories } = useCategory({ collectionId });
-  const { data: brands } = useBrandCategory({ categoryId });
-
+  
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
+  // Открытие первой коллекции по умолчанию на десктопе
   useEffect(() => {
-    if (!isMobile && isOpen && collections && collections.length > 0 && !collectionId) {
+    if (!isMobile && isOpen && collections?.length && !collectionId) {
       setCollectionId(collections[0].id);
     }
   }, [isOpen, collections, collectionId, isMobile]);
 
-  useEffect(() => {
-    if (isMobile && collectionId && categories && categories.length > 0 && !categoryId) {
-      setCategoryId(categories[0].category_id);
-    }
-  }, [collectionId, categories, categoryId, isMobile]);
+  const handleCollectionClick = (id: string) => {
+    setCollectionId(id);
+  };
 
   if (!isOpen) return null;
 
@@ -40,7 +35,7 @@ const CatalogModal = () => {
             <ul>
               {collections?.map((item) => (
                 <li
-                  onClick={() => setCollectionId(item.id)}
+                  onClick={() => handleCollectionClick(item.id)}
                   key={item.id}
                   className={collectionId === item.id ? styles.active : ""}
                 >
@@ -50,71 +45,52 @@ const CatalogModal = () => {
             </ul>
           </nav>
 
-          {isMobile ? (
+          {/* Мобильная версия: отображение категорий при выборе коллекции */}
+          {isMobile && collectionId ? (
             <div className={styles.content}>
-              {/* Сначала отображаем все коллекции */}
               <div className={styles.grid}>
-                {collections?.map((item) => (
-                  <div key={item.id}>
-                    <h3>{item.title}</h3>
+                {categories?.map((category) => (
+                  <div key={category.category_id}>
+                    <Link
+                      to={`/catalog/${category.category_id}`}
+                      onClick={onClose}
+                    >
+                      <h3>{category.category_title}</h3>
+                    </Link>
+                    {/* Отображение дочерних брендов */}
+                    <ul>
+                      {category.children.map((brand) => (
+                        <Link
+                          to={`/catalog/${brand.brand_id}`}
+                          onClick={onClose}
+                          key={brand.brand_id}
+                        >
+                          <li>{brand.brand_title}</li>
+                        </Link>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
-
-              {/* Затем отображаем выбранную коллекцию и её категории */}
-              {collectionId && (
-                <div className={styles.mobileCollection}>
-                  {categories?.map((item) => (
-                    <div key={item.category_id}>
-                      <h3
-                        onClick={() => setCategoryId(item.category_id)}
-                        className={categoryId === item.category_id ? styles.active : ""}
-                      >
-                        {item.category_title}
-                      </h3>
-                      <div>
-                        <ul>
-                          {item.children.map((brand) => (
-                            <Link
-                              to={`/catalog/${brand.brand_id}`}
-                              onClick={() => {
-                                setBrandId(brand.brand_id);
-                                onClose();
-                              }}
-                              key={brand.brand_id}
-                            >
-                              <li>{brand.brand_title}</li>
-                            </Link>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           ) : (
+            // Десктоп версия
             <div className={styles.content}>
               <div className={styles.grid}>
-                {categories?.map((item) => (
-                  <div key={item.category_id}>
-                    <h3>{item.category_title}</h3>
-                    <div>
-                      <ul>
-                        {item.children.map((brand) => (
-                          <Link
-                            to={`/catalog/${brand.brand_id}`}
-                            onClick={() => {
-                              setBrandId(brand.brand_id);
-                              onClose();
-                            }}
-                            key={brand.brand_id}
-                          >
-                            <li>{brand.brand_title}</li>
-                          </Link>
-                        ))}
-                      </ul>
-                    </div>
+                {categories?.map((category) => (
+                  <div key={category.category_id}>
+                    <h3>{category.category_title}</h3>
+                    <ul>
+                      {category.children.map((brand) => (
+                        <Link
+                          to={`/catalog/${brand.brand_id}`}
+                          onClick={onClose}
+                          key={brand.brand_id}
+                        >
+                          <li>{brand.brand_title}</li>
+                        </Link>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
