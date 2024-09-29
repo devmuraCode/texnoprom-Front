@@ -25,6 +25,7 @@ export const useCategory = ({ collectionId } : IProps) => {
   return useQuery<ICategory[]>({
     queryKey: ["categiry", collectionId],
     queryFn: async () => {
+      if (!collectionId) return [];
       try {
         const response = await http.request.get(`/categories/brands/collection/${collectionId}`);
         if (response && response.data) {
