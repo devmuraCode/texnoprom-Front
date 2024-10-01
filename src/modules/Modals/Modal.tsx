@@ -74,11 +74,12 @@ const Modal: React.FC<ModalProps> = ({
           overflow-x-hidden 
           overflow-y-auto 
           fixed 
-          inset-0 
+          inset-0
           z-50 
           outline-none 
           focus:outline-none
           bg-neutral-800/70
+          mt-6
         "
       >
         <div

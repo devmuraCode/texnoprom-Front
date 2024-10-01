@@ -55,7 +55,7 @@ const PapularCategory: FC = () => {
 
         <Slider {...settings}>
           {papularCategory?.map((category) => (
-            <Link to={`/catalog/${category.id}`} key={category.id}>
+            <Link to={`/catalog/brandId/${category.id}`} key={category.id}>
             <div
               key={category.id}
               className="flex flex-col direction-col items-center"

@@ -7,44 +7,44 @@
 /* Основные стили для слайдера */
 .slick-prev,
 .slick-next {
-  width: 40px; /* Ширина кнопок */
-  height: 40px; /* Высота кнопок */
-  background-color: rgba(0, 0, 0, 0.5); /* Цвет фона кнопок */
-  border-radius: 50%; /* Округлые кнопки */
-  z-index: 1; /* Слои для отображения поверх контента */
+  width: 40px; 
+  height: 40px; 
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: 50%; 
+  z-index: 1; 
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; /* Цвет стрелок */
-  font-size: 24px; /* Размер стрелок */
+  color: white; 
+  font-size: 24px; 
   cursor: pointer;
 }
 
 .slick-prev {
-  left: 10px; /* Расположение кнопки "Назад" */
+  left: 10px; 
 }
 
 .slick-next {
-  right: 10px; /* Расположение кнопки "Вперед" */
+  right: 10px;
 }
 
 .slick-prev:before,
 .slick-next:before {
   font-family: 'slick';
-  font-size: 24px; /* Размер стрелок */
-  color: white; /* Цвет стрелок */
+  font-size: 24px;
+  color: white;
 }
 
 .slick-prev {
-  left: 10px; /* Расположение кнопки "Назад" */
+  left: 10px; 
 }
 
 .slick-next {
-  right: 10px; /* Расположение кнопки "Вперед" */
+  right: 10px;
 }
 
 /* Стили для фокуса и наведения на кнопки */
 .slick-prev:hover,
 .slick-next:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* Более темный фон при наведении */
+  background-color: rgba(0, 0, 0, 0.8); 
 }

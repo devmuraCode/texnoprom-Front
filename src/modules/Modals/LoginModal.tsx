@@ -44,7 +44,7 @@ const LoginModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome back" subtitle="Login to your account!" />
+      <Heading title="Добро пожаловать" subtitle="Войдите в свою учетную запись!" />
       <Input
         id="phone_number"
         name="phone_number"
@@ -98,8 +98,8 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Continue"
+      title="Логин"
+      actionLabel="Продолжить"
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
