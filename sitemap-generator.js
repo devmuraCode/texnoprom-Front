@@ -2,7 +2,6 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { createWriteStream } from 'fs';
 import path from 'path';
 
-// Ваши маршруты
 const links = [
   { url: '/', changefreq: 'daily', priority: 1.0 },
   { url: '/catalog', changefreq: 'weekly', priority: 0.8 },
