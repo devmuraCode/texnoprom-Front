@@ -91,7 +91,7 @@ const News = () => {
         <div className={styled.slider_container}>
           <Slider {...settings}>
             {allProducts?.map((product) => (
-              <div key={product.id}>
+              <div>
                 <ProductItem product={product} />
               </div>
             ))}

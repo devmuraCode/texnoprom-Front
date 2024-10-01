@@ -6,10 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 import { Card, Button, Tag } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useMediaQuery } from "react-responsive";
+import { useGetDayProduct } from "./hooks/useGetDayProduct";
 
 function Carousel() {
   const { data: banners } = useBanners();
-
+  const {data: dayproduct} = useGetDayProduct()
+  console.log(dayproduct);
+  
   // Ловим размеры экрана
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   // @ts-ignore
@@ -95,38 +98,20 @@ function Carousel() {
     borderRadius: "8px 8px 0 0",
   };
 
-  const product = {
-    title: "Набор ручного инструмента GOODKING C",
-    price: 1590,
-    oldPrice: 2590,
-    discount: 39,
-    rating: 4.8,
-    reviews: 34,
-    img: "https://elmakon.uz/images/thumbnails/250/250/detailed/36/43au7500-3.jpg",
-    timeLeft: "2 дня 10 часов",
+  const formatPrice = (price: string) => {
+    return (
+      new Intl.NumberFormat("ru-RU", {
+        style: "currency",
+        currency: "UZS",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })
+        .format(Number(price))
+        .replace("UZS", "")
+        .trim() + " сум"
+    );
   };
 
-  const product2 = {
-    title: "Набор ручного инструмента GOODKING C",
-    price: 1590,
-    oldPrice: 2590,
-    discount: 39,
-    rating: 4.8,
-    reviews: 34,
-    img: "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/a6214d60-4c8e-436d-9fe4-496c45a0bdd2",
-    timeLeft: "2 дня 10 часов",
-  };
-
-  const product3 = {
-    title: "Набор ручного инструмента GOODKING C",
-    price: 1590,
-    oldPrice: 2590,
-    discount: 39,
-    rating: 4.8,
-    reviews: 34,
-    img: "https://img.mvideo.ru/Pdb/small_pic/200/400156148b.jpg",
-    timeLeft: "2 дня 10 часов",
-  };
 
   return (
     <div style={{ paddingBottom: "20px" }}>
@@ -147,7 +132,7 @@ function Carousel() {
           {!isMobile && (
             <div className="col-span-4 slider-container">
               <Slider {...cardSliderSettings}>
-                {[product, product2, product3].map((product, index) => (
+                {dayproduct?.map((product, index) => (
                   <div key={index}>
                     <Card
                       style={{
@@ -159,24 +144,24 @@ function Carousel() {
                       cover={
                         <img
                           alt={product.title}
-                          src={product.img}
+                          src={product.mainimg}
                           style={cardImageStyle}
                         />
                       }
                     >
                       <div style={{ marginBottom: "10px" }}>
                         <Tag color="green" style={{ fontSize: "14px" }}>
-                          Скидка {product.discount}%
+                          Скидка {product.discount_percent}%
                         </Tag>
                         <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-                          {product.price.toLocaleString()} сум{" "}
+                          {formatPrice(product.discounted_price)}
                           <span
                             style={{
                               textDecoration: "line-through",
                               color: "#888",
                             }}
                           >
-                            {product.oldPrice.toLocaleString()} сум
+                           {formatPrice(product.price)} 
                           </span>
                         </div>
                       </div>
@@ -188,13 +173,12 @@ function Carousel() {
                           color: "#888",
                         }}
                       >
-                        Осталось {product.timeLeft}
+                        Осталось {product.stock_quantity}
                       </div>
 
                       <Button
-                        type="primary"
                         icon={<ShoppingCartOutlined />}
-                        style={{ width: "100%", borderRadius: "8px" }}
+                        style={{ width: "100%", borderRadius: "8px", background: "red", color: "white" }}
                       >
                         В корзину
                       </Button>
@@ -211,3 +195,4 @@ function Carousel() {
 }
 
 export default Carousel;
+
