@@ -16,17 +16,19 @@ import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
 import useCatalogModal from "@/modules/Modals/hooks/useCatalogModal";
 import CatalogModal from "@/modules/Modals/CatalogModal";
 import { useMediaQuery } from "react-responsive";
+import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Состояние для мобильного меню
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const registerModal = useRegisterModal();
   const catalogModal = useCatalogModal();
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-  const handleSearchChange = (event: any) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    console.log("Search Term:", event.target.value);
   };
 
   const handleCatalogToggle = () => {
@@ -39,7 +41,7 @@ const Navbar = () => {
   };
 
   const handleMobileMenuToggle = () => {
-    setMobileMenuOpen((prev) => !prev); // Переключение состояния модального окна
+    setMobileMenuOpen((prev) => !prev);
   };
 
   return (
@@ -93,7 +95,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div>
+          <div className={styles.searchContainer}>
             <Input
               className={styles.header__input}
               placeholder="Поиск товара"
