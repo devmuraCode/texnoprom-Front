@@ -70,6 +70,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
               <span className={`${cls.originalPrice} text-gray-900 text-sm dark:text-black line-through`}>
                 {formatPrice(product.price)}
               </span>
+              {" "}
               <span className={`${cls.discountedPrice} text-red-500`}>
                 {formatPrice(product.discounted_price)}
               </span>
@@ -79,15 +80,15 @@ const ProductItem: FC<IProps> = ({ product }) => {
               {formatPrice(product.price)}
             </span>
           )}
-          {product.discount_percent && Number(product.discount_percent) > 0 && (
+          {/* {product.discount_percent && Number(product.discount_percent) > 0 && (
             <span className="text-xs text-red-500">
               Скидка: {product.discount_percent}%
             </span>
-          )}
+          )} */}
          
           {product.installment && (
             <div className="text-sm text-gray-700 dark:text-gray-900 mt-2">
-              Рассрочка: от {product.installment} / мес
+              Рассрочка: от {formatPrice(product.installment)} / мес
             </div>
           )}
 
