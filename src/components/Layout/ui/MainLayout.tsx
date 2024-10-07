@@ -6,6 +6,8 @@ import RegisterModal from "@/modules/Modals/RegisterModal";
 import LoginModal from "@/modules/Modals/LoginModal";
 import UzumModal from "@/modules/Modals/UzumModal";
 import ToasterProvider from "@/providers/ToasterProvider";
+import Send_Reset_Code_Modal from "@/modules/Modals/Send_Reset_Code_Modal";
+import Reset_Password_Modal from "@/modules/Modals/Reset_Password_Modal";
 
 const Main: FC = () => {
   return (
@@ -21,6 +23,8 @@ const Main: FC = () => {
       <ToasterProvider/>
       <LoginModal/>
       <UzumModal />
+      <Send_Reset_Code_Modal />
+      <Reset_Password_Modal/> 
     </div>
   );
 };

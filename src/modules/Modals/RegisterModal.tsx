@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/store/store";
 import { authUser } from "@/features/Auth/modal/service/AuthUser";
 import toast from 'react-hot-toast';
 import useLoginModal from "./hooks/useLoginModal";
+import useForgotPasswordModal from "./hooks/useForgotPassword";
 
 type Inputs = {
   username: string;
@@ -18,6 +19,7 @@ type Inputs = {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const forgotPasswordModal = useForgotPasswordModal();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const {
@@ -42,6 +44,7 @@ const RegisterModal = () => {
   const onToggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
+    forgotPasswordModal.onClose();
   }, [registerModal]);
 
   const bodyContent = (
@@ -100,6 +103,23 @@ const RegisterModal = () => {
           У вас уже есть аккаунт?
           <span
             onClick={onToggle}
+            className="
+              text-neutral-800
+              cursor-pointer 
+              hover:underline
+            "
+          >
+            {" "}
+            Войти
+          </span>
+        </p>
+        <p>
+          Забыли пароль?
+          <span
+             onClick={() => {
+              forgotPasswordModal.onOpen();
+              registerModal.onClose();
+            }}
             className="
               text-neutral-800
               cursor-pointer 

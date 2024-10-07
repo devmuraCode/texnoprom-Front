@@ -41,26 +41,18 @@ const CollectionButtons = () => {
       <Container>
         <div className="slider-container">
           <Slider {...settings}>
+            <div className={styles.button_6}>Предзаказ с товара globbing</div>
             <div className={styles.button_6}>
-              Авторизуйтесь, чтобы применить Бонусные рубли
+              После регистрации скидка 5% (новый клиент)
             </div>
+            <div className={styles.button_6}>Экспресс доставка от 30 минут</div>
             <div className={styles.button_6}>
-              Закажи и забери заказ через 15 минут
+              Заказали и забери заказ через 15 минут
             </div>
-            <div className={styles.button_6}>Экспресс-доставка от 2 часов</div>
-            <div className={styles.button_6}>Работа в М.Видео</div>
-            <div className={styles.button_6}>
-              30 дней на обмен или возврат товара
-            </div>
-            <div className={styles.button_6}>Мои финансы</div>
-            <div className={styles.button_6}>
-              Trade-in. Получи скидку
-              <br />
-              за старый девайс
-            </div>
-            <div className={styles.button_6}>
-              Открытые магазины в вашем городе
-            </div>
+            <div className={styles.button_6}>Обмен старого товара на новый</div>
+            <div className={styles.button_6}>Страхование техники</div>
+
+            <div className={styles.button_6}>Установка и ремонт</div>
           </Slider>
         </div>
       </Container>
