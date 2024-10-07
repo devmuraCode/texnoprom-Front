@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/store/store";
 import toast from 'react-hot-toast';
 import useResetModal from "./hooks/useResetModal";
 import { resetPassword } from "@/features/Auth/modal/service/ResetPassword";
+import useSendResetCodeModal from "./hooks/useSendResetCodeModal";
 
 type Inputs = {
   verification_code: string;
@@ -16,6 +17,7 @@ type Inputs = {
 
 const Reset_Password_Modal = () => {
   const resetModal = useResetModal();
+  const resetPass = useSendResetCodeModal()
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const {
