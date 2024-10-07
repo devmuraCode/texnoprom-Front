@@ -77,7 +77,7 @@ const CatalogModal = () => {
                 bordered={false}
               />
             ) : (
-              <ul>
+              <ul >
                 {collections?.map((item) => (
                   <li
                     onClick={() => handleCollectionClick(item.id)}

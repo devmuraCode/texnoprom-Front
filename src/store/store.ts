@@ -3,11 +3,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import cartReducer from '@/features/ShoppingSlice/CartSlice';
 import { authReducer } from "@/features/Auth/modal/slice/userAuthSlice";
+import resetPasswordSlice from "@/features/Auth/modal/slice/resetPasswordSlice";
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     loginForm: authReducer,
+    resetPassword: resetPasswordSlice
   },
 });
 

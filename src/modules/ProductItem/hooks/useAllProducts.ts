@@ -23,10 +23,10 @@ export interface IProduct {
 
 export const useAllProducts = () => {
   return useQuery<IProduct[]>({
-    queryKey: ["product"],
+    queryKey: ["products"],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/products/`);
+        const response = await http.request.get(`/products`);
         if (response && response.data) {
           return response.data.results;
         } else {

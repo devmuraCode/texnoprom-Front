@@ -153,8 +153,9 @@ function Carousel() {
                         <Tag color="green" style={{ fontSize: "14px" }}>
                           Скидка {product.discount_percent}%
                         </Tag>
-                        <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-                          {formatPrice(product.discounted_price)}
+                        <div style={{ fontSize: "18px", fontWeight: "bold", lineHeight: "24px" }}>
+                          <span>{formatPrice(product.discounted_price)}</span>
+                          <br />
                           <span
                             style={{
                               textDecoration: "line-through",
@@ -164,16 +165,6 @@ function Carousel() {
                            {formatPrice(product.price)} 
                           </span>
                         </div>
-                      </div>
-
-                      <div
-                        style={{
-                          marginBottom: "10px",
-                          fontSize: "14px",
-                          color: "#888",
-                        }}
-                      >
-                        Осталось {product.stock_quantity}
                       </div>
 
                       <Button

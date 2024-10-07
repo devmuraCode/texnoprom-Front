@@ -27,6 +27,16 @@ const Footer = () => {
 
             <div className="mb-6 w-full sm:w-auto text-start">
               {/* content */}
+              <ul>
+              <li>
+                <Link to="/about">О нас</Link>
+              </li>
+              <li>
+                <Link to="/delivery">Доставка</Link>
+              </li>
+              <li>Магазины</li>
+              <li>Связаться с нами!</li>
+              </ul>
             </div>
 
             <div className="mb-6 w-full sm:w-auto text-start">

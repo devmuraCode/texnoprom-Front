@@ -25,10 +25,20 @@ const Navbar = () => {
   const catalogModal = useCatalogModal();
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const { data: productData = [] } = useAllProducts();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    console.log("Search Term:", event.target.value);
+  };
+
+
+  const filteredProducts = productData.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  
+  const handleProductClick = () => {
+    setSearchTerm(""); 
   };
 
   const handleCatalogToggle = () => {
@@ -46,6 +56,7 @@ const Navbar = () => {
 
   return (
     <div className={styles.container}>
+   
       <div className={styles.top__navbar}>
         <div className={styles.top__navbar__text__container}>
           <a href="tel:+998712033333" className={styles.top__navbar__text}>
@@ -62,6 +73,7 @@ const Navbar = () => {
           </Link>
         </div>
 
+      
         {!isMobile && (
           <div className={styles.desktopOnly}>
             <ul className={styles.top__navbar__catalog}>
@@ -95,6 +107,7 @@ const Navbar = () => {
             </button>
           </div>
 
+          {/* Поиск товара */}
           <div className={styles.searchContainer}>
             <Input
               className={styles.header__input}
@@ -102,8 +115,23 @@ const Navbar = () => {
               value={searchTerm}
               onChange={handleSearchChange}
             />
+            {searchTerm && filteredProducts.length > 0 && (
+              <div className={styles.searchResults}>
+                {filteredProducts.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/detail/${product.id}`}
+                    className={styles.searchResultItem}
+                    onClick={handleProductClick} 
+                  >
+                    {product.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
+         
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
               <CiClock1 />
@@ -119,6 +147,7 @@ const Navbar = () => {
             </div>
           </div>
 
+          
           {isMobile && (
             <button
               className={styles.header__toggler}
@@ -161,6 +190,7 @@ const Navbar = () => {
         </div>
       )}
 
+    
       <CatalogModal />
     </div>
   );
