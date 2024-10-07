@@ -29,6 +29,8 @@ const Send_Reset_Code_Modal = () => {
     setIsLoading(true);
     try {
       const response = await http.request.post("users/send_reset_code");
+      console.log(response);
+
       forgotPasswordModal.onClose();
     } catch (error) {
       console.error("Error:", error);

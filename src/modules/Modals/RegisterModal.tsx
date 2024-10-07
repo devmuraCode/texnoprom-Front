@@ -9,6 +9,7 @@ import { authUser } from "@/features/Auth/modal/service/AuthUser";
 import toast from 'react-hot-toast';
 import useLoginModal from "./hooks/useLoginModal";
 import useForgotPasswordModal from "./hooks/useForgotPassword";
+import useSendResetCodeModal from "./hooks/useSendResetCodeModal";
 
 type Inputs = {
   username: string;
@@ -19,6 +20,7 @@ type Inputs = {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const resetPass = useSendResetCodeModal()
   const forgotPasswordModal = useForgotPasswordModal();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -44,7 +46,7 @@ const RegisterModal = () => {
   const onToggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
-    forgotPasswordModal.onClose();
+    resetPass.onClose();
   }, [registerModal]);
 
   const bodyContent = (

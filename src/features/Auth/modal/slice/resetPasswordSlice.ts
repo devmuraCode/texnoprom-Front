@@ -28,6 +28,7 @@ const resetPasswordSlice = createSlice({
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
+        // @ts-ignore
         state.error = action.payload || "Не удалось сбросить пароль";
       });
   },

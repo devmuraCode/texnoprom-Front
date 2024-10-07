@@ -29,9 +29,11 @@ const LoginModal = () => {
       ...data,
       phone_number: data.phone_number,
     };
+    console.log(phoneData);
+    
     try {
       const response = await http.request.post(
-        "/users/verify-phone",
+        "/users/verify-phone/",
         phoneData
       );
       localStorage.setItem("token", response.data.access);
