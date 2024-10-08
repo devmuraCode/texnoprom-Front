@@ -24,10 +24,11 @@ const LoginModal = () => {
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const phoneNumber = localStorage.getItem('phone_number');
     setIsLoading(true);
     const phoneData = {
       ...data,
-      phone_number: data.phone_number,
+      phone_number: phoneNumber || data.phone_number, 
     };
     console.log(phoneData);
     
