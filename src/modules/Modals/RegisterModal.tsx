@@ -34,6 +34,7 @@ const RegisterModal = () => {
     setIsLoading(true);
     try {
       await dispatch(authUser(data)).unwrap();
+      localStorage.setItem('phone_number', data.phone_number); 
       registerModal.onClose();
     } catch (error) {
       toast.error('Аккаунт уже существует');
