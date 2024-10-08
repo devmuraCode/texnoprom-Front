@@ -28,9 +28,11 @@ const Send_Reset_Code_Modal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await http.request.post("users/send_reset_code");
+      const response = await http.request.post("users/send_reset_code", {
+        phone_number: data.phone_number,
+      });
       console.log(response);
-
+  
       forgotPasswordModal.onClose();
     } catch (error) {
       console.error("Error:", error);
@@ -38,6 +40,7 @@ const Send_Reset_Code_Modal = () => {
       setIsLoading(false);
     }
   };
+  
 
   const onToggle = useCallback(() => {
     forgotPasswordModal.onClose();
