@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import http from "@/services/http";
-
 import useLoginModal from "./hooks/useLoginModal";
 import useRegisterModal from "./hooks/useRegisterModal";
 
@@ -11,6 +9,7 @@ import Heading from "@/containers/Heading";
 import Input from "@/components/Input";
 
 import Modal from "./Modal";
+import { http } from "@/services";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -24,22 +23,13 @@ const LoginModal = () => {
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const phoneNumber = localStorage.getItem('phone_number');
     setIsLoading(true);
-    const phoneData = {
-      ...data,
-      phone_number: phoneNumber || data.phone_number, 
-    };
-    console.log(phoneData);
-    
     try {
-      const response = await http.request.post(
-        "/users/verify-phone/",
-        phoneData
-      );
+      const response = await http.request.post("/users/login/", data);
       localStorage.setItem("token", response.data.access);
       localStorage.setItem("user_id", response.data.user_id);
       loginModal.onClose();
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -54,15 +44,22 @@ const LoginModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading
-        title="Добро пожаловать"
-        subtitle="Войдите в свою учетную запись!"
+      <Heading title="Welcome back" subtitle="Login to your account!" />
+      <Input
+        id="username"
+        name="username"
+        label="Имя пользователя"
+        type="text"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
       />
       <Input
-        id="verification_code"
+        id="password"
         label="Пароль"
-        name="verification_code"
-        type="text"
+        name="password"
+        type="password"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -101,8 +98,8 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Логин"
-      actionLabel="Продолжить"
+      title="Login"
+      actionLabel="Continue"
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

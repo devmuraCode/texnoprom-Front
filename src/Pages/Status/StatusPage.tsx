@@ -1,6 +1,8 @@
 const StatusPage = () => {
   return (
-    <div>StatusPage</div>
+    <div>
+      
+    </div>
   )
 }
 
