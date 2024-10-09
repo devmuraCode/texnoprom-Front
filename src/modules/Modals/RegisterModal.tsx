@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "./hooks/useRegisterModal";
 import Heading from "@/containers/Heading";
@@ -9,7 +9,7 @@ import { authUser } from "@/features/Auth/modal/service/AuthUser";
 import toast from 'react-hot-toast';
 import useLoginModal from "./hooks/useLoginModal";
 import useForgotPasswordModal from "./hooks/useForgotPassword";
-import useSendResetCodeModal from "./hooks/useSendResetCodeModal";
+import useVerify_phoneModal from "./hooks/useVerify_phoneModal";
 
 type Inputs = {
   username: string;
@@ -20,8 +20,8 @@ type Inputs = {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const resetPass = useSendResetCodeModal()
   const forgotPasswordModal = useForgotPasswordModal();
+  const verifycationModal = useVerify_phoneModal()
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const {
@@ -39,16 +39,10 @@ const RegisterModal = () => {
     } catch (error) {
       toast.error('Аккаунт уже существует');
     } finally {
+      verifycationModal.onOpen();
       setIsLoading(false);
-      loginModal.onOpen();
     }
   };
-
-  const onToggle = useCallback(() => {
-    registerModal.onClose();
-    loginModal.onOpen();
-    resetPass.onClose();
-  }, [registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -105,7 +99,10 @@ const RegisterModal = () => {
         <p>
           У вас уже есть аккаунт?
           <span
-            onClick={onToggle}
+            onClick={() => {
+              loginModal.onOpen();
+              registerModal.onClose();
+            }}
             className="
               text-neutral-800
               cursor-pointer 

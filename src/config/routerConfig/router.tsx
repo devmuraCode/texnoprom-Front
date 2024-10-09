@@ -4,6 +4,7 @@ import Catalog from "@/Pages/Catalog/Catalog";
 import DeliveryPage from "@/Pages/DeliveryPage/DeliveryPage";
 import MainPage from "@/Pages/MainPage/MainPage";
 import PaymentPage from "@/Pages/PaymentPage/PaymentPage";
+import StatusPage from "@/Pages/Status/StatusPage";
 import User from "@/Pages/User/ui/User";
 import MainLayout from "@/components/Layout/ui/MainLayout";
 import ProductDetail from "@/modules/ProductDetail/ProductDetail";
@@ -18,6 +19,7 @@ export enum AppRoutes {
   PAYMENT = "payment",
   ABOUT = "about",
   DELIVERY = "delivery",
+  STATUS = "status",
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -29,6 +31,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.PAYMENT]: "/payment",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.DELIVERY]: "/delivery",
+  [AppRoutes.STATUS]: "/status",
 };
 
 export const router = createBrowserRouter([
@@ -67,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: RoutePath[AppRoutes.DELIVERY],
         element: <DeliveryPage />,
+      },
+      {
+        path: RoutePath[AppRoutes.STATUS],
+        element: <StatusPage />,
       },
     ],
   },

@@ -28,7 +28,7 @@ const Send_Reset_Code_Modal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await http.request.post("users/send_reset_code/", {
+      const response = await http.request.post("/users/send_reset_code/", {
         phone_number: data.phone_number,
       });
       console.log(response);
@@ -37,6 +37,7 @@ const Send_Reset_Code_Modal = () => {
     } catch (error) {
       console.error("Error:", error);
     } finally {
+      resetModal.onOpen();
       setIsLoading(false);
     }
   };

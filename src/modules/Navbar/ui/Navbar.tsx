@@ -26,7 +26,8 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { data: productData = [] } = useAllProducts();
-
+  const user_id = localStorage.getItem('user_id');
+  const token = localStorage.getItem('token');
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -52,6 +53,12 @@ const Navbar = () => {
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen((prev) => !prev);
+  };
+
+  const deleteUserToken = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    window.location.reload();
   };
 
   return (
@@ -143,7 +150,7 @@ const Navbar = () => {
             </div>
             <div className={styles.header__button__status}>
               <CiUser />
-              <button onClick={registerModal.onOpen}>Войти</button>
+              {user_id ? <button onClick={deleteUserToken}>Выйти</button> : <button onClick={registerModal.onOpen}>Войти</button>}
             </div>
           </div>
 
