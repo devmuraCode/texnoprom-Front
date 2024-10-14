@@ -54,10 +54,12 @@
     width: 100%;
     padding: 10px;
     order: 2; 
+    
   }
   h3{
     @media (max-width: 768px) {
       line-height: 2rem;
+      font-weight: bold;
     }
   }
 

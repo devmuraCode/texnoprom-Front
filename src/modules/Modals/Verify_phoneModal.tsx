@@ -3,7 +3,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import http from "@/services/http";
 
-import useLoginModal from "./hooks/useLoginModal";
 import useRegisterModal from "./hooks/useRegisterModal";
 
 import Heading from "@/containers/Heading";
@@ -16,8 +15,6 @@ import useResetModal from "./hooks/useResetModal";
 
 const Verify_phoneModal = () => {
   const verifycationModal = useVerify_phoneModal();
-  const registerModal = useRegisterModal();
-  const resetModal = useResetModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
