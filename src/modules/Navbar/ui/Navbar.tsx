@@ -10,6 +10,7 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
+
 import { Input } from "antd";
 import { Link } from "react-router-dom";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
@@ -27,7 +28,6 @@ const Navbar = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { data: productData = [] } = useAllProducts();
   const user_id = localStorage.getItem('user_id');
-  const token = localStorage.getItem('token');
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -141,7 +141,7 @@ const Navbar = () => {
          
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
-              <CiClock1 />
+            <CiClock1 />
               <Link to={"/status"}>Статус заказа</Link>
             </div>
             <div className={styles.header__button__status}>
@@ -182,7 +182,7 @@ const Navbar = () => {
           </nav>
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
-              <MdOutlineSignalWifiStatusbarNull />
+              <CiClock1 />
               <Link to={"/status"}>Статус заказа</Link>
             </div>
             <div className={styles.header__button__status}>
