@@ -12,6 +12,7 @@ import Input from "@/components/Input";
 import Modal from "./Modal";
 import useForgotPasswordModal from "./hooks/useForgotPassword";
 import useResetModal from "./hooks/useResetModal";
+import { toast } from "react-toastify";
 
 const Send_Reset_Code_Modal = () => {
   const forgotPasswordModal = useForgotPasswordModal();
@@ -32,16 +33,18 @@ const Send_Reset_Code_Modal = () => {
         phone_number: data.phone_number,
       });
       console.log(response);
-  
+
+      localStorage.setItem("phone_number", data.phone_number);
+
       forgotPasswordModal.onClose();
     } catch (error) {
       console.error("Error:", error);
     } finally {
+      toast.error('Код для восстановления пароля отправлен на ваш номер телефона');
       resetModal.onOpen();
       setIsLoading(false);
     }
   };
-  
 
   const onToggle = useCallback(() => {
     forgotPasswordModal.onClose();
@@ -71,19 +74,12 @@ const Send_Reset_Code_Modal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
 
-      <div
-        className="
-      text-neutral-500 text-center mt-4 font-light"
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           Впервые пользуетесь Технопромом?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Завести аккаунт

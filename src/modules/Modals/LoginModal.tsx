@@ -10,6 +10,7 @@ import Input from "@/components/Input";
 
 import Modal from "./Modal";
 import { http } from "@/services";
+import { toast } from "react-toastify";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -33,6 +34,7 @@ const LoginModal = () => {
     } catch (error) {
       console.error("Error:", error);
     } finally {
+      toast.error('Вы зашли в аккаунт!');
       setIsLoading(false);
     }
   };
