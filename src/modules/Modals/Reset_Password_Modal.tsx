@@ -11,7 +11,6 @@ import { resetPassword } from "@/features/Auth/modal/service/ResetPassword";
 type Inputs = {
   verification_code: string;
   new_password: string;
-  phone_number: string;
 };
 
 const Reset_Password_Modal = () => {
@@ -26,8 +25,17 @@ const Reset_Password_Modal = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsLoading(true);
+
+   
+    const storedPhoneNumber = localStorage.getItem("phone_number");
+
+    const updatedData = {
+      ...data,
+      phone_number: storedPhoneNumber || "", 
+    };
+
     try {
-      await dispatch(resetPassword(data)).unwrap();
+      await dispatch(resetPassword(updatedData)).unwrap();
       toast.success('Пароль успешно сброшен');
       resetModal.onClose();
     } catch (error) {
@@ -48,21 +56,11 @@ const Reset_Password_Modal = () => {
         subtitle="Сбросить пароль!"
       />
       <Input
-        id="phone_number"
-        name="phone_number"
-        label="Номер телефона"
-        disabled={isLoading}
-        // @ts-ignore
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
         id="verification_code"
         name="verification_code"
         label="Код подтверждения"
         type="text"
-        disabled={isLoading}  
+        disabled={isLoading}
         // @ts-ignore
         register={register}
         errors={errors}
@@ -85,23 +83,12 @@ const Reset_Password_Modal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <div
-        className="
-          text-neutral-500 
-          text-center 
-          mt-4 
-          font-light
-        "
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           У вас уже есть аккаунт?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Войти

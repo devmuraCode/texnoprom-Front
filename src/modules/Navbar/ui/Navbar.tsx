@@ -3,10 +3,7 @@ import logo from "@/assets/logo.png";
 import styles from "./Navbar.module.scss";
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiClock1, CiShoppingCart, CiUser } from "react-icons/ci";
-import {
-  MdOutlinePhone,
-  MdOutlineSignalWifiStatusbarNull,
-} from "react-icons/md";
+import { MdOutlinePhone } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
@@ -27,19 +24,17 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { data: productData = [] } = useAllProducts();
-  const user_id = localStorage.getItem('user_id');
+  const user_id = localStorage.getItem("user_id");
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-
 
   const filteredProducts = productData.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  
   const handleProductClick = () => {
-    setSearchTerm(""); 
+    setSearchTerm("");
   };
 
   const handleCatalogToggle = () => {
@@ -63,7 +58,6 @@ const Navbar = () => {
 
   return (
     <div className={styles.container}>
-   
       <div className={styles.top__navbar}>
         <div className={styles.top__navbar__text__container}>
           <a href="tel:+998712033333" className={styles.top__navbar__text}>
@@ -80,7 +74,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-      
         {!isMobile && (
           <div className={styles.desktopOnly}>
             <ul className={styles.top__navbar__catalog}>
@@ -129,7 +122,7 @@ const Navbar = () => {
                     key={product.id}
                     to={`/detail/${product.id}`}
                     className={styles.searchResultItem}
-                    onClick={handleProductClick} 
+                    onClick={handleProductClick}
                   >
                     {product.title}
                   </Link>
@@ -138,10 +131,9 @@ const Navbar = () => {
             )}
           </div>
 
-         
           <div className={styles.header__button__container}>
             <div className={styles.header__button__status}>
-            <CiClock1 />
+              <CiClock1 />
               <Link to={"/status"}>Статус заказа</Link>
             </div>
             <div className={styles.header__button__status}>
@@ -150,11 +142,14 @@ const Navbar = () => {
             </div>
             <div className={styles.header__button__status}>
               <CiUser />
-              {user_id ? <button onClick={deleteUserToken}>Выйти</button> : <button onClick={registerModal.onOpen}>Войти</button>}
+              {user_id ? (
+                <button onClick={deleteUserToken}>Выйти</button>
+              ) : (
+                <button onClick={registerModal.onOpen}>Войти</button>
+              )}
             </div>
           </div>
 
-          
           {isMobile && (
             <button
               className={styles.header__toggler}
@@ -197,7 +192,6 @@ const Navbar = () => {
         </div>
       )}
 
-    
       <CatalogModal />
     </div>
   );
