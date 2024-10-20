@@ -11,8 +11,7 @@ import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCa
 const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
-  const { categoryId } = useParams<string>();
-  const { brandId , } = useParams<string>();
+  const { categoryId, brandId } = useParams<string>();
 
   console.log("brandId:", brandId);
 
