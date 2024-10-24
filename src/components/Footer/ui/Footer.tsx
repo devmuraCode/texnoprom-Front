@@ -39,7 +39,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="mb-6 w-full sm:w-auto text-start">
+            <div className="mb-6 w-ful l sm:w-auto text-start">
               <h2 className="font-black text-lg">Контакты</h2>
               <a href="#" className="text-sm block">
                 Узбекистан, г. Ташкент

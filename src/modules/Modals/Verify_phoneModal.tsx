@@ -4,14 +4,15 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import http from "@/services/http";
 
 import Heading from "@/containers/Heading";
-
 import Input from "@/components/Input";
-
 import Modal from "./Modal";
+
 import useVerify_phoneModal from "./hooks/useVerify_phoneModal";
+import useWelcomeModal from "./hooks/useWelcomeModal";
 
 const Verify_phoneModal = () => {
   const verifycationModal = useVerify_phoneModal();
+  const welcomeModal = useWelcomeModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -21,14 +22,14 @@ const Verify_phoneModal = () => {
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const phoneNumber = localStorage.getItem('phone_number');
+    const phoneNumber = localStorage.getItem("phone_number");
     setIsLoading(true);
     const phoneData = {
       ...data,
-      phone_number: phoneNumber || data.phone_number, 
+      phone_number: phoneNumber || data.phone_number,
     };
     console.log(phoneData);
-    
+
     try {
       const response = await http.request.post(
         "/users/verify-phone/",
@@ -36,17 +37,19 @@ const Verify_phoneModal = () => {
       );
       localStorage.setItem("token", response.data.access);
       localStorage.setItem("user_id", response.data.user_id);
-      verifycationModal.onClose();
     } catch (error) {
       console.error("Error:", error);
     } finally {
+      verifycationModal.onClose();
+      welcomeModal.onOpen();
       setIsLoading(false);
     }
   };
 
   const onToggle = useCallback(() => {
     verifycationModal.onClose();
-  }, [verifycationModal]);
+    welcomeModal.onOpen();
+  }, [verifycationModal, welcomeModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -70,20 +73,12 @@ const Verify_phoneModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-
-      <div
-        className="
-      text-neutral-500 text-center mt-4 font-light"
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           Впервые пользуетесь Технопромом?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Завести аккаунт
@@ -97,7 +92,7 @@ const Verify_phoneModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={verifycationModal.isOpen}
-      title="Cмс верификация"
+      title="Смс верификация"
       actionLabel="Продолжить"
       onClose={verifycationModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
