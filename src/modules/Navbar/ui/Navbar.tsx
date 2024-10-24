@@ -77,14 +77,7 @@ const Navbar = () => {
         {!isMobile && (
           <div className={styles.desktopOnly}>
             <ul className={styles.top__navbar__catalog}>
-              <li>
-                <Link to="/about">О нас</Link>
-              </li>
-              <li>
-                <Link to="/delivery">Доставка</Link>
-              </li>
-              <li>Магазины</li>
-              <li>Связаться с нами!</li>
+              
             </ul>
           </div>
         )}

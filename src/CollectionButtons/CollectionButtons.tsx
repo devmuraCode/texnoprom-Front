@@ -41,13 +41,10 @@ const CollectionButtons = () => {
       <Container>
         <div className="slider-container">
           <Slider {...settings}>
-            <div className={styles.button_6}>Предзаказ с товара globbing</div>
-            <div className={styles.button_6}>
-              После регистрации скидка 5% (новый клиент)
-            </div>
+           
             <div className={styles.button_6}>Экспресс доставка от 30 минут</div>
             <div className={styles.button_6}>
-              Заказали и забери заказ через 15 минут
+              Закажи и забери заказ через 15 минут
             </div>
             <div className={styles.button_6}>Обмен старого товара на новый</div>
             <div className={styles.button_6}>Страхование техники</div>
