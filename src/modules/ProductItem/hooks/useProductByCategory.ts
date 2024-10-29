@@ -23,17 +23,16 @@ export interface IProduct {
 }
 
 interface IProps {
-  // @ts-ignore
-  categoryId: string | null;
+  categorySlug: string | undefined;
 }
 
-export const useProductByCategory = ({ categoryId }: IProps) => {
+export const useProductByCategory = ({ categorySlug }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["category", categoryId],
+    queryKey: ["category", categorySlug],
     queryFn: async () => {
-      if (!categoryId) return [];
+      if (!categorySlug) return [];
       try {
-        const response = await http.request.get(`/products/categories/${categoryId}`);
+        const response = await http.request.get(`/products/categories/${categorySlug}/`);
         if (response && response.data) {
           return response.data.results;
         } else {
@@ -43,6 +42,6 @@ export const useProductByCategory = ({ categoryId }: IProps) => {
         throw new Error("Error fetching products by category.");
       }
     },
-    enabled: !!categoryId,
+    enabled: !!categorySlug,
   });
 };

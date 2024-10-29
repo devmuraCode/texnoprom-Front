@@ -28,7 +28,6 @@ const Verify_phoneModal = () => {
       ...data,
       phone_number: phoneNumber || data.phone_number,
     };
-    console.log(phoneData);
 
     try {
       const response = await http.request.post(

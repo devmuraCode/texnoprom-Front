@@ -9,12 +9,10 @@ import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand
 import cls from './Brand.module.scss'
 
 function Responsive() {
-  const [brandId, setBrandId] = useState<string | null>(null);
+  const [brandSlug, setBrandSlug] = useState<string | undefined>();
   const { data: brands, isLoading, error } = useAllBrands();
-  console.log(brands);
   
-  // @ts-ignore
-  const { data: product } = useProductByBrand({ brandId });
+  const { data: product } = useProductByBrand({ brandSlug });
 
   const settings = {
     dots: false,
@@ -63,7 +61,7 @@ function Responsive() {
           <h1 className="font-bold text-2xl text-black pb-4">Бренды</h1>
           <Slider {...settings}>
             {brands?.map((brand) => (
-              <Link to={`/catalog/${brand.id}`} onClick={() => setBrandId(brand.id)} key={brand.id}>
+              <Link to={`/catalog/${brand.slug}`} state={{ type: "brand" }} onClick={() => setBrandSlug(brand.slug)} key={brand.id}>
                 <div>
                   <img
                     className={cls.brand_image}

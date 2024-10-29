@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 const PapularCategory: FC = () => {
   const { data: papularCategory } = useAllPapulerCategory();
-  console.log(papularCategory);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -55,7 +55,7 @@ const PapularCategory: FC = () => {
 
         <Slider {...settings}>
           {papularCategory?.map((category) => (
-            <Link to={`/catalog/brandId/${category.id}`} key={category.id}>
+            <Link to={`/catalog/${category.slug}`} state={{ type: "category" }} key={category.id}>
             <div
               key={category.id}
               className="flex flex-col direction-col items-center"

@@ -21,15 +21,15 @@ export interface IProduct {
   brands: string
 }
 interface IProps {
-  brandId: string | undefined;
+  brandSlug: string | undefined;
 }
 
-export const useProductByBrand = ({ brandId }: IProps) => {
+export const useProductByBrand = ({ brandSlug }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["product", brandId],
+    queryKey: ["product", brandSlug],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/products/brands/${brandId}`);
+        const response = await http.request.get(`/products/brands/${brandSlug}/`);
         if (response && response.data) {
           return response.data.results;
         } else {
@@ -39,6 +39,6 @@ export const useProductByBrand = ({ brandId }: IProps) => {
         throw new Error("Error fetching banners: ");
       }
     },
-    enabled: !!brandId,
+    enabled: !!brandSlug,
   });
 };

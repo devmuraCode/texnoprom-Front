@@ -2,7 +2,7 @@
 import { FC, useState, useEffect } from "react";
 import cls from "./ProductDetails.module.scss";
 import { useCharacteristics } from "../hooks/useCharacteristics";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Characteristics from "./Characteristics";
 import { useInstallment } from "@/hooks/installment/useInstallment";
 import { IProduct } from "@/modules/ProductItem/hooks/useAllProducts";
@@ -24,6 +24,7 @@ interface ProductDetailsProps {
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { productId } = useParams<{ productId: string }>();
+  const { state: locationState } = useLocation();
   const { data: characteristics } = useCharacteristics({ productId });
   const { data: lighthouse } = useLightHouse({ productId });
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [selectedInstallment, setSelectedInstallment] = useState<number>(6);
   const { data: installment, refetch } = useInstallment({
-    productId,
+    productId: locationState.productId,
     months: selectedInstallment,
   });
   const [installmentService, setInstallmentService] = useState<

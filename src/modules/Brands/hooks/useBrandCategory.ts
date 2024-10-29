@@ -11,16 +11,16 @@ export interface IBrand {
 }
 
 interface IProps {
-  categoryId: string | null;
+  categorySlug: string | undefined;
 }
 
-export const useBrandCategory = ({ categoryId }: IProps) => {
+export const useBrandCategory = ({ categorySlug }: IProps) => {
   return useQuery<IBrand[]>({
-    queryKey: ["category", categoryId],
+    queryKey: ["category", categorySlug],
     queryFn: async () => {
       try {
         const response = await http.request.get(
-          `/brands/category/${categoryId}`
+          `/brands/category/${categorySlug}/`
         );
         if (response && response.data) {
           return response.data;
@@ -31,6 +31,6 @@ export const useBrandCategory = ({ categoryId }: IProps) => {
         throw new Error("Error fetching banners: ");
       }
     },
-    enabled: !!categoryId,
+    enabled: !!categorySlug,
   });
 };

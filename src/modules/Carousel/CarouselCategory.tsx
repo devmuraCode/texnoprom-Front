@@ -9,8 +9,6 @@ const CarouselCategory= () => {
   // @ts-ignore
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const { data: category } = useAllCategory();
-  console.log(category);
-  
   
   const settings = {
     dots: false,
@@ -58,7 +56,7 @@ const CarouselCategory= () => {
         <Slider {...settings}>
           {category?.map((item) => (
             <div key={item.id}>
-              <Link to={`/catalog/brandId/${item.id}`}> 
+              <Link to={`/catalog/${item.slug}`} state={{ type: "category" }}> 
                 <h3 className="cursor-pointer">{item.title}</h3>
               </Link>
             </div>

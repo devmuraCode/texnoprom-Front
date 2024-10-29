@@ -6,11 +6,10 @@ import { useAppDispatch } from "@/store/store";
 import { addToCart } from "@/features/ShoppingSlice/CartSlice";
 
 const ProductDetail = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const { productSlug } = useParams<{ productSlug: string }>();
   const dispatch = useAppDispatch();
 
-  const { data: product, isLoading, isError } = useProductDetail({ productId: productId || '' });
-console.log(product);
+  const { data: product, isLoading, isError } = useProductDetail({ productSlug: productSlug || '' });
 
   const handleAddToCart = (product: IProduct) => {
     // @ts-ignore

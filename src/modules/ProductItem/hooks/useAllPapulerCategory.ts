@@ -6,6 +6,7 @@ export interface IProduct {
     title: string;
     img: string;
     collection: string;
+    slug: string;
 }
 
 export const useAllPapulerCategory = () => {

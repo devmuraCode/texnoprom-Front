@@ -18,8 +18,6 @@ export const useCatalog = (id: string) => {
       try {
         const response = await http.request.get(`/category/${id}`);
         if (response && response.data) {
-            console.log(response.data);
-            
           return response.data;
         } else {
           throw new Error("Response data is undefined");

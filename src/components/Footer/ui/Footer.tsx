@@ -7,12 +7,9 @@ import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 
 const Footer = () => {
-  // @ts-ignore
   const { data: brands } = useAllBrands();
-  // @ts-ignore
-  const [brandId, setBrandId] = useState<string | null>(null);
-  // @ts-ignore
-  const { data: products = [] } = useProductByBrand({ brandId });
+  const [brandSlug, setBrandSlug] = useState<string | undefined>();
+  const { data: products = [] } = useProductByBrand({ brandSlug });
 
   return (
     <div className="footer w-full">

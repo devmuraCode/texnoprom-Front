@@ -19,6 +19,7 @@ export interface IProduct {
   category: string;
   brandcategory: string;
   brands: string;
+  slug: string;
 }
 
 export const useAllProducts = () => {
