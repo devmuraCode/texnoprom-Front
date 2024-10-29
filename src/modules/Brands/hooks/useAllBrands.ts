@@ -7,6 +7,7 @@ export interface IBrand {
   updated_at: string;
   title: string;
   logo: string;
+  slug: string;
 }
 
 export const useAllBrands = () => {

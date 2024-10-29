@@ -9,6 +9,7 @@ export interface ICollection {
     title: string,
     description: string,
     img: string
+    slug: string
 }
 
 export const useCollectionsCard = () => {

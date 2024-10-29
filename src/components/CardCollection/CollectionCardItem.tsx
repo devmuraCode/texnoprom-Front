@@ -9,12 +9,11 @@ interface IProps {
 }
 
 const CollectionCardItem: FC<IProps> = ({ collection }) => {
-  const [categoryId, setcCtegoryId] = useState<string | null>(null);
-  // @ts-ignore
-  const { data: products } = useProductByCategory({ categoryId });
+  const [categorySlug, setCategorySlug] = useState<string | undefined>();
+  const { data: products } = useProductByCategory({ categorySlug });
 
   return (
-    <Link to={`/catalog/${collection.id}`} onClick={() => setcCtegoryId(collection.id)} className={cls.card}>
+    <Link to={`/catalog/${collection.slug}`} state={{ type: "category" }} onClick={() => setCategorySlug(collection.slug)} className={cls.card}>
       <div className={cls.imageContainer}>
         <img
           className={cls.image}

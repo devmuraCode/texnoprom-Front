@@ -20,6 +20,7 @@ export interface IProduct {
   brands?: string
   category: string
   brand: string
+  slug: string
 }
 
 export const usePapulerProduct = () => {
@@ -29,7 +30,7 @@ export const usePapulerProduct = () => {
       try {
         const response = await http.request.get(`/products/popular/`);
         if (response && response.data) {
-          return response.data.results;
+          return response.data.products;
         } else {
           throw new Error("Response data is undefined");
         }

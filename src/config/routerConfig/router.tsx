@@ -24,9 +24,9 @@
 
   export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: "/",
-    [AppRoutes.CATALOG]: "/catalog/:brandId?/:categoryId?",
+    [AppRoutes.CATALOG]: "/catalog/:slug",
     [AppRoutes.CART]: "/cart",
-    [AppRoutes.DETAIL]: "/detail/:productId",
+    [AppRoutes.DETAIL]: "/detail/:productSlug",
     [AppRoutes.PROFILE]: "/profile",
     [AppRoutes.PAYMENT]: "/payment",
     [AppRoutes.ABOUT]: "/about",

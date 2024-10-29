@@ -113,7 +113,8 @@ const Navbar = () => {
                 {filteredProducts.map((product) => (
                   <Link
                     key={product.id}
-                    to={`/detail/${product.id}`}
+                    to={`/detail/${product.slug}`}
+                    state={{ productId: product.id }}
                     className={styles.searchResultItem}
                     onClick={handleProductClick}
                   >

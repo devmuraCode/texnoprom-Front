@@ -22,15 +22,15 @@ export interface IProduct {
   brand: string;
 }
 interface IProps {
-  brandId: string | undefined;
+  brandSlug: string | undefined;
 }
 
-export const useProductByBrandCategory = ({ brandId }: IProps) => {
+export const useProductByBrandCategory = ({ brandSlug }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["productcategory", brandId],
+    queryKey: ["productcategory", brandSlug],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/products/brandscategory/${brandId}`);
+        const response = await http.request.get(`/products/brand-category/${brandSlug}/`);
         if (response && response.data) {
           return response.data.results;
         } else {
@@ -40,6 +40,6 @@ export const useProductByBrandCategory = ({ brandId }: IProps) => {
         throw new Error("Error fetching banners: ");
       }
     },
-    enabled: !!brandId,
+    enabled: !!brandSlug,
   });
 };

@@ -11,7 +11,6 @@ import { useGetDayProduct } from "./hooks/useGetDayProduct";
 function Carousel() {
   const { data: banners } = useBanners();
   const {data: dayproduct} = useGetDayProduct()
-  console.log(dayproduct);
   
   // Ловим размеры экрана
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

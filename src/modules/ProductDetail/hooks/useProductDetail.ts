@@ -15,22 +15,22 @@ export interface IProduct {
 }
 
 interface IProps {
-  productId: string;
+  productSlug: string | undefined;
 }
 
-export const useProductDetail = ({ productId }: IProps) => {
+export const useProductDetail = ({ productSlug }: IProps) => {
   return useQuery<IProduct>({
-    queryKey: ["product", productId],
+    queryKey: ["product", productSlug],
     queryFn: async () => {
       try {
         const response = await http.request.get(
-          `/products/${productId}/`
+          `/products/getproduct/${productSlug}/`
         );
         return response.data;
       } catch (error: any) {
         throw new Error(error.message || "Error fetching product details");
       }
     },
-    enabled: !!productId,
+    enabled: !!productSlug,
   });
 };

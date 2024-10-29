@@ -29,10 +29,9 @@ const Send_Reset_Code_Modal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const response = await http.request.post("/users/send_reset_code/", {
+      await http.request.post("/users/send_reset_code/", {
         phone_number: data.phone_number,
       });
-      console.log(response);
 
       localStorage.setItem("phone_number", data.phone_number);
 

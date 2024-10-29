@@ -40,9 +40,6 @@ const PrevArrow = ({ className, style, onClick }) => (
 
 const News = () => {
   const { data: productsData } = usePapulerProduct();
-  // @ts-ignore
-  const allProducts = productsData?.flatMap(item => item.products) || [];
-  console.log(allProducts);
   
   // Slider settings
   const settings = {
@@ -90,8 +87,8 @@ const News = () => {
 
         <div className={styled.slider_container}>
           <Slider {...settings}>
-            {allProducts?.map((product) => (
-              <div>
+            {productsData?.map((product) => (
+              <div key={product.id}>
                 <ProductItem product={product} />
               </div>
             ))}

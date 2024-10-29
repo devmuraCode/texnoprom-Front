@@ -5,29 +5,27 @@ import { useQuery } from "@tanstack/react-query";
 export interface ICategory {
   category_id: string,
   category_title: string,
+  category_slug: string
   children: [
     {
       brand_id: string,
       brand_title: string
-    },
-    {
-      brand_id: string,
-      brand_title: string
+      brand_slug: string
     }
   ]
 }
 
 interface IProps {
-  collectionId: string | null;
+  collectionSlug: string | undefined;
 }
 
-export const useCategory = ({ collectionId } : IProps) => {
+export const useCategory = ({ collectionSlug } : IProps) => {
   return useQuery<ICategory[]>({
-    queryKey: ["categiry", collectionId],
+    queryKey: ["categiry", collectionSlug],
     queryFn: async () => {
-      if (!collectionId) return [];
+      if (!collectionSlug) return [];
       try {
-        const response = await http.request.get(`/categories/brands/collection/${collectionId}`);
+        const response = await http.request.get(`/categories/brands/collection/${collectionSlug}/`);
         if (response && response.data) {
           return response.data;
         } else {
@@ -37,6 +35,6 @@ export const useCategory = ({ collectionId } : IProps) => {
         throw new Error("Error fetching banners: " );
       }
     },
-    enabled: !!collectionId
+    enabled: !!collectionSlug
   });
 };

@@ -14,11 +14,10 @@ const ProductItem: FC<IProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);
-  const [productId, setProductId] = useState<string | null>(null);
+  const [productSlug, setProductSlug] = useState<string | undefined>();
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  // @ts-ignore
-  const { data: products } = useProductDetail({ productId });
+  const { data: products } = useProductDetail({ productSlug });
 
   const handleAddToCart = (product: IProduct) => {
     // @ts-ignore
@@ -45,8 +44,9 @@ const ProductItem: FC<IProps> = ({ product }) => {
   return (
     <div className="w-full bg-white rounded-md duration-100 hover:shadow dark:bg-white dark:border-x-gray-300">
       <NavLink
-        to={`/detail/${product.id}`}
-        onClick={() => setProductId(product.id)}
+        to={`/detail/${product.slug}`}
+        state={{ productId: product.id }}
+        onClick={() => setProductSlug(product.slug)}
       >
         <div className={cls.imageContainer}>
           <img
@@ -58,7 +58,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
       </NavLink>
 
       <div className="px-5 pb-5">
-        <NavLink to={`/detail/${product.id}`}>
+        <NavLink to={`/detail/${product.slug}`} state={{ productId: product.id }}>
           <p className="text-slate-600 font-normal h-14 text-sm tracking-tight dark:text-grey-900 pt-5">
             {product.title}
           </p>
