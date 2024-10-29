@@ -3,6 +3,7 @@ import { useAllPapulerCategory } from "@/modules/ProductItem/hooks/useAllPapuler
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+
 const PapularCategory: FC = () => {
   const { data: papularCategory } = useAllPapulerCategory();
 
@@ -10,7 +11,7 @@ const PapularCategory: FC = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 7,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -56,17 +57,14 @@ const PapularCategory: FC = () => {
         <Slider {...settings}>
           {papularCategory?.map((category) => (
             <Link to={`/catalog/${category.slug}`} state={{ type: "category" }} key={category.id}>
-            <div
-              key={category.id}
-              className="flex flex-col direction-col items-center"
-            >
-              <img
-                src={category.img}
-                alt={category.title}
-                className="object-cover rounded-lg mb-4"
-              />
-              <span className="text-lg font-semibold">{category.title}</span>
-            </div>
+              <div className="flex flex-col direction-col items-center">
+                <img
+                  src={category.img}
+                  alt={category.title}
+                  className="object-cover rounded-lg mb-4 w-20"
+                />
+                <span className="text-lg font-semibold">{category.title}</span>
+              </div>
             </Link>
           ))}
         </Slider>

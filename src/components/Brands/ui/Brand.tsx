@@ -11,7 +11,7 @@ import cls from './Brand.module.scss'
 function Responsive() {
   const [brandSlug, setBrandSlug] = useState<string | undefined>();
   const { data: brands, isLoading, error } = useAllBrands();
-  
+  // @ts-ignore
   const { data: product } = useProductByBrand({ brandSlug });
 
   const settings = {
@@ -45,7 +45,7 @@ function Responsive() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          dots: false, // Hide dots for mobile
+          dots: false,
         },
       },
     ],
