@@ -47,7 +47,7 @@ const CatalogModal = () => {
               <Collapse
                 accordion
                 items={collections?.map((collection) => ({
-                  key: collection.id,
+                  key: collection.slug,
                   label: collection.title,
                   children: categories?.map((category) => (
                     <div key={category.category_id}>
