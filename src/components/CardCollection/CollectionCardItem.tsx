@@ -10,6 +10,7 @@ interface IProps {
 
 const CollectionCardItem: FC<IProps> = ({ collection }) => {
   const [categorySlug, setCategorySlug] = useState<string | undefined>();
+  // @ts-ignore
   const { data: products } = useProductByCategory({ categorySlug });
 
   return (
@@ -18,7 +19,7 @@ const CollectionCardItem: FC<IProps> = ({ collection }) => {
         <img
           className={cls.image}
           src={collection.img}
-          alt="product image"
+          alt={collection.title}
         />
       </div>
       <div className={cls.content}>

@@ -17,6 +17,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
   const [productSlug, setProductSlug] = useState<string | undefined>();
   const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  // @ts-ignore
   const { data: products } = useProductDetail({ productSlug });
 
   const handleAddToCart = (product: IProduct) => {
@@ -52,7 +53,7 @@ const ProductItem: FC<IProps> = ({ product }) => {
           <img
             className={cls.image}
             src={product.mainimg}
-            alt="product image"
+            alt={product.title}
           />
         </div>
       </NavLink>

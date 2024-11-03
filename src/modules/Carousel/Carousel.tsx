@@ -122,7 +122,7 @@ function Carousel() {
             <Slider {...bannerSliderSettings}>
               {banners?.map((banner, index) => (
                 <div key={index}>
-                  <img src={banner.img} alt="" style={bannerStyle} />
+                  <img src={banner.img} alt={banner.title_en} style={bannerStyle} />
                 </div>
               ))}
             </Slider>

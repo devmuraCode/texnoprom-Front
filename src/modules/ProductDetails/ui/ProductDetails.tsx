@@ -106,7 +106,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                   key={el.id}
                   className={cls.thumbnail}
                   src={el.img}
-                  alt="thumbnail"
+                  alt=""
                 />
               ))}
             </div>

@@ -7,24 +7,24 @@ import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand
 import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 
 const Footer = () => {
+  // @ts-ignore
   const { data: brands } = useAllBrands();
   const [brandSlug, setBrandSlug] = useState<string | undefined>();
+  // @ts-ignore
   const { data: products = [] } = useProductByBrand({ brandSlug });
 
   return (
-    <div className="footer w-full">
+    <div className="footer">
       <Container>
-        <div className="sm:flex flex-col">
-          <div className="flex flex-wrap justify-around text-white">
-            <div className="mb-6 w-full sm:w-auto text-start">
-              <Link to="/">
-                <img src={logo} className="w-40 h-20" alt="Flowbite Logo" />
-              </Link>
-            </div>
+        <div className="footer__content">
+          <div className="footer__logo">
+            <Link to="/">
+              <img src={logo} alt="Logo" className="footer__logo-img" />
+            </Link>
+          </div>
 
-            <div className="mb-6 w-full sm:w-auto text-start">
-              {/* content */}
-              <ul>
+          <div className="footer__links">
+            <ul>
               <li>
                 <Link to="/about">О нас</Link>
               </li>
@@ -33,27 +33,27 @@ const Footer = () => {
               </li>
               <li>Магазины</li>
               <li>Связаться с нами!</li>
-              </ul>
-            </div>
+            </ul>
+          </div>
 
-            <div className="mb-6 w-ful l sm:w-auto text-start">
-              <h2 className="font-black text-lg">Контакты</h2>
-              <a href="#" className="text-sm block">
-                Узбекистан, г. Ташкент
-              </a>
-              <a href="tel:+998938480008" className="text-sm block">
-                +998938480008
-              </a>
-              <a href="tel:+998946279592" className="text-sm block">
-                +998946279592
-              </a>
-              <a href="mailto:admin@elmakon.uz" className="text-sm block">
-                Пн-Вс 9.00 - 18.00
-              </a>
-              <a href="mailto:admin@elmakon.uz" className="text-sm block">
-                info@texnoprom.net.uz
-              </a>
-            </div>
+          <div className="footer__contacts">
+            <h2 className="footer__contacts-title">Контакты</h2>
+            <a href="#" className="footer__contact-link">
+              Узбекистан, г. Ташкент
+            </a>
+            <a href="tel:+998938480008" className="footer__contact-link">
+              +998938480008
+            </a>
+            <a href="tel:+998946279592" className="footer__contact-link">
+              +998946279592
+            </a>
+            <p className="footer__contact-info">Пн-Вс 9.00 - 18.00</p>
+            <a
+              href="mailto:info@texnoprom.net.uz"
+              className="footer__contact-link"
+            >
+              info@texnoprom.net.uz
+            </a>
           </div>
         </div>
       </Container>
