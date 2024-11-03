@@ -101,7 +101,9 @@ const CatalogModal = () => {
               <div className={styles.grid}>
                 {categories?.map((category) => (
                   <div key={category.category_id}>
-                    <h3>{category.category_title}</h3>
+                    <Link to={`/catalog/${category.category_slug}`} state={{ type: 'category' }}>
+                      <h3>{category.category_title}</h3>
+                    </Link>
                     <ul>
                       {category.children.map((brand) => (
                         <li key={brand.brand_id}>
