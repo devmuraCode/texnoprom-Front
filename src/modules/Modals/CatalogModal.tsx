@@ -15,9 +15,7 @@ const CatalogModal = () => {
 
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
-  // Открытие первой коллекции по умолчанию на десктопе
   useEffect(() => {
-    // Если модальное окно открыто блокируем скроллинг
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     }
@@ -26,7 +24,7 @@ const CatalogModal = () => {
       setCollectionSlug(collections[0].slug);
     }
 
-    // При размонтировании компонента разрешаем скролл
+   
     return () => {
       document.body.removeAttribute('style');
     };
@@ -101,7 +99,7 @@ const CatalogModal = () => {
               <div className={styles.grid}>
                 {categories?.map((category) => (
                   <div key={category.category_id}>
-                    <Link to={`/catalog/${category.category_slug}`} state={{ type: 'category' }}>
+                    <Link to={`/catalog/${category.category_slug}`} onClick={onClose} state={{ type: 'category' }}>
                       <h3>{category.category_title}</h3>
                     </Link>
                     <ul>

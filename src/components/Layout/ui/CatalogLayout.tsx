@@ -27,7 +27,7 @@ const CatalogLayout: FC = () => {
     }
   };
 
-  const { data: brandData } = useProductByBrand({ brandSlug: slug }); 
+  const { data: brandData } = useProductByBrand({ brandSlug: slug });
 
   const products = fetchProducts();
   const [currentPage, setCurrentPage] = useState(1);
