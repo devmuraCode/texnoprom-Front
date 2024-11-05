@@ -7,12 +7,14 @@ import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Collapse } from 'antd';
 
+const ITEMS_PER_LOAD = 3;
+
 const CatalogModal = () => {
   const [collectionSlug, setCollectionSlug] = useState<string | undefined>();
+  const [visibleItems, setVisibleItems] = useState<Record<string, number>>({});
   const { onClose, isOpen } = useCatalogModal();
   const { data: collections } = useCollectionNavbar();
   const { data: categories } = useCategory({ collectionSlug });
-
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
@@ -24,14 +26,61 @@ const CatalogModal = () => {
       setCollectionSlug(collections[0].slug);
     }
 
-   
     return () => {
       document.body.removeAttribute('style');
     };
   }, [isOpen, collections, collectionSlug, isMobile]);
 
+  useEffect(() => {
+    // Инициализация количества видимых элементов для каждой категории
+    if (categories) {
+      const initialVisibleItems: Record<string, number> = {};
+      categories.forEach(category => {
+        initialVisibleItems[category.category_id] = ITEMS_PER_LOAD;
+      });
+      setVisibleItems(initialVisibleItems);
+    }
+  }, [categories]);
+
   const handleCollectionClick = (slug: string) => {
     setCollectionSlug(slug);
+  };
+
+  const handleShowMore = (categoryId: string) => {
+    setVisibleItems(prev => ({
+      ...prev,
+      [categoryId]: (prev[categoryId] || ITEMS_PER_LOAD) + ITEMS_PER_LOAD
+    }));
+  };
+
+  const renderBrandsList = (category: any, isCollapse = false) => {
+    const visibleBrands = category.children.slice(0, visibleItems[category.category_id]);
+    const hasMoreItems = category.children.length > visibleItems[category.category_id];
+
+    return (
+      <>
+        <ul>
+          {visibleBrands.map((brand: any) => (
+            <Link
+              to={`/catalog/${brand.brand_slug}`}
+              state={{ type: 'brand' }}
+              onClick={onClose}
+              key={brand.brand_id}
+            >
+              <li>{brand.brand_title}</li>
+            </Link>
+          ))}
+        </ul>
+        {hasMoreItems && (
+          <button 
+            onClick={() => handleShowMore(category.category_id)}
+            className={styles.showMoreButton}
+          >
+            Еще
+          </button>
+        )}
+      </>
+    );
   };
 
   if (!isOpen) return null;
@@ -56,19 +105,7 @@ const CatalogModal = () => {
                       >
                         <h3>{category.category_title}</h3>
                       </Link>
-                      {/* Отображение дочерних брендов */}
-                      <ul>
-                        {category.children.map((brand) => (
-                          <Link
-                            to={`/catalog/${brand.brand_slug}`}
-                            state={{ type: 'brand' }}
-                            onClick={onClose}
-                            key={brand.brand_id}
-                          >
-                            <li>{brand.brand_title}</li>
-                          </Link>
-                        ))}
-                      </ul>
+                      {renderBrandsList(category, true)}
                     </div>
                   )),
                 }))}
@@ -82,9 +119,7 @@ const CatalogModal = () => {
                   <li
                     onClick={() => handleCollectionClick(item.slug)}
                     key={item.id}
-                    className={
-                      collectionSlug === item.slug ? styles.active : ''
-                    }
+                    className={collectionSlug === item.slug ? styles.active : ''}
                   >
                     {item.title}
                   </li>
@@ -94,27 +129,18 @@ const CatalogModal = () => {
           </nav>
 
           {!isMobile && collectionSlug && (
-            // Десктоп версия
             <div className={styles.content}>
               <div className={styles.grid}>
                 {categories?.map((category) => (
                   <div key={category.category_id}>
-                    <Link to={`/catalog/${category.category_slug}`} onClick={onClose} state={{ type: 'category' }}>
+                    <Link 
+                      to={`/catalog/${category.category_slug}`} 
+                      onClick={onClose} 
+                      state={{ type: 'category' }}
+                    >
                       <h3>{category.category_title}</h3>
                     </Link>
-                    <ul>
-                      {category.children.map((brand) => (
-                        <li key={brand.brand_id}>
-                          <Link
-                            to={`/catalog/${brand.brand_slug}`}
-                            state={{ type: 'brand' }}
-                            onClick={onClose}
-                          >
-                            {brand.brand_title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    {renderBrandsList(category)}
                   </div>
                 ))}
               </div>
