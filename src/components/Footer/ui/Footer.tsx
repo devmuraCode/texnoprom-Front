@@ -20,11 +20,22 @@ const Footer = () => {
           <div className="footer__logo">
             <Link to="/">
               <img src={logo} alt="Logo" className="footer__logo-img" />
+              <div>
+                <h4>Место положение </h4>
+                <a href="#" className="footer__contact-link">
+                  Узбекистан, г. Ташкент
+                </a>
+              </div>
+              <div>
+                <h4>График работы:</h4>
+                <p className="footer__contact-info">Пн-Вс 9.00 - 18.00</p>
+              </div>
             </Link>
           </div>
 
           <div className="footer__links">
             <ul>
+              <li>Информация</li>
               <li>
                 <Link to="/about">О нас</Link>
               </li>
@@ -38,16 +49,14 @@ const Footer = () => {
 
           <div className="footer__contacts">
             <h2 className="footer__contacts-title">Контакты</h2>
-            <a href="#" className="footer__contact-link">
-              Узбекистан, г. Ташкент
-            </a>
+
             <a href="tel:+998938480008" className="footer__contact-link">
               +998938480008
             </a>
             <a href="tel:+998946279592" className="footer__contact-link">
               +998946279592
             </a>
-            <p className="footer__contact-info">Пн-Вс 9.00 - 18.00</p>
+
             <a
               href="mailto:info@texnoprom.net.uz"
               className="footer__contact-link"
