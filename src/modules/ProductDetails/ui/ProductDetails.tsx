@@ -23,10 +23,11 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
+  const { productSlug } = useParams<{ productSlug: string }>();
   const { productId } = useParams<{ productId: string }>();
   const { state: locationState } = useLocation();
-  const { data: characteristics } = useCharacteristics({ productId });
-  const { data: lighthouse } = useLightHouse({ productId });
+  const { data: characteristics } = useCharacteristics({ productSlug });
+  const { data: lighthouse } = useLightHouse({ productSlug });
   const dispatch = useAppDispatch();
   // @ts-ignore
   const { cartItems } = useAppSelector((state) => state.cart);

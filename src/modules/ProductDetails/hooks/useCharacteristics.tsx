@@ -12,25 +12,26 @@ export interface ICharacteristics {
 }
 
 interface IProps {
-  productId: string | undefined;
+  productSlug: string | undefined;
 }
 
-export const useCharacteristics = ({ productId }: IProps) => {
+export const useCharacteristics = ({ productSlug }: IProps) => {
   return useQuery<ICharacteristics[]>({
-    queryKey: ["characteristics", productId],
+    queryKey: ["characteristics", productSlug],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/characteristics/${productId}`);
+        const response = await http.request.get(
+          `/characteristics/${productSlug}/`
+        );
         if (response && response.data) {
           return response.data;
         } else {
           throw new Error("Response data is undefined");
         }
-      } catch (error) {
-        // @ts-ignore
+      } catch (error: any) {
         throw new Error("Error fetching characteristics: " + error.message);
       }
     },
-    enabled: !!productId,
+    enabled: !!productSlug,
   });
 };

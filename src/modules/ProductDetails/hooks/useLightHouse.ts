@@ -7,26 +7,24 @@ export interface ILightHouse {
 }
 
 interface IProps {
-  productId: string | undefined;
+  productSlug: string | undefined;
 }
 
-export const useLightHouse = ({ productId }: IProps) => {
+export const useLightHouse = ({ productSlug }: IProps) => {
   return useQuery<ILightHouse[]>({
-    queryKey: ["lighthouse", productId],
+    queryKey: ["lighthouse", productSlug],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/photos/${productId}`);
+        const response = await http.request.get(`/photos/${productSlug}`);
         if (response && response.data) {
-          return response.data
-          
+          return response.data;
         } else {
           throw new Error("Response data is undefined");
         }
-      } catch (error) {
-        // @ts-ignore
-        throw new Error("Error fetching characteristics: " + error.message);
+      } catch (error: any) {
+        throw new Error("Error fetching photos: " + error.message);
       }
     },
-    enabled: !!productId,
+    enabled: !!productSlug,
   });
 };

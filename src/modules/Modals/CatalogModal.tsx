@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Collapse } from 'antd';
 
-const ITEMS_PER_LOAD = 3;
+const ITEMS_PER_LOAD = 5;
 
 const CatalogModal = () => {
   const [collectionSlug, setCollectionSlug] = useState<string | undefined>();
@@ -53,9 +53,17 @@ const CatalogModal = () => {
     }));
   };
 
+  const handleShowLess = (categoryId: string) => {
+    setVisibleItems(prev => ({
+      ...prev,
+      [categoryId]: ITEMS_PER_LOAD
+    }));
+  };
+
   const renderBrandsList = (category: any, isCollapse = false) => {
     const visibleBrands = category.children.slice(0, visibleItems[category.category_id]);
     const hasMoreItems = category.children.length > visibleItems[category.category_id];
+    const isExpanded = visibleItems[category.category_id] > ITEMS_PER_LOAD;
 
     return (
       <>
@@ -71,12 +79,20 @@ const CatalogModal = () => {
             </Link>
           ))}
         </ul>
-        {hasMoreItems && (
+        {hasMoreItems && !isExpanded && (
           <button 
             onClick={() => handleShowMore(category.category_id)}
             className={styles.showMoreButton}
           >
             Еще
+          </button>
+        )}
+        {isExpanded && (
+          <button 
+            onClick={() => handleShowLess(category.category_id)}
+            className={styles.showLessButton}
+          >
+            Свернуть
           </button>
         )}
       </>
