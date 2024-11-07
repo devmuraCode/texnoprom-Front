@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useCategory } from '../Navbar/hooks/useCategory';
-import { useCollectionNavbar } from '../Navbar/hooks/useCollectionNavbar';
-import styles from './CatalogModal.module.scss';
-import useCatalogModal from './hooks/useCatalogModal';
-import { Link } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
-import { Collapse } from 'antd';
-
+import { useState, useEffect } from "react";
+import { useCategory } from "../Navbar/hooks/useCategory";
+import { useCollectionNavbar } from "../Navbar/hooks/useCollectionNavbar";
+import styles from "./CatalogModal.module.scss";
+import useCatalogModal from "./hooks/useCatalogModal";
+import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { Collapse } from "antd";
+import { FaAngleDown } from "react-icons/fa6";
 const ITEMS_PER_LOAD = 5;
 
 const CatalogModal = () => {
@@ -15,11 +15,11 @@ const CatalogModal = () => {
   const { onClose, isOpen } = useCatalogModal();
   const { data: collections } = useCollectionNavbar();
   const { data: categories } = useCategory({ collectionSlug });
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
 
     if (!isMobile && isOpen && collections?.length && !collectionSlug) {
@@ -27,7 +27,7 @@ const CatalogModal = () => {
     }
 
     return () => {
-      document.body.removeAttribute('style');
+      document.body.removeAttribute("style");
     };
   }, [isOpen, collections, collectionSlug, isMobile]);
 
@@ -35,7 +35,7 @@ const CatalogModal = () => {
     // Инициализация количества видимых элементов для каждой категории
     if (categories) {
       const initialVisibleItems: Record<string, number> = {};
-      categories.forEach(category => {
+      categories.forEach((category) => {
         initialVisibleItems[category.category_id] = ITEMS_PER_LOAD;
       });
       setVisibleItems(initialVisibleItems);
@@ -45,25 +45,31 @@ const CatalogModal = () => {
   const handleCollectionClick = (slug: string) => {
     setCollectionSlug(slug);
   };
-
+  useEffect(() => {
+    console.log("Полученные категории:", categories);
+  }, [categories]);
   const handleShowMore = (categoryId: string) => {
-    setVisibleItems(prev => ({
+    setVisibleItems((prev) => ({
       ...prev,
-      [categoryId]: (prev[categoryId] || ITEMS_PER_LOAD) + ITEMS_PER_LOAD
+      [categoryId]: (prev[categoryId] || ITEMS_PER_LOAD) + ITEMS_PER_LOAD,
     }));
   };
 
   const handleShowLess = (categoryId: string) => {
-    setVisibleItems(prev => ({
+    setVisibleItems((prev) => ({
       ...prev,
-      [categoryId]: ITEMS_PER_LOAD
+      [categoryId]: ITEMS_PER_LOAD,
     }));
   };
-
+  // @ts-ignore
   const renderBrandsList = (category: any, isCollapse = false) => {
-    const visibleBrands = category.children.slice(0, visibleItems[category.category_id]);
-    const hasMoreItems = category.children.length > visibleItems[category.category_id];
-    const isExpanded = visibleItems[category.category_id] > ITEMS_PER_LOAD;
+    const visibleBrands = category.children.slice(
+      0,
+      visibleItems[category.category_id]
+    );
+    const hasMoreItems =
+      category.children.length > visibleItems[category.category_id];
+    const isExpanded = visibleItems[category.category_id] < ITEMS_PER_LOAD;
 
     return (
       <>
@@ -71,7 +77,7 @@ const CatalogModal = () => {
           {visibleBrands.map((brand: any) => (
             <Link
               to={`/catalog/${brand.brand_slug}`}
-              state={{ type: 'brand' }}
+              state={{ type: "brand" }}
               onClick={onClose}
               key={brand.brand_id}
             >
@@ -80,15 +86,16 @@ const CatalogModal = () => {
           ))}
         </ul>
         {hasMoreItems && !isExpanded && (
-          <button 
+          <button
             onClick={() => handleShowMore(category.category_id)}
             className={styles.showMoreButton}
           >
             Еще
+            <FaAngleDown style={{ fontWeight: "bold" }} />
           </button>
         )}
         {isExpanded && (
-          <button 
+          <button
             onClick={() => handleShowLess(category.category_id)}
             className={styles.showLessButton}
           >
@@ -116,7 +123,7 @@ const CatalogModal = () => {
                     <div key={category.category_id}>
                       <Link
                         to={`/catalog/${category.category_slug}`}
-                        state={{ type: 'category' }}
+                        state={{ type: "category" }}
                         onClick={onClose}
                       >
                         <h3>{category.category_title}</h3>
@@ -126,7 +133,7 @@ const CatalogModal = () => {
                   )),
                 }))}
                 onChange={(key) => handleCollectionClick(key[0])}
-                style={{ backgroundColor: 'white' }}
+                style={{ backgroundColor: "white" }}
                 bordered={false}
               />
             ) : (
@@ -135,7 +142,9 @@ const CatalogModal = () => {
                   <li
                     onClick={() => handleCollectionClick(item.slug)}
                     key={item.id}
-                    className={collectionSlug === item.slug ? styles.active : ''}
+                    className={
+                      collectionSlug === item.slug ? styles.active : ""
+                    }
                   >
                     {item.title}
                   </li>
@@ -149,10 +158,10 @@ const CatalogModal = () => {
               <div className={styles.grid}>
                 {categories?.map((category) => (
                   <div key={category.category_id}>
-                    <Link 
-                      to={`/catalog/${category.category_slug}`} 
-                      onClick={onClose} 
-                      state={{ type: 'category' }}
+                    <Link
+                      to={`/catalog/${category.category_slug}`}
+                      onClick={onClose}
+                      state={{ type: "category" }}
                     >
                       <h3>{category.category_title}</h3>
                     </Link>

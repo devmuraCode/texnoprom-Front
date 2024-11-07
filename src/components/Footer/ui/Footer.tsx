@@ -9,6 +9,7 @@ import { useAllBrands } from "@/modules/Brands/hooks/useAllBrands";
 const Footer = () => {
   // @ts-ignore
   const { data: brands } = useAllBrands();
+   // @ts-ignore
   const [brandSlug, setBrandSlug] = useState<string | undefined>();
   // @ts-ignore
   const { data: products = [] } = useProductByBrand({ brandSlug });
