@@ -14,7 +14,7 @@ const CarouselCategory= () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 9,
+    slidesToShow: 7,
     slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 2000,
