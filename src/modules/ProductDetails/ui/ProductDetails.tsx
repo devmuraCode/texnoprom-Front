@@ -24,10 +24,11 @@ interface ProductDetailsProps {
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
   const { productSlug } = useParams<{ productSlug: string }>();
-   // @ts-ignore
+  // @ts-ignore
   const { productId } = useParams<{ productId: string }>();
   const { state: locationState } = useLocation();
   const { data: characteristics } = useCharacteristics({ productSlug });
+
   const { data: lighthouse } = useLightHouse({ productSlug });
   const dispatch = useAppDispatch();
   // @ts-ignore
@@ -117,9 +118,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
           <div className={cls.infoContainer}>
             <h1 className={cls.title}>{product.title}</h1>
             <div className={cls.priceContainer}>
-             
               <span className={cls.currentPrice}>
-                 {/* @ts-ignore */}
+                {/* @ts-ignore */}
                 {formatPrice(product.price)}
               </span>
               <span className={cls.usd}>{product.discounted_price} </span>
@@ -132,7 +132,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
             <div className="px-6 py-4">
               <h2 className="font-bold text-xl">Цена товара</h2>
               <br />
-              
+
               <h1 className="font-bold text-xl">
                 {/* @ts-ignore */}
                 {formatPrice(product.price)}
@@ -277,11 +277,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
               <div className={cls.leading_loose} style={{ columnCount: 2 }}>
                 {characteristics?.map((item) => (
                   <div key={item.id} className={cls.centeredCharacteristics}>
-                    <Characteristics characteristics={item} />
+                    {/* @ts-ignore */}
+                    <Characteristics characteristics={[item]} />
                   </div>
-                ))}
+                ))} 
               </div>
             )}
+
             {state3 && <p className="leading-loose mb-4">Отзывы</p>}
           </div>
         </div>

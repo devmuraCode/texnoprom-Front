@@ -6,12 +6,15 @@ import ProductItem from "@/modules/ProductItem";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
 import { useProductByBrandCategory } from "@/modules/ProductItem/hooks/useProductsByBrandCategory";
 import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCategory";
+import { useCharacteristics } from "@/modules/ProductDetails/hooks/useCharacteristics";
 
 const { Content } = Layout;
 
 const CatalogLayout: FC = () => {
   const { slug } = useParams<string>();
   const { state } = useLocation();
+
+  const {data: characteristics} = useCharacteristics({productSlug: slug})
 
   const fetchProducts = () => {
     switch (state.type) {
@@ -93,8 +96,7 @@ const CatalogLayout: FC = () => {
         total={products?.length || 0}
         onChange={handlePageChange}
       />
-
-      {/* Вывод похожих товаров */}
+\
       {brandData && brandData.length > 0 && (
         <div className="mt-8">
           <h2 className="font-bold text-xl text-black pb-4">Похожие товары</h2>
