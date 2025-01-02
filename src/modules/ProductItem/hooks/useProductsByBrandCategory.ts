@@ -23,14 +23,15 @@ export interface IProduct {
 }
 interface IProps {
   brandSlug: string | undefined;
+  page: number;
 }
 
-export const useProductByBrandCategory = ({ brandSlug }: IProps) => {
+export const useProductByBrandCategory = ({ brandSlug, page }: IProps) => {
   return useQuery<IProduct[]>({
-    queryKey: ["productcategory", brandSlug],
+    queryKey: ["productcategory", brandSlug, page],
     queryFn: async () => {
       try {
-        const response = await http.request.get(`/products/brand-category/${brandSlug}/`);
+        const response = await http.request.get(`/products/brand-category/${brandSlug}/?page=${page}`);
         if (response && response.data) {
           return response.data.results;
         } else {

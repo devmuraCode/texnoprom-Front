@@ -94,7 +94,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
         <a href="/">Главная</a> /{" "}
         <a href="/products">Телефоны, гаджеты, аксессуары</a> / {product.title}
       </div>
-
+      <h1>{product.title}</h1>
       <div className={`${cls.flexContainer} mt-8`}>
         <div className={cls.productDetailContainer}>
           <div className={cls.imageContainer}>
@@ -122,7 +122,6 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product, onAddToCart }) => {
                 {/* @ts-ignore */}
                 {formatPrice(product.price)}
               </span>
-              <span className={cls.usd}>{product.discounted_price} </span>
             </div>
           </div>
         </div>
