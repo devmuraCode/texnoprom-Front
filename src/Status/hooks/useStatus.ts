@@ -1,7 +1,7 @@
 import http from "@/services/http";
 import { useQuery } from "@tanstack/react-query";
 
-export interface IBrand {
+export interface IStatus {
   id: string;
   created_at: string;
   updated_at: string;
@@ -15,13 +15,11 @@ export interface IProps {
 }
 
 export const useStatus = ({ user_id }: IProps) => {
-  return useQuery<IBrand[]>({
+  return useQuery<IStatus[]>({
     queryKey: ["user", user_id],
     queryFn: async () => {
       try {
-        const response = await http.request.get(
-          `/orders/${user_id}`
-        );
+        const response = await http.request.get(`/orders/${user_id}`);
         if (response && response.data) {
           return response.data;
         } else {
