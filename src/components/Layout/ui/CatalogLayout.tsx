@@ -1,74 +1,142 @@
-import { FC, useState } from "react";
-import { Breadcrumb, Layout, Pagination, theme } from "antd";
+import { FC, useState, useEffect } from "react";
+import { Breadcrumb, Layout, Pagination, Radio, theme } from "antd";
 import Container from "@/components/Container/Container";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ProductItem from "@/modules/ProductItem";
 import { useProductByCategory } from "@/modules/ProductItem/hooks/useProductByCategory";
 import { useProductByBrandCategory } from "@/modules/ProductItem/hooks/useProductsByBrandCategory";
 import { useProductByBrand } from "@/modules/ProductItem/hooks/useProductByBrand";
+import { useBrandCategory } from "@/modules/Brands/hooks/useBrandCategory";
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
+
+const priceRanges = [
+  { label: "Все", value: "all" },
+  { label: "До 1000", value: "0-1000" },
+  { label: "1000 - 5000", value: "1000-5000" },
+  { label: "5000 - 10000", value: "5000-10000" },
+  { label: "Больше 10000", value: "10000-" },
+];
 
 const CatalogLayout: FC = () => {
   const { slug } = useParams<string>();
   const { state } = useLocation();
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCollection, setSelectedCollection] = useState<string | null>(
+    null
+  );
+  const [selectedPriceRange, setSelectedPriceRange] = useState("all");
   const pageSize = 5;
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const { data: brandCategories } = useBrandCategory({ categorySlug: slug });
+  const activeSlug = selectedCollection || slug;
+
+  console.log("State:", state);
+  console.log("Active slug:", activeSlug);
+
   let products = [];
   let totalProducts = 0;
 
-  // Fetch products based on the "type" in the state
-  switch (state?.type) {
-    case "category": {
-      const { data: categoryData } = useProductByCategory({
-        categorySlug: slug,
-        page: currentPage,
-      });
-      products = categoryData?.results || [];
-      totalProducts = categoryData?.count || 0;
-      break;
-    }
-    case "brand": {
-      const { data: brandCategoryData } = useProductByBrandCategory({
-        brandSlug: slug,
-        page: currentPage,
-      });
-      const { data: brandData } = useProductByBrand({
-        brandSlug: slug,
-        page: currentPage,
-      });
-      products = [...(brandCategoryData || []), ...(brandData || [])];
-      totalProducts = products.length;
-      break;
-    }
-    default:
-      break;
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCollection]);
+
+  const isCategory = state?.type === "category";
+  const isBrand = state?.type === "brand" || selectedCollection;
+
+  if (isCategory) {
+    const { data: categoryData } = useProductByCategory({
+      categorySlug: activeSlug,
+      page: currentPage,
+    });
+    products = categoryData?.results || [];
+    totalProducts = categoryData?.count || 0;
+  } else if (isBrand) {
+    const { data: brandCategoryData } = useProductByBrandCategory({
+      brandSlug: activeSlug,
+      page: currentPage,
+    });
+    const { data: brandData } = useProductByBrand({
+      brandSlug: activeSlug,
+      page: currentPage,
+    });
+    products = [
+      ...(brandCategoryData?.results || []),
+      ...(brandData?.results || []),
+    ];
+    products = Array.from(new Map(products.map((p) => [p.id, p])).values());
+    totalProducts = products.length;
   }
-  const { data: brandData } = useProductByCategory({ categorySlug: slug });
+
+  const handleCollectionClick = (collectionSlug: string) => {
+    console.log(collectionSlug);
+    setSelectedCollection(collectionSlug);
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  const handlePriceFilterChange = (e: any) => {
+    setSelectedPriceRange(e.target.value);
+  };
+
+  const filteredProducts = products.filter((product: any) => {
+    if (selectedPriceRange === "all") return true;
+    const [min, max] = selectedPriceRange.split("-").map(Number);
+    return max
+      ? product.price >= min && product.price <= max
+      : product.price >= min;
+  });
+
   return (
     <Container>
-      <h1 className="font-bold text-2xl text-black pb-4 pt-10">Название категории</h1>
-
+      <h1 className="font-bold text-2xl text-black pb-4 pt-10">
+        Название категории
+      </h1>
       <Layout>
+        <Sider width={250} style={{ background: "#fff", padding: "24px" }}>
+          <h2 className="font-bold text-xl text-black pb-4">Фильтр по цене</h2>
+          <Radio.Group
+            onChange={handlePriceFilterChange}
+            value={selectedPriceRange}
+          >
+            <div className="flex flex-col space-y-2">
+              {priceRanges.map((range) => (
+                <Radio key={range.value} value={range.value}>
+                  {range.label}
+                </Radio>
+              ))}
+            </div>
+          </Radio.Group>
+          <h2 className="font-bold text-xl text-black pb-4 mt-6">Коллекции</h2>
+          <ul className="space-y-3">
+            {brandCategories?.map((category: any) => (
+              <li key={category.id}>
+                <button
+                  className={`font-bold ${
+                    selectedCollection === category.slug ? "text-blue-500" : ""
+                  }`}
+                  onClick={() => handleCollectionClick(category.slug)}
+                >
+                  {category.title}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </Sider>
         <Layout style={{ padding: "0 24px 24px", backgroundColor: "#fff" }}>
-          {/* Breadcrumb for navigation */}
           <Breadcrumb
             items={[
-              { title: <NavLink to={"/"}>Главная</NavLink> },
-              { title: <NavLink to={"/"}>Категории</NavLink> },
+              { title: "Главная" },
+              { title: "Категории" },
               { title: "Товары" },
             ]}
           />
-          {/* Product Content */}
           <Content
             style={{
               padding: 24,
@@ -81,40 +149,19 @@ const CatalogLayout: FC = () => {
               gap: "24px",
             }}
           >
-            {/* Render each product */}
-            {products.map((product: any) => (
+            {filteredProducts.map((product: any) => (
               <ProductItem key={product.id} product={product} />
             ))}
           </Content>
         </Layout>
       </Layout>
-
-      {/* Pagination */}
       <Pagination
         className="flex justify-center"
         current={currentPage}
         pageSize={pageSize}
-        total={totalProducts} // Total products
+        total={totalProducts}
         onChange={handlePageChange}
       />
-      {/* Related Brand Data */}
-      {brandData && brandData.length > 0 && (
-        <div className="mt-8">
-          <h2 className="font-bold text-xl text-black pb-4">Похожие товары</h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-              gap: "24px",
-            }}
-          >
-            {brandData.map((product:any) => (
-              // @ts-ignore
-              <ProductItem key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      )}
     </Container>
   );
 };

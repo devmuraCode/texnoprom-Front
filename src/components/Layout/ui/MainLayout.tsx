@@ -10,6 +10,7 @@ import Send_Reset_Code_Modal from "@/modules/Modals/Send_Reset_Code_Modal";
 import Reset_Password_Modal from "@/modules/Modals/Reset_Password_Modal";
 import Verify_phoneModal from "@/modules/Modals/Verify_phoneModal";
 import WelcomeModal from "@/modules/Modals/WelcomeModal";
+import NotificationModal from "@/modules/Modals/NotificationModal";
 
 const Main: FC = () => {
   return (
@@ -28,7 +29,8 @@ const Main: FC = () => {
       <Send_Reset_Code_Modal />
       <Reset_Password_Modal />
       <Verify_phoneModal />
-      <WelcomeModal/>
+      <WelcomeModal />
+      <NotificationModal />
     </div>
   );
 };

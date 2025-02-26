@@ -13,7 +13,7 @@ const Status = () => {
     }
   }, []);
 
-  const { data: status, isLoading, error } = useStatus({ user_id: userId });
+  const { data: status, isLoading, error } = useStatus();
 
   if (isLoading) {
     return <div>Загрузка...</div>;
@@ -23,17 +23,16 @@ const Status = () => {
     return <div>Произошла ошибка при загрузке данных</div>;
   }
 
-  if (!status || !status[0]) {
+  if (!status || status.length === 0) {
     return <div>Нет данных</div>;
   }
 
-  // Извлекаем первый заказ из массива status
   const order = status[0];
 
-  // Форматируем дату
-  const formattedDate = new Date(order.created_at).toLocaleString();
+  const formattedDate = order.created_at
+    ? new Date(order.created_at).toLocaleString()
+    : "Не указано";
 
-  // Определяем статус оплаты
   const paymentStatus = order.is_paid ? "Оплачен" : "Не оплачен";
 
   return (
@@ -44,29 +43,33 @@ const Status = () => {
 
           <div className={styles.orderStatus}>
             <div className={styles.orderHeader}>
-              <span>ID заказа {order.id}</span>
-              <span>Обновлен {formattedDate}</span>
+              <span>ID заказа: {order.id}</span>
+              <span>Обновлен: {formattedDate}</span>
             </div>
 
             <div className={styles.orderInfo}>
               <span>
                 Дата доставки: {order.delivery_address || "Не указана"}
               </span>
-              <span>Телефон: {order.phone_number}</span>
+              <span>Телефон: {order.phone_number || "Не указан"}</span>
             </div>
 
             <div className={styles.orderFooter}>
-              <span>Сумма заказа: {order.amount.toLocaleString()} сум</span>
+              <span>Сумма заказа: {order.amount?.toLocaleString()} сум</span>
               <span>Статус: {paymentStatus}</span>
             </div>
 
             <div className={styles.products}>
               <h4>Продукты в заказе:</h4>
-              <ul>
-                {order.products.map((product, index) => (
-                  <li key={index}>{product}</li> 
-                ))}
-              </ul>
+              {order.products?.length > 0 ? (
+                <ul>
+                  {order.products.map((product, index) => (
+                    <li key={index}>{product}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Нет товаров в заказе</p>
+              )}
             </div>
           </div>
         </div>

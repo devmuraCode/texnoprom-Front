@@ -8,27 +8,43 @@ export interface IStatus {
   title: string;
   logo: string;
   category_id: string;
+  is_paid: boolean;
+  amount: number;
+  delivery_address?: string;
+  phone_number?: string;
+  products: string[];
 }
 
-export interface IProps {
-    user_id: string | null;
-}
-
-export const useStatus = ({ user_id }: IProps) => {
+export const useStatus = () => {
   return useQuery<IStatus[]>({
-    queryKey: ["user", user_id],
+    queryKey: ["user"],
     queryFn: async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Отсутствует токен авторизации");
+      }
+
       try {
-        const response = await http.request.get(`/orders/${user_id}`);
-        if (response && response.data) {
-          return response.data;
-        } else {
-          throw new Error("Response data is undefined");
+        const response = await http.request.post(`/orders/my-orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response?.data) {
+          throw new Error("Данные не найдены");
         }
-      } catch (error) {
-        throw new Error("Error fetching banners: ");
+
+        return response.data;
+      } catch (error: any) {
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+          throw new Error("Сессия истекла, пожалуйста, войдите снова");
+        }
+        throw new Error(`Ошибка при загрузке данных: ${error.message}`);
       }
     },
-    enabled: !!user_id,
+    retry: false,
   });
 };

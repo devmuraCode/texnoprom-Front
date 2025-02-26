@@ -240,7 +240,11 @@ const Payment = () => {
                   alt="Uzum"
                 />
               </button>
-              <button className="text-black border inline-block hover:bg-blue-600 font-bold py-2 px-10 text-lg rounded-lg transition duration-300" type="button" onClick={handleInstallment}>
+              <button
+                className="text-black border inline-block hover:bg-blue-600 font-bold py-2 px-10 text-lg rounded-lg transition duration-300"
+                type="button"
+                onClick={handleInstallment}
+              >
                 Рассрочка
               </button>
             </div>
