@@ -33,43 +33,52 @@ const CatalogLayout: FC = () => {
   } = theme.useToken();
 
   const { data: brandCategories } = useBrandCategory({ categorySlug: slug });
+  // @ts-ignore
+  const { data: brandProductCategories } = useProductByBrandCategory({ brandSlug: slug });
+  const isCategory = state?.type === "category" && !selectedCollection;
+  const isBrand = state?.type === "brand" || selectedCollection;
+  const isBrandCategory =
+    state?.type === "brandProductCategories" || selectedCollection;
   const activeSlug = selectedCollection || slug;
 
   console.log("State:", state);
   console.log("Active slug:", activeSlug);
 
-  let products = [];
-  let totalProducts = 0;
-
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCollection]);
 
-  const isCategory = state?.type === "category";
-  const isBrand = state?.type === "brand" || selectedCollection;
+  const { data: categoryData } = useProductByCategory({
+    categorySlug: isCategory ? activeSlug : undefined,
+    page: currentPage,
+  });
+
+  const { data: brandCategoryData } = useProductByBrandCategory({
+    brandSlug: isBrandCategory ? activeSlug : undefined,
+    page: currentPage,
+  });
+
+  const { data: brandData } = useProductByBrand({
+    brandSlug: isBrand ? activeSlug : undefined,
+    page: currentPage,
+  });
+  let products = [];
+  // @ts-ignore
+  let totalProducts = 0;
 
   if (isCategory) {
-    const { data: categoryData } = useProductByCategory({
-      categorySlug: activeSlug,
-      page: currentPage,
-    });
     products = categoryData?.results || [];
-    totalProducts = categoryData?.count || 0;
   } else if (isBrand) {
-    const { data: brandCategoryData } = useProductByBrandCategory({
-      brandSlug: activeSlug,
-      page: currentPage,
-    });
-    const { data: brandData } = useProductByBrand({
-      brandSlug: activeSlug,
-      page: currentPage,
-    });
+   
     products = [
+      // @ts-ignore
       ...(brandCategoryData?.results || []),
+      // @ts-ignore
+      ...(brandProductCategories?.results || []),
+      // @ts-ignore
       ...(brandData?.results || []),
     ];
     products = Array.from(new Map(products.map((p) => [p.id, p])).values());
-    totalProducts = products.length;
   }
 
   const handleCollectionClick = (collectionSlug: string) => {

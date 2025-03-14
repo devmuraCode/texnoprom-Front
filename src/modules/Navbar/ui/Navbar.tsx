@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "@/assets/logo.png";
 import styles from "./Navbar.module.scss";
-import { BiMenuAltRight } from "react-icons/bi";
 import { CiClock1, CiShoppingCart, CiUser } from "react-icons/ci";
-import { MdOutlinePhone } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineCloseSquare } from "react-icons/ai";
-
 import { Input } from "antd";
 import { Link } from "react-router-dom";
 import useRegisterModal from "@/modules/Modals/hooks/useRegisterModal";
@@ -17,25 +13,43 @@ import { useMediaQuery } from "react-responsive";
 import { useAllProducts } from "@/modules/ProductItem/hooks/useAllProducts";
 
 const Navbar = () => {
+  // @ts-ignore
   const [menuOpen, setMenuOpen] = useState(false);
+  // @ts-ignore
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
   const registerModal = useRegisterModal();
   const catalogModal = useCatalogModal();
   const [searchTerm, setSearchTerm] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  // @ts-ignore
   const { data: productData = [] } = useAllProducts();
+  const token = localStorage.getItem("token");
   const user_id = localStorage.getItem("user_id");
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
 
-  const filteredProducts = productData.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    if (!token) return;
 
-  const handleProductClick = () => {
-    setSearchTerm("");
-  };
+    const checkPremiumStatus = async () => {
+      try {
+        const response = await fetch("/premium/my-subscriptions/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Ошибка проверки премиум-статуса");
+
+        const data = await response.json();
+        setIsPremium(data.is_premium);
+      } catch (error) {
+        console.error("Ошибка получения премиума:", error);
+      }
+    };
+
+    checkPremiumStatus();
+  }, [token]);
 
   const handleCatalogToggle = () => {
     if (menuOpen) {
@@ -46,10 +60,6 @@ const Navbar = () => {
     setMenuOpen((prev) => !prev);
   };
 
-  const handleMobileMenuToggle = () => {
-    setMobileMenuOpen((prev) => !prev);
-  };
-
   const deleteUserToken = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -58,31 +68,6 @@ const Navbar = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.top__navbar}>
-        <div className={styles.top__navbar__text__container}>
-          <a href="tel:+998712033333" className={styles.top__navbar__text}>
-            <span>
-              <MdOutlinePhone />
-            </span>{" "}
-            +998 71 203 33 33
-          </a>
-          <Link to="/about" className={styles.top__navbar__text}>
-            <span>
-              <IoLocationOutline />
-            </span>{" "}
-            Ташкент
-          </Link>
-        </div>
-
-        {!isMobile && (
-          <div className={styles.desktopOnly}>
-            <ul className={styles.top__navbar__catalog}>
-              
-            </ul>
-          </div>
-        )}
-      </div>
-
       <div className={styles.header}>
         <div className={styles.header__content}>
           <div className={styles.header__left}>
@@ -95,34 +80,18 @@ const Navbar = () => {
               className={styles.header__button}
               onClick={handleCatalogToggle}
             >
-              {menuOpen ? <AiOutlineCloseSquare /> : <GiHamburgerMenu />}
+              {menuOpen ? <AiOutlineCloseSquare /> : <GiHamburgerMenu />}{" "}
               Каталог
             </button>
           </div>
 
-          {/* Поиск товара */}
           <div className={styles.searchContainer}>
             <Input
               className={styles.header__input}
               placeholder="Поиск товара"
               value={searchTerm}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            {searchTerm && filteredProducts.length > 0 && (
-              <div className={styles.searchResults}>
-                {filteredProducts.map((product) => (
-                  <Link
-                    key={product.id}
-                    to={`/detail/${product.slug}`}
-                    state={{ productId: product.id }}
-                    className={styles.searchResultItem}
-                    onClick={handleProductClick}
-                  >
-                    {product.title}
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
 
           <div className={styles.header__button__container}>
@@ -137,55 +106,18 @@ const Navbar = () => {
             <div className={styles.header__button__status}>
               <CiUser />
               {user_id ? (
-                <button onClick={deleteUserToken}>Выйти</button>
+                isPremium ? (
+                  <button className={styles.premiumButton}>Премиум</button>
+                ) : (
+                  <button onClick={deleteUserToken}>Выйти</button>
+                )
               ) : (
                 <button onClick={registerModal.onOpen}>Войти</button>
               )}
             </div>
           </div>
-
-          {isMobile && (
-            <button
-              className={styles.header__toggler}
-              onClick={handleMobileMenuToggle}
-            >
-              {!mobileMenuOpen ? <BiMenuAltRight /> : <AiOutlineCloseSquare />}
-            </button>
-          )}
         </div>
       </div>
-
-      {isMobile && mobileMenuOpen && (
-        <div className={styles.mobileMenu}>
-          <nav className={styles.nav}>
-            <ul>
-              <li>
-                <Link to="/about">О нас</Link>
-              </li>
-              <li>
-                <Link to="/delivery">Доставка</Link>
-              </li>
-              <li>Магазины</li>
-              <li>Связаться с нами!</li>
-            </ul>
-          </nav>
-          <div className={styles.header__button__container}>
-            <div className={styles.header__button__status}>
-              <CiClock1 />
-              <Link to={"/status"}>Статус заказа</Link>
-            </div>
-            <div className={styles.header__button__status}>
-              <CiShoppingCart />
-              <Link to="/cart">Корзина</Link>
-            </div>
-            <div className={styles.header__button__status}>
-              <CiUser />
-              <button onClick={registerModal.onOpen}>Войти</button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <CatalogModal />
     </div>
   );

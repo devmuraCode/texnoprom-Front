@@ -48,7 +48,7 @@ class Http {
          },
          error => {
             console.error("Ошибка при отправке запроса:", error);
-            toast.error("Ошибка при отправке запроса.");
+            console.error("Ошибка при отправке запроса.");
             return Promise.reject(error);
          }
       );
@@ -74,7 +74,7 @@ class Http {
 
       switch (status) {
          case StatusCode.InternalServerError: {
-            toast.error("Внутренняя ошибка сервера.");
+            console.error("Внутренняя ошибка сервера.");
             break;
          }
          case StatusCode.Forbidden: {
